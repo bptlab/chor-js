@@ -19,26 +19,6 @@
   <bpmn2:choreography id="_SfwmwK1UEeiUxPrhBUWPfA">
     <bpmn2:participant id="_pXE8wK1UEeiUxPrhBUWPfA" name="RolleA"/>
     <bpmn2:participant id="_pXE8wa1UEeiUxPrhBUWPfA" name="RolleB"/>
-    <bpmn2:participant id="Participant_1" name="New Participant">
-      <bpmn2:extensionElements>
-        <ext:style/>
-      </bpmn2:extensionElements>
-    </bpmn2:participant>
-    <bpmn2:participant id="Participant_2" name="New Participant">
-      <bpmn2:extensionElements>
-        <ext:style/>
-      </bpmn2:extensionElements>
-    </bpmn2:participant>
-    <bpmn2:participant id="Participant_3" name="New Participant">
-      <bpmn2:extensionElements>
-        <ext:style/>
-      </bpmn2:extensionElements>
-    </bpmn2:participant>
-    <bpmn2:participant id="Participant_4" name="New Participant">
-      <bpmn2:extensionElements>
-        <ext:style/>
-      </bpmn2:extensionElements>
-    </bpmn2:participant>
     <bpmn2:messageFlow id="MessageFlow_1" messageRef="Message_6" name="Message Flow 1" sourceRef="_pXE8wK1UEeiUxPrhBUWPfA" targetRef="_pXE8wa1UEeiUxPrhBUWPfA"/>
     <bpmn2:messageFlow id="MessageFlow_2" messageRef="Message_8" name="Message Flow 2" sourceRef="_pXE8wa1UEeiUxPrhBUWPfA" targetRef="_pXE8wK1UEeiUxPrhBUWPfA"/>
     <bpmn2:messageFlow id="MessageFlow_3" messageRef="Message_10" name="Message Flow 3" sourceRef="_pXE8wa1UEeiUxPrhBUWPfA" targetRef="_pXE8wK1UEeiUxPrhBUWPfA"/>

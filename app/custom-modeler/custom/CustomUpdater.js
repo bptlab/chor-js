@@ -8,6 +8,10 @@ import {
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
 import {
+  is
+} from 'bpmn-js/lib/util/ModelUtil';
+
+import {
   add as collectionAdd,
   remove as collectionRemove
 } from 'diagram-js/lib/util/Collections';
@@ -20,6 +24,10 @@ import {
 export default function CustomUpdater(eventBus, bpmnjs) {
 
   CommandInterceptor.call(this, eventBus);
+
+  function updateChoreographyActivities(e) {
+    console.log('update choreo activities', e);
+  }
 
   function updateCustomElement(e) {
     var context = e.context,
@@ -82,6 +90,18 @@ export default function CustomUpdater(eventBus, bpmnjs) {
     'shape.create',
     'shape.move',
     'shape.delete'
+  ], ifChoreographyActivity(updateChoreographyActivities));
+
+  this.reverted([
+    'shape.create',
+    'shape.move',
+    'shape.delete'
+  ], ifChoreographyActivity(updateChoreographyActivities));
+
+  this.executed([
+    'shape.create',
+    'shape.move',
+    'shape.delete'
   ], ifCustomElement(updateCustomElement));
 
   this.reverted([
@@ -135,6 +155,17 @@ function ifCustomElement(fn) {
         element = context.shape || context.connection;
 
     if (isCustom(element)) {
+      fn(event);
+    }
+  };
+}
+
+function ifChoreographyActivity(fn) {
+  return function(event) {
+    var context = event.context,
+        element = context.shape || context.connection;
+
+    if (is(element, 'bpmn:ChoreographtyActivity')) {
       fn(event);
     }
   };

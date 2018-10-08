@@ -29,41 +29,8 @@ export default function CustomElementFactory(bpmnFactory, moddle) {
   this.create = function(elementType, attrs) {
     var type = attrs.type;
 
-    console.log('create', elementType, attrs);
-
     if (elementType === 'label') {
       return self.baseCreate(elementType, assign({ type: 'label' }, DEFAULT_LABEL_SIZE, attrs));
-    }
-
-    // add type to businessObject if custom
-    if (/^custom:/.test(type)) {
-      if (!attrs.businessObject) {
-        attrs.businessObject = {
-          type: type
-        };
-
-        if (attrs.id) {
-          assign(attrs.businessObject, {
-            id: attrs.id
-          });
-        }
-      }
-
-      // add width and height if shape
-      if (!/:connection$/.test(type)) {
-        assign(attrs, self._getCustomElementSize(type));
-      }
-
-      if (!('$instanceOf' in attrs.businessObject)) {
-        // ensure we can use ModelUtil#is for type checks
-        Object.defineProperty(attrs.businessObject, '$instanceOf', {
-          value: function(type) {
-            return this.type === type;
-          }
-        });
-      }
-
-      return self.baseCreate(elementType, attrs);
     }
 
     return self.createBpmnElement(elementType, attrs);
