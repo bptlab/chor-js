@@ -33,7 +33,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       spaceTool = this._spaceTool,
       lassoTool = this._lassoTool;
 
-
   function createAction(type, group, className, title, options) {
 
     function createListener(event) {
@@ -66,9 +65,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
   assign(actions, {
     'create.choreography-task': createAction(
       'bpmn:ChoreographyTask', 'choreography', 'icon-custom-triangle'
-    ),
-    'custom-circle': createAction(
-      'custom:circle', 'custom', 'icon-custom-circle'
     ),
     'custom-separator': {
       group: 'custom',
@@ -116,16 +112,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'create.subprocess-expanded': createAction(
       'bpmn:SubProcess', 'activity', 'bpmn-icon-subprocess-expanded', 'Create expanded SubProcess',
       { isExpanded: true }
-    ),
-    'create.participant-expanded': {
-      group: 'collaboration',
-      className: 'bpmn-icon-participant',
-      title: 'Create Pool/Participant',
-      action: {
-        dragstart: createParticipant,
-        click: createParticipant
-      }
-    }
+    )
   });
 
   return actions;

@@ -19,7 +19,6 @@ import {
 } from 'min-dash';
 
 let CHOREO_TASK_ROUNDING = 10;
-let PARTICIPANT_BAND_HEIGHT = 19;
 
 function translate(x, y, object) {
   let group = svgAttr(svgCreate('g'), {
@@ -89,8 +88,6 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
 
   BaseRenderer.call(this, eventBus, 2000);
 
-  var computeStyle = styles.computeStyle;
-
   function getLabel(caption, options) {
     var text = textRenderer.createText(caption || '', options);
     svgClasses(text).add('djs-label');
@@ -136,10 +133,6 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
   }
 
   this.drawChoreographyActivity = function(p, element) {
-    console.log('drawChoreographyActivity', element, element.businessObject.di);
-
-    let activity = element.businessObject;
-
     let group = svgCreate('g');
 
     let shape = svgCreate('path');
@@ -151,14 +144,16 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
     });
     svgAppend(group, shape);
 
-    //let participantCount = participants.length - 1;
-    let top = 0; //getParticipantBandOffset(height, participantCount - participantCount % 2, true);
-    let bottom = element.height; //getParticipantBandOffset(height, participantCount - 1 + participantCount % 2);
+    //TODO the size of the label should be determined by the participant bands, i.e.,
+    //it should extend from the bottom of the last participant band on the top to the
+    //top of the first participant band on the bottom
+    let top = 0;
+    let bottom = element.height;
     let align = 'center-middle';
     if (element.type === 'bpmn:SubChoreography' && !element.collapsed) {
       align = 'left';
     }
-    let label = getBoxedLabel(activity.name, {
+    let label = getBoxedLabel(element.businessObject.name, {
       x: 0,
       y: top,
       width: element.width,
@@ -166,37 +161,9 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
     }, align);
     svgAppend(group, label);
 
-    // finish up
     svgAppend(p, group);
     return group;
   };
-
-  // this.drawCustomConnection = function(p, element) {
-  //   var attrs = computeStyle(attrs, {
-  //     stroke: '#ff471a',
-  //     strokeWidth: 2
-  //   });
-
-  //   return svgAppend(p, createLine(element.waypoints, attrs));
-  // };
-
-  // this.getCustomConnectionPath = function(connection) {
-  //   var waypoints = connection.waypoints.map(function(p) {
-  //     return p.original || p;
-  //   });
-
-  //   var connectionPath = [
-  //     ['M', waypoints[0].x, waypoints[0].y]
-  //   ];
-
-  //   waypoints.forEach(function(waypoint, index) {
-  //     if (index !== 0) {
-  //       connectionPath.push(['L', waypoint.x, waypoint.y]);
-  //     }
-  //   });
-
-  //   return componentsToPath(connectionPath);
-  // };
 }
 
 inherits(CustomRenderer, BaseRenderer);
@@ -226,25 +193,6 @@ CustomRenderer.prototype.getShapePath = function(shape) {
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
     return getTaskOutline(shape.width, shape.height)
   } else if (type === 'bpmn:Participant') {
-    console.log('getShapePath', shape);
+    //TODO return proper path for the participant band
   }
 };
-
-// CustomRenderer.prototype.drawConnection = function(p, element) {
-
-//   var type = element.type;
-
-//   if (type === 'custom:connection') {
-//     return this.drawCustomConnection(p, element);
-//   }
-// };
-
-
-// CustomRenderer.prototype.getConnectionPath = function(connection) {
-
-//   var type = connection.type;
-
-//   if (type === 'custom:connection') {
-//     return this.getCustomConnectionPath(connection);
-//   }
-// };

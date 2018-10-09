@@ -68,7 +68,7 @@ CustomElementFactory.$inject = [
 CustomElementFactory.prototype._getCustomElementSize = function(type) {
   var shapes = {
     __default: { width: 100, height: 80 },
-    'bpmn:ChoreographyTask': { width: 150, height: 100 }
+    'bpmn:ChoreographyTask': { width: 150, height: 150 }
   };
 
   return shapes[type] || shapes.__default;
