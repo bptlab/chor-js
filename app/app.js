@@ -1,4 +1,4 @@
-import pizzaDiagram from '../resources/pizza-collaboration.bpmn';
+import diagram from '../resources/tasksWithMultiplicities.bpmn';
 
 import CustomModeler from './custom-modeler';
 import PropertiesPanelModule from 'bpmn-js-properties-panel';
@@ -18,7 +18,7 @@ var modeler = new CustomModeler({
   }
 });
 
-modeler.importXML(pizzaDiagram, function(err) {
+modeler.importXML(diagram, function(err) {
 
   if (err) {
     console.error('something went wrong:', err);
