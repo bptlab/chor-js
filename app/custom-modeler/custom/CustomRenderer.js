@@ -3,8 +3,7 @@ import inherits from 'inherits';
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 import {
-  componentsToPath,
-  createLine
+  componentsToPath
 } from 'diagram-js/lib/util/RenderUtil';
 
 import {
@@ -13,10 +12,6 @@ import {
   create as svgCreate,
   classes as svgClasses
 } from 'tiny-svg';
-
-import {
-  assign
-} from 'min-dash';
 
 let CHOREO_TASK_ROUNDING = 10;
 
@@ -47,7 +42,6 @@ function getTaskOutline(width, height) {
 function getParticipantBandOutline(width, height, participantBandKind) {
   let path;
   let r = CHOREO_TASK_ROUNDING;
-  let bandDiff = height - r;
   participantBandKind = participantBandKind || 'top_initiating';
   if (participantBandKind.startsWith('top')) {
     path = [
@@ -130,7 +124,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
 
     svgAppend(p, group);
     return group;
-  }
+  };
 
   this.drawChoreographyActivity = function(p, element) {
     let group = svgCreate('g');
@@ -191,7 +185,7 @@ CustomRenderer.prototype.getShapePath = function(shape) {
   var type = shape.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
-    return getTaskOutline(shape.width, shape.height)
+    return getTaskOutline(shape.width, shape.height);
   } else if (type === 'bpmn:Participant') {
     //TODO return proper path for the participant band
   }

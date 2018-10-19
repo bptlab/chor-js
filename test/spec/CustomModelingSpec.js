@@ -32,7 +32,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should export custom element', inject(
+    xit('should export custom element', inject(
       function(bpmnjs, elementRegistry, modeling) {
 
         // given
@@ -61,7 +61,7 @@ describe('custom modeling', function() {
     ));
 
 
-    it('should not resize custom shape', inject(function(elementRegistry, rules) {
+    xit('should not resize custom shape', inject(function(elementRegistry, rules) {
 
       // given
       var customElement = elementRegistry.get('CustomTriangle_1');
@@ -74,7 +74,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should update custom element', inject(function(elementRegistry, modeling) {
+    xit('should update custom element', inject(function(elementRegistry, modeling) {
 
       // given
       var customElement = elementRegistry.get('CustomTriangle_1');
@@ -88,7 +88,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should remove deleted shape from _customElements', inject(
+    xit('should remove deleted shape from _customElements', inject(
       function(bpmnjs, elementRegistry, modeling) {
 
         // given
@@ -121,7 +121,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should export custom connection', inject(
+    xit('should export custom connection', inject(
       function(bpmnjs, elementRegistry, modeling) {
 
         // given
@@ -146,7 +146,7 @@ describe('custom modeling', function() {
     ));
 
 
-    it('should connect custom shape to task', inject(
+    xit('should connect custom shape to task', inject(
       function(bpmnjs, elementRegistry, modeling, rules) {
 
         // given
@@ -176,7 +176,7 @@ describe('custom modeling', function() {
     ));
 
 
-    it('should not connect custom shape to start event', inject(
+    xit('should not connect custom shape to start event', inject(
       function(elementRegistry, rules) {
 
         // given
@@ -195,7 +195,7 @@ describe('custom modeling', function() {
     ));
 
 
-    it('should reconnect start', inject(function(bpmnjs, elementRegistry, modeling) {
+    xit('should reconnect start', inject(function(bpmnjs, elementRegistry, modeling) {
 
       // given
       var customShape = elementRegistry.get('CustomTriangle_1'),
@@ -226,7 +226,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should reconnect end', inject(function(bpmnjs, elementRegistry, modeling) {
+    xit('should reconnect end', inject(function(bpmnjs, elementRegistry, modeling) {
 
       // given
       var customShape = elementRegistry.get('CustomTriangle_1'),
@@ -249,7 +249,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should update custom connection', inject(function(elementRegistry, modeling) {
+    xit('should update custom connection', inject(function(elementRegistry, modeling) {
 
       // given
       var customElement = elementRegistry.get('CustomTriangle_1'),
@@ -270,7 +270,7 @@ describe('custom modeling', function() {
     }));
 
 
-    it('should remove deleted connection from _customElements', inject(
+    xit('should remove deleted connection from _customElements', inject(
       function(bpmnjs, elementRegistry, modeling) {
 
         // given
