@@ -45,7 +45,7 @@ function createGeneralTabGroups(element, bpmnFactory, elementRegistry, translate
 
   documentationProps(documentationGroup, element, bpmnFactory, translate);
 
-  return[
+  return [
     generalGroup,
     detailsGroup,
     documentationGroup

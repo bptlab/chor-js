@@ -27,8 +27,6 @@ export default function CustomElementFactory(bpmnFactory, moddle) {
    * @return {djs.model.Base}
    */
   this.create = function(elementType, attrs) {
-    var type = attrs.type;
-
     if (elementType === 'label') {
       return self.baseCreate(elementType, assign({ type: 'label' }, DEFAULT_LABEL_SIZE, attrs));
     }
