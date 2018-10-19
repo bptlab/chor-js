@@ -18,6 +18,7 @@ import {
   assign
 } from 'min-dash';
 
+// display specific constants, they are not part of the BPMNDI information
 let CHOREO_TASK_ROUNDING = 10;
 let MESSAGE_WIDTH = 35;
 let MESSAGE_HEIGHT = MESSAGE_WIDTH / 7 * 5;
