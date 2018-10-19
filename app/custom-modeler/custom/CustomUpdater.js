@@ -85,12 +85,6 @@ CustomUpdater.$inject = [ 'eventBus', 'bpmnjs' ];
 
 /////// helpers ///////////////////////////////////
 
-function copyWaypoints(connection) {
-  return connection.waypoints.map(function(p) {
-    return { x: p.x, y: p.y };
-  });
-}
-
 function isCustom(element) {
   return element && /custom:/.test(element.type);
 }

@@ -58,10 +58,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     };
   }
 
-  function createParticipant(event, collapsed) {
-    create.start(event, elementFactory.createParticipantShape(collapsed));
-  }
-
   assign(actions, {
     'create.choreography-task': createAction(
       'bpmn:ChoreographyTask', 'choreography', 'icon-custom-triangle'

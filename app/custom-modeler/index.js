@@ -1,10 +1,5 @@
 import Modeler from 'bpmn-js/lib/Modeler';
 
-import {
-  assign,
-  isArray
-} from 'min-dash';
-
 import inherits from 'inherits';
 
 import CustomModule from './custom';

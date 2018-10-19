@@ -3,8 +3,7 @@ import inherits from 'inherits';
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 import {
-  componentsToPath,
-  createLine
+  componentsToPath
 } from 'diagram-js/lib/util/RenderUtil';
 
 import {
@@ -13,10 +12,6 @@ import {
   create as svgCreate,
   classes as svgClasses
 } from 'tiny-svg';
-
-import {
-  assign
-} from 'min-dash';
 
 // display specific constants, they are not part of the BPMNDI information
 let CHOREO_TASK_ROUNDING = 10;
@@ -203,7 +198,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
 
     svgAppend(p, group);
     return group;
-  }
+  };
 
   this.drawChoreographyActivity = function(p, element) {
     let group = svgCreate('g');
@@ -264,7 +259,7 @@ CustomRenderer.prototype.getShapePath = function(shape) {
   var type = shape.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
-    return getTaskOutline(shape.width, shape.height)
+    return getTaskOutline(shape.width, shape.height);
   } else if (type === 'bpmn:Participant') {
     return getParticipantBandOutline(shape.width, shape.height, shape.diBand.participantBandKind);
   }
