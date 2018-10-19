@@ -34,7 +34,7 @@ function getEnvelopePath(width, height) {
     ['l', 0, height],
     ['l', width, 0],
     ['l', 0, -height],
-    ['z']
+    ['z'],
     ['M', 0, 0],
     ['l', width / 2., flap],
     ['l', width / 2., -flap]
@@ -152,22 +152,21 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
       });
       svgAppend(group, translate(
         element.width / 2 - MESSAGE_WIDTH / 2,
-        isBottom ? element.height + MESSAGE_DISTANCE
-                 : -MESSAGE_DISTANCE - MESSAGE_HEIGHT,
+        isBottom ? element.height + MESSAGE_DISTANCE : -MESSAGE_DISTANCE - MESSAGE_HEIGHT,
         envelope)
       );
 
       // add a label with the message name if applicable
       // first, find the message flow with this participant as a source
-      let messageFlow = element.choreoActivity.businessObject.messageFlowRef
-                               .find(flow => flow.sourceRef === element.businessObject);
+      let messageFlow = element.choreoActivity.businessObject.messageFlowRef.find(
+        flow => flow.sourceRef === element.businessObject
+      );
       if (messageFlow && messageFlow.messageRef) {
         let message = messageFlow.messageRef;
         if (message.name) {
           let label = getBoxedLabel(message.name, {
             x: 0,
-            y: isBottom ? element.height + MESSAGE_DISTANCE + MESSAGE_HEIGHT
-                        : -MESSAGE_DISTANCE - MESSAGE_HEIGHT - element.height,
+            y: isBottom ? element.height + MESSAGE_DISTANCE + MESSAGE_HEIGHT : -MESSAGE_DISTANCE - MESSAGE_HEIGHT - element.height,
             width: element.width,
             height: element.height
           }, 'center-middle');
