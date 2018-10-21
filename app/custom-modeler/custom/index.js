@@ -4,15 +4,19 @@ import CustomPalette from './CustomPalette';
 import CustomRules from './CustomRules';
 import CustomUpdater from './CustomUpdater';
 import CustomContextPadProvider from './CustomContextPadProvider';
+import CustomImporter from './CustomImporter';
 
 export default {
   __init__: [
+    'bpmnImporter',
     'customRenderer',
+    'elementFactory',
     'paletteProvider',
     'customRules',
     'customUpdater',
     'contextPadProvider'
   ],
+  bpmnImporter: [ 'type', CustomImporter ],
   elementFactory: [ 'type', CustomElementFactory ],
   customRenderer: [ 'type', CustomRenderer ],
   paletteProvider: [ 'type', CustomPalette ],
