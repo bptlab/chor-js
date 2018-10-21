@@ -1,5 +1,4 @@
 import {
-  filter,
   find,
   forEach
 } from 'min-dash';
@@ -65,10 +64,6 @@ export default function ChoreographyTreeWalker(handler, translate) {
 
   function handled(element) {
     handledElements[element.id] = element;
-  }
-
-  function isHandled(element) {
-    return handledElements[element.id];
   }
 
   function visit(element, ctx) {
@@ -281,14 +276,6 @@ export default function ChoreographyTreeWalker(handler, translate) {
     forEach(activity.participantRefs, contextual(visit, context));
   }
 
-  function handleMessageFlow(messageFlow, context) {
-    visitIfDi(messageFlow, context);
-  }
-
-  function handleMessageFlows(messageFlows, context) {
-    forEach(messageFlows, contextual(handleMessageFlow, context));
-  }
-
   function handleArtifact(artifact, context) {
 
     // bpmn:TextAnnotation
@@ -355,17 +342,6 @@ export default function ChoreographyTreeWalker(handler, translate) {
           }),
           { element: e, context: context }
         );
-      }
-    });
-  }
-
-  function wireFlowNodeRefs(lane) {
-    // wire the virtual flowNodeRefs <-> relationship
-    forEach(lane.flowNodeRef, function(flowNode) {
-      var lanes = flowNode.get('lanes');
-
-      if (lanes) {
-        lanes.push(lane);
       }
     });
   }

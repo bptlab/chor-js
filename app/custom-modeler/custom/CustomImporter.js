@@ -138,7 +138,7 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
         diBand: di
       });
     }
-    
+
     element = this._elementFactory.createShape(data);
 
     if (is(semantic, 'bpmn:BoundaryEvent')) {

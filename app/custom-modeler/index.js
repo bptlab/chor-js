@@ -6,7 +6,7 @@ import CustomModule from './custom';
 
 import {
   importChoreographyDiagram
- } from './import/ChoreographyImporter';
+} from './import/ChoreographyImporter';
 
 
 export default function CustomModeler(options) {
