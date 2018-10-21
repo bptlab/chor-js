@@ -11,7 +11,7 @@ import {
 
 describe('custom modeler', function() {
 
-  var xml = require('./diagram.bpmn');
+  //var xml = require('./diagram.bpmn');
 
   var container;
 
