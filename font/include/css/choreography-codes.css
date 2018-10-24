@@ -1,2 +1,4 @@
 
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
+.choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
+.choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */

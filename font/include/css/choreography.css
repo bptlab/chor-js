@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'choreography';
-  src: url('../font/choreography.eot?58950861');
-  src: url('../font/choreography.eot?58950861#iefix') format('embedded-opentype'),
-       url('../font/choreography.woff2?58950861') format('woff2'),
-       url('../font/choreography.woff?58950861') format('woff'),
-       url('../font/choreography.ttf?58950861') format('truetype'),
-       url('../font/choreography.svg?58950861#choreography') format('svg');
+  src: url('../font/choreography.eot?22976300');
+  src: url('../font/choreography.eot?22976300#iefix') format('embedded-opentype'),
+       url('../font/choreography.woff2?22976300') format('woff2'),
+       url('../font/choreography.woff?22976300') format('woff'),
+       url('../font/choreography.ttf?22976300') format('truetype'),
+       url('../font/choreography.svg?22976300#choreography') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'choreography';
-    src: url('../font/choreography.svg?58950861#choreography') format('svg');
+    src: url('../font/choreography.svg?22976300#choreography') format('svg');
   }
 }
 */
@@ -56,3 +56,5 @@
 }
  
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
+.choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
+.choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */
