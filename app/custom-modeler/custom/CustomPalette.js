@@ -60,7 +60,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
 
   assign(actions, {
     'create.choreography-task': createAction(
-      'bpmn:ChoreographyTask', 'choreography', 'icon-custom-triangle'
+      'bpmn:ChoreographyTask', 'choreography', 'choreo-icon-choreography-task'
     ),
     'custom-separator': {
       group: 'custom',
