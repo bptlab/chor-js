@@ -60,6 +60,16 @@ module.exports = function(grunt) {
           }
         ]
       },
+      font: {
+        files: [
+          {
+            expand: true,
+            cwd: 'font/include',
+            src: ['**/*.*', '!**/*.json'],
+            dest: 'dist/font'
+          }
+        ]
+      },
       app: {
         files: [
           {

@@ -59,13 +59,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
   }
 
   assign(actions, {
-    'create.choreography-task': createAction(
-      'bpmn:ChoreographyTask', 'choreography', 'icon-custom-triangle'
-    ),
-    'custom-separator': {
-      group: 'custom',
-      separator: true
-    },
     'lasso-tool': {
       group: 'tools',
       className: 'bpmn-icon-lasso-tool',
@@ -90,6 +83,21 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       group: 'tools',
       separator: true
     },
+    'create.choreography-task': createAction(
+      'bpmn:ChoreographyTask', 'choreography', 'choreo-icon-choreography-task'
+    ),
+    'create.subchoreography-collapsed': createAction(
+      'bpmn:SubChoreography', 'activity', 'choreo-icon-subchoreography-collapsed', 'Create collapsed SubChoreography',
+      { isExpanded: false }
+    ),
+    'create.subchoreography-expanded': createAction(
+      'bpmn:SubChoreography', 'activity', 'choreo-icon-subchoreography-expanded', 'Create expanded SubChoreography',
+      { isExpanded: true }
+    ),
+    'custom-separator': {
+      group: 'custom',
+      separator: true
+    },
     'create.start-event': createAction(
       'bpmn:StartEvent', 'event', 'bpmn-icon-start-event-none'
     ),
@@ -102,12 +110,11 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     'create.exclusive-gateway': createAction(
       'bpmn:ExclusiveGateway', 'gateway', 'bpmn-icon-gateway-xor'
     ),
-    'create.task': createAction(
-      'bpmn:Task', 'activity', 'bpmn-icon-task'
+    'create.parallel-gateway': createAction(
+      'bpmn:ParallelGateway', 'gateway', 'bpmn-icon-gateway-parallel'
     ),
-    'create.subprocess-expanded': createAction(
-      'bpmn:SubProcess', 'activity', 'bpmn-icon-subprocess-expanded', 'Create expanded SubProcess',
-      { isExpanded: true }
+    'create.event-based-gateway': createAction(
+      'bpmn:EventBasedGateway', 'gateway', 'bpmn-icon-gateway-eventbased'
     )
   });
 
