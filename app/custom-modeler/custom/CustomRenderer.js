@@ -42,10 +42,10 @@ function getEnvelopePath(width, height) {
   return componentsToPath(path);
 }
 
-function getTaskOutline(width, height) {
+function getTaskOutline(x, y, width, height) {
   let r = CHOREO_TASK_ROUNDING;
   let path = [
-    ['M', r, 0],
+    ['M', x + r, y],
     ['a', r, r, 0, 0, 0, -r, r],
     ['l', 0, height - 2 * r],
     ['a', r, r, 0, 0, 0, r, r],
@@ -58,13 +58,13 @@ function getTaskOutline(width, height) {
   return componentsToPath(path);
 }
 
-function getParticipantBandOutline(width, height, participantBandKind) {
+function getParticipantBandOutline(x, y, width, height, participantBandKind) {
   let path;
   let r = CHOREO_TASK_ROUNDING;
   participantBandKind = participantBandKind || 'top_initiating';
   if (participantBandKind.startsWith('top')) {
     path = [
-      ['M', 0, height],
+      ['M', x, y + height],
       ['l', width, 0],
       ['l', 0, -height + r],
       ['a', r, r, 0, 0, 0, -r, -r],
@@ -74,7 +74,7 @@ function getParticipantBandOutline(width, height, participantBandKind) {
     ];
   } else if (participantBandKind.startsWith('bottom')) {
     path = [
-      ['M', width, 0],
+      ['M', x + width, y],
       ['l', -width, 0],
       ['l', 0, height - r],
       ['a', r, r, 0, 0, 0, r, r],
@@ -84,7 +84,7 @@ function getParticipantBandOutline(width, height, participantBandKind) {
     ];
   } else {
     path = [
-      ['M', 0, height],
+      ['M', x, y + height],
       ['l', width, 0],
       ['l', 0, -height],
       ['l', -width, 0],
@@ -178,7 +178,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
     // draw the actual participant band
     let shape = svgCreate('path');
     svgAttr(shape, {
-      d: getParticipantBandOutline(element.width, element.height, bandKind),
+      d: getParticipantBandOutline(0, 0, element.width, element.height, bandKind),
       stroke: '#000000',
       strokeWidth: 2,
       fill: isInitiating ? 'white' : 'lightgray',
@@ -204,7 +204,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
 
     let shape = svgCreate('path');
     svgAttr(shape, {
-      d: getTaskOutline(element.width, element.height),
+      d: getTaskOutline(0, 0, element.width, element.height),
       fill: 'white',
       stroke: 'black',
       strokeWidth: 2
@@ -258,8 +258,8 @@ CustomRenderer.prototype.getShapePath = function(shape) {
   var type = shape.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
-    return getTaskOutline(shape.width, shape.height);
+    return getTaskOutline(shape.x, shape.y, shape.width, shape.height);
   } else if (type === 'bpmn:Participant') {
-    return getParticipantBandOutline(shape.width, shape.height, shape.diBand.participantBandKind);
+    return getParticipantBandOutline(shape.x, shape.y, shape.width, shape.height, shape.diBand.participantBandKind);
   }
 };
