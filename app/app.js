@@ -1,4 +1,4 @@
-import diagram from '../resources/tasksWithLoopType.bpmn';
+import diagram from '../resources/tasksWithMultiplicities.bpmn';
 
 import $ from 'jquery';
 

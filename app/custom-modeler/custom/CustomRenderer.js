@@ -12,7 +12,7 @@ import {
 } from 'bpmn-js/lib/draw/BpmnRenderUtil';
 
 import {
-  assign,
+  assign
 } from 'min-dash';
 
 import {
@@ -243,7 +243,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     const loopType = element.businessObject.loopType;
     if (loopType === 'Standard'
       || loopType === 'MultiInstanceSequential'
-      || loopType ==='MultiInstanceParallel') {
+      || loopType === 'MultiInstanceParallel') {
       attachMarker(group, element);
     }
     svgAppend(p, group);
@@ -269,7 +269,6 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         yScaleFactor: 1,
         containerWidth: element.width,
         containerHeight: element.height,
-        // TODO: make this adaptive
         position: {
           mx: ((element.width / 2) / element.width),
           my: (element.height - 7 - bottomBandHeight) / element.height
