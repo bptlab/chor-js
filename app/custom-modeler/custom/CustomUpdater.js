@@ -23,9 +23,9 @@ export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, 
     //TODO do some specific updating for choreography activities
   }
 
-  function resizeChoreographyActivities(e) {
-    resizeBands(e.context.shape, e.context.oldBounds, e.context.newBounds);
-    e.context.shape.bandShapes.forEach(bandShape => {
+  function resizeChoreographyActivities(context, oldBounds, newBounds) {
+    resizeBands(context.shape, oldBounds, newBounds);
+    context.shape.bandShapes.forEach(bandShape => {
       graphicsFactory.update(
         'shape',
         bandShape,
@@ -48,11 +48,24 @@ export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, 
 
   this.executed([
     'shape.resize'
-  ], ifChoreographyActivity(resizeChoreographyActivities));
+  ], ifChoreographyActivity(event => {
+    resizeChoreographyActivities(
+      event.context,
+      event.context.oldBounds,
+      event.context.newBounds
+    );
+  }));
 
   this.reverted([
     'shape.resize'
-  ], ifChoreographyActivity(resizeChoreographyActivities));
+  ], ifChoreographyActivity(event => {
+    // switch oldBounds and newBounds when reverting
+    resizeChoreographyActivities(
+      event.context,
+      event.context.newBounds,
+      event.context.oldBounds
+    );
+  }));
 }
 
 inherits(CustomUpdater, BpmnUpdater);
