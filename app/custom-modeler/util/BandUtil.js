@@ -58,7 +58,7 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
 }
 
 export function heightOfBottomBands(taskShape) {
-  const sortedBands = taskShape.businessObject.diBands.sort((a,b) => a.bounds.y - b.bounds.y);
+  const sortedBands = taskShape.diBands.sort((a,b) => a.bounds.y - b.bounds.y);
   const gapIndex = findBandGapIndex(sortedBands.map(diBand => diBand.bounds));
   const bottomBands = sortedBands.slice(gapIndex);
   const totalHeight = bottomBands.reduce((sum, band) => sum + band.bounds.height, 0);

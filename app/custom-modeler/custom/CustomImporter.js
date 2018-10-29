@@ -81,8 +81,7 @@ CustomImporter.$inject = [
 
 
 /**
- * Add bpmn element (semantic) to the canvas onto the
- * specified parent shape.
+ * Add bpmn element (semantic) to the canvas onto the specified parent shape.
  */
 CustomImporter.prototype.add = function(semantic, parentElement) {
   var di,
@@ -90,17 +89,23 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
       translate = this._translate,
       hidden;
 
-  // special handling for participant bands on choreography tasks
-  var isParticipantBand = false;
-  if (is(semantic, 'bpmn:Participant') && is(parentElement, 'bpmn:ChoreographyActivity')) {
-    di = parentElement.businessObject.diBands.find(band => band.bpmnElement === semantic);
-    isParticipantBand = true;
+  var isParticipantBand = is(semantic, 'bpmn:Participant') && is(parentElement, 'bpmn:ChoreographyActivity');
+  var isChoreoActivity = is(semantic, 'bpmn:ChoreographyActivity');
+
+  // get the DI object corresponding to this element
+  if (isParticipantBand) {
+    /*
+     * For participant bands, the DI object is not as easy to get as there can
+     * be multiple bands for the same semantic object (i.e., a bpmn:Participant).
+     * For that reason, we have to iterate through all band DIs of the activity
+     * and find the right one.
+     */
+    di = parentElement.diBands.find(diBand => {
+      return diBand.bpmnElement === semantic;
+    });
   } else {
     di = semantic.di;
   }
-
-  // special handling for choreography activities
-  var isChoreoActivity = is(semantic, 'bpmn:ChoreographyActivity');
 
   var parentIndex;
 
@@ -132,10 +137,15 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
       height: Math.round(bounds.height)
     });
 
-    // choreography activity shapes need references to the band shapes
+    // choreography activity shapes need references to the band shapes and
+    // band DIs
     if (isChoreoActivity) {
+      let diBands = semantic.di.$parent.planeElement.filter(
+        diBand => diBand.choreographyActivityShape === di
+      );
       data = assign(data, {
-        bandShapes: []
+        bandShapes: [],
+        diBands: diBands
       });
     }
 
@@ -144,7 +154,7 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
     if (isParticipantBand) {
       data = assign(data, {
         id: semantic.id + '_' + parentElement.businessObject.id,
-        choreoActivity: parentElement,
+        activityShape: parentElement,
         diBand: di
       });
     }

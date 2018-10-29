@@ -171,7 +171,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
 
       // add a label with the message name if applicable
       // first, find the message flow with this participant as a source
-      let messageFlow = element.choreoActivity.businessObject.messageFlowRef.find(
+      let messageFlow = element.activityShape.businessObject.messageFlowRef.find(
         flow => flow.sourceRef === element.businessObject
       );
       if (messageFlow && messageFlow.messageRef) {
