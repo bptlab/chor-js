@@ -1,7 +1,3 @@
-import {
-  reduce
-} from 'min-dash';
-
 import inherits from 'inherits';
 
 import {
@@ -20,7 +16,7 @@ export default function CustomRules(eventBus, elementFactory) {
   RuleProvider.call(this, eventBus);
 
   eventBus.on('resize.start', HIGH_PRIORITY, function(event) {
-    let context = event.context
+    let context = event.context;
     if (is(event.shape, 'bpmn:ChoreographyTask')) {
       // set the constraints for resizing choreography tasks
       let minDimensions = elementFactory._getDefaultSize(event.shape.businessObject);
@@ -33,7 +29,7 @@ export default function CustomRules(eventBus, elementFactory) {
           left: event.shape.x + event.shape.width - minDimensions.width
         }
       };
-    };
+    }
   });
 }
 

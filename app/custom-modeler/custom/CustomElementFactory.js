@@ -55,7 +55,7 @@ CustomElementFactory.prototype._getDefaultSize = function(businessObject) {
     return {
       width: 100,
       height: 100
-    }
+    };
   } else {
     return BpmnElementFactory.prototype._getDefaultSize.call(this, businessObject);
   }
