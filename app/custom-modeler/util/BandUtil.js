@@ -1,4 +1,22 @@
 /**
+ * Find the gap in the bands, i.e., spliting them in top and bottom bands
+ * @param bandShapes
+ * @returns {number} Index of the first bandShape after the gap
+ */
+function findBandGapIndex(bandShapes) {
+  let maxGap = 0;
+  let breakIndex = 1;
+  for (let i = 0; i < bandShapes.length - 1; i++) {
+    let gap = bandShapes[i + 1].y - bandShapes[i].y;
+    if (gap > maxGap) {
+      maxGap = gap;
+      breakIndex = i + 1;
+    }
+  }
+  return breakIndex;
+}
+
+/**
  * Moves and resizes the participant bands of a choreography activity
  * according to the activity's bounds. Updates both the shapes as well
  * as the underlying DI objects.
@@ -10,9 +28,7 @@
 export function resizeBands(taskShape, oldBounds, newBounds) {
   // sort the bands by their y-coordinate
   let bandShapes = taskShape.bandShapes;
-  bandShapes.sort((a, b) => {
-    return a.y > b.y;
-  });
+  bandShapes.sort((a, b) => a.y - b.y);
 
   // all bands' widths needs to be adapted
   bandShapes.forEach(bandShape => {
@@ -22,16 +38,7 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
     bandShape.diBand.bounds.width = newBounds.width;
   });
 
-  // find the break in the bands, i.e., split them in top and bottom bands
-  let maxGap = 0;
-  let breakIndex = 1;
-  for (let i = 0; i < bandShapes.length - 1; i++) {
-    let gap = bandShapes[i + 1].y - bandShapes[i].y;
-    if (gap > maxGap) {
-      maxGap = gap;
-      breakIndex = i + 1;
-    }
-  }
+  let breakIndex = findBandGapIndex(bandShapes);
   let topShapes = bandShapes.slice(0, breakIndex);
   let bottomShapes = bandShapes.slice(breakIndex);
 
@@ -48,4 +55,12 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
     shape.y += deltaBottom;
     shape.diBand.bounds.y = shape.y;
   });
+}
+
+export function heightOfBottomBands(taskShape) {
+  const sortedBands = taskShape.businessObject.diBands.sort((a,b) => a.bounds.y - b.bounds.y);
+  const gapIndex = findBandGapIndex(sortedBands.map(diBand => diBand.bounds));
+  const bottomBands = sortedBands.slice(gapIndex);
+  const totalHeight = bottomBands.reduce((sum, band) => sum + band.bounds.height, 0);
+  return totalHeight;
 }
