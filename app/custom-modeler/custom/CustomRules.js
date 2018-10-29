@@ -16,13 +16,30 @@ var HIGH_PRIORITY = 1500;
 /**
  * Specific rules for choreographies
  */
-export default function CustomRules(eventBus) {
+export default function CustomRules(eventBus, elementFactory) {
   RuleProvider.call(this, eventBus);
+
+  eventBus.on('resize.start', HIGH_PRIORITY, function(event) {
+    let context = event.context
+    if (is(event.shape, 'bpmn:ChoreographyTask')) {
+      // set the constraints for resizing choreography tasks
+      let minDimensions = elementFactory._getDefaultSize(event.shape.businessObject);
+      context.childrenBoxPadding = 0;
+      context.resizeConstraints = {
+        min: {
+          top: event.shape.y + event.shape.height - minDimensions.height,
+          bottom: event.shape.y + minDimensions.height,
+          right: event.shape.x + minDimensions.width,
+          left: event.shape.x + event.shape.width - minDimensions.width
+        }
+      };
+    };
+  });
 }
 
 inherits(CustomRules, RuleProvider);
 
-CustomRules.$inject = [ 'eventBus' ];
+CustomRules.$inject = [ 'eventBus', 'elementFactory' ];
 
 
 CustomRules.prototype.init = function() {
@@ -56,6 +73,8 @@ CustomRules.prototype.init = function() {
     // choreography tasks and sub-choreographies can be resized
     if (shape.type === 'bpmn:ChoreographyTask' || shape.type === 'bpmn:SubChoreography') {
       return true;
+    } else if (shape.type === 'bpmn:Participant') {
+      return false;
     }
   });
 
@@ -81,5 +100,4 @@ CustomRules.prototype.init = function() {
 
     return canConnect(source, target, connection);
   });
-
 };
