@@ -5,14 +5,13 @@ import {
 
 import Refs from 'object-refs';
 
+import {
+  elementToString
+} from 'bpmn-js/lib/import/Util';
+
 var diRefs = new Refs(
   { name: 'bpmnElement', enumerable: true },
   { name: 'di', configurable: true }
-);
-
-var diBandRefs = new Refs(
-  { name: 'bpmnChoreoActivity' },
-  { name: 'diBands', configurable: true, collection: true }
 );
 
 /**
@@ -27,12 +26,6 @@ function is(element, type) {
   return element.$instanceOf(type);
 }
 
-function elementToString(e) {
-  if (!e) {
-    return '<null>';
-  }
-  return '<' + e.$type + (e.id ? ' id="' + e.id : '') + '" />';
-}
 
 /**
  * Find a suitable display candidate for definitions where the DI does not
@@ -111,21 +104,7 @@ export default function ChoreographyTreeWalker(handler, translate) {
     var bpmnElement = di.bpmnElement;
 
     if (bpmnElement) {
-      if (is(bpmnElement, 'bpmn:Participant') && di.choreographyActivityShape) {
-        // In choreography diagrams, participants may have multiple DIs for each participant
-        // band that represents them in the diagram. We add a separate one-to-many reference
-        // from choreography activities to the participant bands DIs for later drawing and
-        // updating.
-        var choreoActivity = di.choreographyActivityShape.bpmnElement;
-        if (!choreoActivity.diBands) {
-          diBandRefs.bind(choreoActivity, 'diBands');
-        }
-        choreoActivity.diBands.add(di);
-        if (!bpmnElement.di) {
-          diRefs.bind(bpmnElement, di);
-          bpmnElement.di = di;
-        }
-      } else if (bpmnElement.di) {
+      if (bpmnElement.di) {
         logError(
           translate('multiple DI elements defined for {element}', {
             element: elementToString(bpmnElement)

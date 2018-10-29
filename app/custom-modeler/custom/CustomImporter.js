@@ -81,8 +81,7 @@ CustomImporter.$inject = [
 
 
 /**
- * Add bpmn element (semantic) to the canvas onto the
- * specified parent shape.
+ * Add bpmn element (semantic) to the canvas onto the specified parent shape.
  */
 CustomImporter.prototype.add = function(semantic, parentElement) {
   var di,
@@ -90,17 +89,23 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
       translate = this._translate,
       hidden;
 
-  // special handling for participant bands on choreography tasks
-  var isParticipantBand = false;
-  if (is(semantic, 'bpmn:Participant') && is(parentElement, 'bpmn:ChoreographyActivity')) {
-    di = parentElement.businessObject.diBands.find(band => band.bpmnElement === semantic);
-    isParticipantBand = true;
+  var isParticipantBand = is(semantic, 'bpmn:Participant') && is(parentElement, 'bpmn:ChoreographyActivity');
+  var isChoreoActivity = is(semantic, 'bpmn:ChoreographyActivity');
+
+  // get the DI object corresponding to this element
+  if (isParticipantBand) {
+    /*
+     * For participant bands, the DI object is not as easy to get as there can
+     * be multiple bands for the same semantic object (i.e., a bpmn:Participant).
+     * For that reason, we have to iterate through all DI objects in the diagram
+     * and find the right one.
+     */
+    di = parentElement.businessObject.di.$parent.planeElement.find(band => {
+      return band.bpmnElement === semantic && band.choreographyActivityShape === parentElement.businessObject.di
+    });
   } else {
     di = semantic.di;
   }
-
-  // special handling for choreography activities
-  var isChoreoActivity = is(semantic, 'bpmn:ChoreographyActivity');
 
   var parentIndex;
 
