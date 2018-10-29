@@ -1,7 +1,3 @@
-import {
-  reduce
-} from 'min-dash';
-
 import inherits from 'inherits';
 
 import {
@@ -13,20 +9,33 @@ import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 var HIGH_PRIORITY = 1500;
 
 
-function isCustom(element) {
-  return element && /^custom:/.test(element.type);
-}
-
 /**
- * Specific rules for custom elements
+ * Specific rules for choreographies
  */
-export default function CustomRules(eventBus) {
+export default function CustomRules(eventBus, elementFactory) {
   RuleProvider.call(this, eventBus);
+
+  eventBus.on('resize.start', HIGH_PRIORITY, function(event) {
+    let context = event.context;
+    if (is(event.shape, 'bpmn:ChoreographyTask')) {
+      // set the constraints for resizing choreography tasks
+      let minDimensions = elementFactory._getDefaultSize(event.shape.businessObject);
+      context.childrenBoxPadding = 0;
+      context.resizeConstraints = {
+        min: {
+          top: event.shape.y + event.shape.height - minDimensions.height,
+          bottom: event.shape.y + minDimensions.height,
+          right: event.shape.x + minDimensions.width,
+          left: event.shape.x + event.shape.width - minDimensions.width
+        }
+      };
+    }
+  });
 }
 
 inherits(CustomRules, RuleProvider);
 
-CustomRules.$inject = [ 'eventBus' ];
+CustomRules.$inject = [ 'eventBus', 'elementFactory' ];
 
 
 CustomRules.prototype.init = function() {
@@ -35,67 +44,17 @@ CustomRules.prototype.init = function() {
    * Can shape be created on target container?
    */
   function canCreate(shape, target) {
-
-    // only judge about custom elements
-    if (!isCustom(shape)) {
-      return;
-    }
-
-    // allow creation on processes
-    return is(target, 'bpmn:Process') || is(target, 'bpmn:Participant') || is(target, 'bpmn:Collaboration');
+    // allow creation on choreography
+    return is(target, 'bpmn:Choreography');
   }
 
   /**
    * Can source and target be connected?
    */
   function canConnect(source, target) {
-
-    // only judge about custom elements
-    if (!isCustom(source) && !isCustom(target)) {
-      return;
-    }
-
-    // allow connection between custom shape and task
-    if (isCustom(source)) {
-      if (is(target, 'bpmn:Task')) {
-        return { type: 'custom:connection' };
-      } else {
-        return false;
-      }
-    } else if (isCustom(target)) {
-      if (is(source, 'bpmn:Task')) {
-        return { type: 'custom:connection' };
-      } else {
-        return false;
-      }
-    }
+    //TODO add rules for choreographies
+    return;
   }
-
-  this.addRule('elements.move', HIGH_PRIORITY, function(context) {
-
-    var target = context.target,
-        shapes = context.shapes;
-
-    var type;
-
-    // do not allow mixed movements of custom / BPMN shapes
-    // if any shape cannot be moved, the group cannot be moved, too
-    var allowed = reduce(shapes, function(result, s) {
-      if (type === undefined) {
-        type = isCustom(s);
-      }
-
-      if (type !== isCustom(s) || result === false) {
-        return false;
-      }
-
-      return canCreate(s, target);
-    }, undefined);
-
-    // reject, if we have at least one
-    // custom element that cannot be moved
-    return allowed;
-  });
 
   this.addRule('shape.create', HIGH_PRIORITY, function(context) {
     var target = context.target,
@@ -107,9 +66,11 @@ CustomRules.prototype.init = function() {
   this.addRule('shape.resize', HIGH_PRIORITY, function(context) {
     var shape = context.shape;
 
+    // choreography tasks and sub-choreographies can be resized
     if (shape.type === 'bpmn:ChoreographyTask' || shape.type === 'bpmn:SubChoreography') {
-      // can resize custom elements
       return true;
+    } else if (shape.type === 'bpmn:Participant') {
+      return false;
     }
   });
 
@@ -135,5 +96,4 @@ CustomRules.prototype.init = function() {
 
     return canConnect(source, target, connection);
   });
-
 };

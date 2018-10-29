@@ -99,6 +99,9 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
     di = semantic.di;
   }
 
+  // special handling for choreography activities
+  var isChoreoActivity = is(semantic, 'bpmn:ChoreographyActivity');
+
   var parentIndex;
 
   // ROOT ELEMENT
@@ -129,6 +132,13 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
       height: Math.round(bounds.height)
     });
 
+    // choreography activity shapes need references to the band shapes
+    if (isChoreoActivity) {
+      data = assign(data, {
+        bandShapes: []
+      });
+    }
+
     // participant bands refer the same participant, so the IDs need to be
     // made unique here based on the choreography activity as well
     if (isParticipantBand) {
@@ -140,6 +150,11 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
     }
 
     element = this._elementFactory.createShape(data);
+
+    // add participant band shapes to choreo shape registry
+    if (isParticipantBand) {
+      parentElement.bandShapes.push(element);
+    }
 
     if (is(semantic, 'bpmn:BoundaryEvent')) {
       this._attachBoundary(semantic, element);
