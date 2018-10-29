@@ -1,4 +1,14 @@
+/**
+ * Moves and resizes the participant bands of a choreography activity
+ * according to the activity's bounds. Updates both the shapes as well
+ * as the underlying DI objects.
+ * 
+ * @param {Object} taskShape shape object of the choreography activity
+ * @param {Object} oldBounds old bounds of the choreography activity
+ * @param {Object} newBounds new bounds of the choreography activity
+ */
 export function resizeBands(taskShape, oldBounds, newBounds) {
+  // sort the bands by their y-coordinate
   let bandShapes = taskShape.bandShapes;
   bandShapes.sort((a, b) => {
     return a.y > b.y;
@@ -29,11 +39,13 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
   let deltaTop = newBounds.y - oldBounds.y;
   topShapes.forEach(shape => {
     shape.y += deltaTop;
+    shape.diBand.bounds.y = shape.y;
   });
 
   // move bottom bands down
   let deltaBottom = (newBounds.height - oldBounds.height) + deltaTop;
   bottomShapes.forEach(shape => {
     shape.y += deltaBottom;
+    shape.diBand.bounds.y = shape.y;
   })
 }

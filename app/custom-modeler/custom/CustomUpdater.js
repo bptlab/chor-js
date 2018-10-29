@@ -15,7 +15,7 @@ import {
  * A handler responsible for updating the custom element's businessObject
  * once changes on the diagram happen.
  */
-export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, translate, elementRegistry, graphicsFactory) {
+export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, translate, elementRegistry) {
 
   BpmnUpdater.call(this, eventBus, bpmnFactory, connectionDocking, translate);
 
@@ -23,14 +23,14 @@ export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, 
     //TODO do some specific updating for choreography activities
   }
 
-  function resizeChoreographyActivities(context, oldBounds, newBounds) {
+  function resizeChoreographyActivity(context, oldBounds, newBounds) {
     resizeBands(context.shape, oldBounds, newBounds);
+    // fire a shape.changed event for each band so they get properly updated
     context.shape.bandShapes.forEach(bandShape => {
-      graphicsFactory.update(
-        'shape',
-        bandShape,
-        elementRegistry.getGraphics(bandShape)
-      );
+      eventBus.fire('shape.changed', {
+        element: bandShape,
+        gfx: elementRegistry.getGraphics(bandShape)
+      });
     });
   }
 
@@ -49,7 +49,7 @@ export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, 
   this.executed([
     'shape.resize'
   ], ifChoreographyActivity(event => {
-    resizeChoreographyActivities(
+    resizeChoreographyActivity(
       event.context,
       event.context.oldBounds,
       event.context.newBounds
@@ -60,7 +60,7 @@ export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, 
     'shape.resize'
   ], ifChoreographyActivity(event => {
     // switch oldBounds and newBounds when reverting
-    resizeChoreographyActivities(
+    resizeChoreographyActivity(
       event.context,
       event.context.newBounds,
       event.context.oldBounds
@@ -75,8 +75,7 @@ CustomUpdater.$inject = [
   'bpmnFactory',
   'connectionDocking',
   'translate',
-  'elementRegistry',
-  'graphicsFactory'
+  'elementRegistry'
 ];
 
 CustomUpdater.prototype.updateParent = function(element, oldParent) {
