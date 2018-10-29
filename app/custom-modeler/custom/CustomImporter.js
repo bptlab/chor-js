@@ -101,7 +101,7 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
      * and find the right one.
      */
     di = parentElement.businessObject.di.$parent.planeElement.find(band => {
-      return band.bpmnElement === semantic && band.choreographyActivityShape === parentElement.businessObject.di
+      return band.bpmnElement === semantic && band.choreographyActivityShape === parentElement.businessObject.di;
     });
   } else {
     di = semantic.di;
@@ -149,7 +149,7 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
     if (isParticipantBand) {
       data = assign(data, {
         id: semantic.id + '_' + parentElement.businessObject.id,
-        choreoActivity: parentElement,
+        activityShape: parentElement,
         diBand: di
       });
     }
