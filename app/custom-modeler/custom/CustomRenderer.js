@@ -16,6 +16,10 @@ import {
 } from 'min-dash';
 
 import {
+  heightOfBottomBands
+} from '../util/BandUtil';
+
+import {
   append as svgAppend,
   attr as svgAttr,
   create as svgCreate,
@@ -248,6 +252,9 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
 
   function attachMarker(parentGfx, element) {
     // The loops in choreos are mutually exclusive
+    const bottomBandHeight = heightOfBottomBands(element);
+    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
+
     if (element.businessObject.loopType === 'Standard') {
       drawStandardLoopType(parentGfx, element);
     } else if (element.businessObject.loopType === 'MultiInstanceSequential') {
@@ -255,7 +262,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     } else if (element.businessObject.loopType === 'MultiInstanceParallel') {
       drawParallelLoopType(parentGfx, element);
     }
-    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
+
     function drawStandardLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_LOOP', {
         xScaleFactor: 1,
@@ -265,7 +272,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         // TODO: make this adaptive
         position: {
           mx: ((element.width / 2) / element.width),
-          my: (element.height - 7) / element.height
+          my: (element.height - 7 - bottomBandHeight) / element.height
         }
       });
 
@@ -286,7 +293,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         containerHeight: element.height,
         position: {
           mx: ((element.width / 2 - 3) / element.width),
-          my: (element.height - 19) / element.height
+          my: (element.height - 19 - bottomBandHeight) / element.height
         }
       });
 
@@ -303,7 +310,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         containerHeight: element.height,
         position: {
           mx: ((element.width / 2 - 6) / element.width),
-          my: (element.height - 20) / element.height
+          my: (element.height - 20 - 20) / element.height
         }
       });
 
