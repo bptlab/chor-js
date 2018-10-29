@@ -7,6 +7,15 @@ import {
 } from 'diagram-js/lib/util/RenderUtil';
 
 import {
+  getFillColor,
+  getStrokeColor
+} from 'bpmn-js/lib/draw/BpmnRenderUtil';
+
+import {
+  assign,
+} from 'min-dash';
+
+import {
   append as svgAppend,
   attr as svgAttr,
   create as svgCreate,
@@ -97,7 +106,7 @@ function getParticipantBandOutline(x, y, width, height, participantBandKind) {
 /**
  * A renderer that knows how to render choreography diagrams.
  */
-export default function CustomRenderer(eventBus, styles, textRenderer) {
+export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) {
 
   BaseRenderer.call(this, eventBus, 2000);
 
@@ -227,15 +236,109 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
       height: bottom - top
     }, align);
     svgAppend(group, label);
-
+    const loopType = element.businessObject.loopType;
+    if (loopType === 'Standard'
+      || loopType === 'MultiInstanceSequential'
+      || loopType ==='MultiInstanceParallel') {
+      attachMarker(group, element);
+    }
     svgAppend(p, group);
     return group;
   };
+
+  function attachMarker(parentGfx, element) {
+    // The loops in choreos are mutually exclusive
+    if (element.businessObject.loopType === 'Standard') {
+      drawStandardLoopType(parentGfx, element);
+    } else if (element.businessObject.loopType === 'MultiInstanceSequential') {
+      drawSequentialLoopType(parentGfx, element);
+    } else if (element.businessObject.loopType === 'MultiInstanceParallel') {
+      drawParallelLoopType(parentGfx, element);
+    }
+    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
+    function drawStandardLoopType(parentGfx, element) {
+      const markerPath = pathMap.getScaledPath('MARKER_LOOP', {
+        xScaleFactor: 1,
+        yScaleFactor: 1,
+        containerWidth: element.width,
+        containerHeight: element.height,
+        // TODO: make this adaptive
+        position: {
+          mx: ((element.width / 2) / element.width),
+          my: (element.height - 7) / element.height
+        }
+      });
+
+      drawMarker('loop', parentGfx, markerPath, {
+        strokeWidth: 1,
+        fill: getFillColor(element, defaultFillColor),
+        stroke: getStrokeColor(element, defaultStrokeColor),
+        strokeLinecap: 'round',
+        strokeMiterlimit: 0.5
+      });
+    }
+
+    function drawSequentialLoopType(parentGfx, element) {
+      const markerPath = pathMap.getScaledPath('MARKER_SEQUENTIAL', {
+        xScaleFactor: 1,
+        yScaleFactor: 1,
+        containerWidth: element.width,
+        containerHeight: element.height,
+        position: {
+          mx: ((element.width / 2 - 3) / element.width),
+          my: (element.height - 19) / element.height
+        }
+      });
+
+      drawMarker('sequential', parentGfx, markerPath, {
+        fill: getFillColor(element, defaultFillColor),
+        stroke: getStrokeColor(element, defaultStrokeColor)
+      });
+    }
+    function drawParallelLoopType(parentGfx, element) {
+      const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
+        xScaleFactor: 1,
+        yScaleFactor: 1,
+        containerWidth: element.width,
+        containerHeight: element.height,
+        position: {
+          mx: ((element.width / 2 - 6) / element.width),
+          my: (element.height - 20) / element.height
+        }
+      });
+
+      drawMarker('parallel', parentGfx, markerPath, {
+        fill: getFillColor(element, defaultFillColor),
+        stroke: getStrokeColor(element, defaultStrokeColor)
+      });
+    }
+
+    function drawMarker(type, parentGfx, path, attrs) {
+      function drawPath(parentGfx, d, attrs) {
+
+        attrs = styles.computeStyle(attrs, ['no-fill'], {
+          strokeWidth: 2,
+          stroke: 'black'
+        });
+
+        var path = svgCreate('path');
+        svgAttr(path, { d: d });
+        svgAttr(path, attrs);
+
+        svgAppend(parentGfx, path);
+
+        return path;
+      }
+
+      return drawPath(parentGfx, path, assign({ 'data-marker': type }, attrs));
+    }
+
+  }
 }
 
 inherits(CustomRenderer, BaseRenderer);
 
-CustomRenderer.$inject = [ 'eventBus', 'styles', 'textRenderer' ];
+CustomRenderer.$inject = [ 'eventBus', 'styles', 'textRenderer', 'pathMap'];
 
 
 CustomRenderer.prototype.canRender = function(element) {
