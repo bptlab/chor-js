@@ -137,7 +137,6 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     let bandKind = element.diBand.participantBandKind || 'top-initiating';
     let isBottom = bandKind.startsWith('bottom');
     let isInitiating = !bandKind.endsWith('non_initiating');
-
     // optionally display an envelope for the attached message
     if (element.diBand.isMessageVisible) {
       // first, draw the connecting dotted line
@@ -189,15 +188,18 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     }
 
     // draw the actual participant band
-    let shape = svgCreate('path');
-    svgAttr(shape, {
+    let bandShape = svgCreate('path');
+    svgAttr(bandShape, {
       d: getParticipantBandOutline(0, 0, element.width, element.height, bandKind),
       stroke: '#000000',
       strokeWidth: 2,
       fill: isInitiating ? 'white' : 'lightgray',
       fillOpacity: 1,
     });
-    svgAppend(group, shape);
+    svgAppend(group, bandShape);
+    if (element.businessObject.participantMultiplicity) {
+      attachMarkerToParticipant(group, element);
+    }
 
     // add the name of the participant
     let label = getBoxedLabel(element.businessObject.name, {
@@ -244,17 +246,16 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     if (loopType === 'Standard'
       || loopType === 'MultiInstanceSequential'
       || loopType === 'MultiInstanceParallel') {
-      attachMarker(group, element);
+      attachMarkerToChoreoActivity(group, element);
     }
     svgAppend(p, group);
     return group;
   };
 
-  function attachMarker(parentGfx, element) {
+  function attachMarkerToChoreoActivity(parentGfx, element) {
+    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
     // The loops in choreos are mutually exclusive
     const bottomBandHeight = heightOfBottomBands(element);
-    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
-
     if (element.businessObject.loopType === 'Standard') {
       drawStandardLoopType(parentGfx, element);
     } else if (element.businessObject.loopType === 'MultiInstanceSequential') {
@@ -262,7 +263,6 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     } else if (element.businessObject.loopType === 'MultiInstanceParallel') {
       drawParallelLoopType(parentGfx, element);
     }
-
     function drawStandardLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_LOOP', {
         xScaleFactor: 1,
@@ -283,7 +283,6 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         strokeMiterlimit: 0.5
       });
     }
-
     function drawSequentialLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_SEQUENTIAL', {
         xScaleFactor: 1,
@@ -319,26 +318,47 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
       });
     }
 
-    function drawMarker(type, parentGfx, path, attrs) {
-      function drawPath(parentGfx, d, attrs) {
+  }
 
-        attrs = styles.computeStyle(attrs, ['no-fill'], {
-          strokeWidth: 2,
-          stroke: 'black'
-        });
+  function attachMarkerToParticipant(parentGfx, element) {
+    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
+    if (element.businessObject.participantMultiplicity.maximum > 1) {
+      const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
+        xScaleFactor: 1,
+        yScaleFactor: 1,
+        containerWidth: element.width,
+        containerHeight: element.height,
+        position: {
+          mx: ((element.width / 2 - 6) / element.width),
+          my: (element.height - 15) / element.height
+        }
+      });
+      drawMarker('participant-multiplicity', parentGfx, markerPath, {
+        strokeWidth: 1,
+        fill: getFillColor(element, defaultFillColor),
+        stroke: getStrokeColor(element, defaultStrokeColor)
+      });
+    }
+  }
 
-        var path = svgCreate('path');
-        svgAttr(path, { d: d });
-        svgAttr(path, attrs);
+  function drawMarker(type, parentGfx, path, attrs) {
+    function drawPath(parentGfx, d, attrs) {
 
-        svgAppend(parentGfx, path);
+      attrs = styles.computeStyle(attrs, ['no-fill'], {
+        strokeWidth: 2,
+        stroke: 'black'
+      });
 
-        return path;
-      }
+      var path = svgCreate('path');
+      svgAttr(path, { d: d });
+      svgAttr(path, attrs);
 
-      return drawPath(parentGfx, path, assign({ 'data-marker': type }, attrs));
+      svgAppend(parentGfx, path);
+
+      return path;
     }
 
+    return drawPath(parentGfx, path, assign({ 'data-marker': type }, attrs));
   }
 }
 
