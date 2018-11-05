@@ -64,7 +64,7 @@ function getTaskOutline(x, y, width, height) {
     ['a', r, r, 0, 0, 0, r, r],
     ['l', width - 2 * r, 0],
     ['a', r, r, 0, 0, 0, r, -r],
-    ['l', 0, - height + 2 * r],
+    ['l', 0, -height + 2 * r],
     ['a', r, r, 0, 0, 0, -r, -r],
     ['z']
   ];
@@ -81,7 +81,7 @@ function getParticipantBandOutline(x, y, width, height, participantBandKind) {
       ['l', width, 0],
       ['l', 0, -height + r],
       ['a', r, r, 0, 0, 0, -r, -r],
-      ['l', -width + 2*r, 0],
+      ['l', -width + 2 * r, 0],
       ['a', r, r, 0, 0, 0, -r, r],
       ['z']
     ];
@@ -91,7 +91,7 @@ function getParticipantBandOutline(x, y, width, height, participantBandKind) {
       ['l', -width, 0],
       ['l', 0, height - r],
       ['a', r, r, 0, 0, 0, r, r],
-      ['l', width - 2*r, 0],
+      ['l', width - 2 * r, 0],
       ['a', r, r, 0, 0, 0, r, -r],
       ['z']
     ];
@@ -189,15 +189,16 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     }
 
     // draw the actual participant band
-    let shape = svgCreate('path');
-    svgAttr(shape, {
+    let bandShape = svgCreate('path');
+    svgAttr(bandShape, {
       d: getParticipantBandOutline(0, 0, element.width, element.height, bandKind),
       stroke: '#000000',
       strokeWidth: 2,
       fill: isInitiating ? 'white' : 'lightgray',
       fillOpacity: 1,
     });
-    svgAppend(group, shape);
+    svgAppend(group, bandShape);
+    attachMarkerToParticipant(group, element);
 
     // add the name of the participant
     let label = getBoxedLabel(element.businessObject.name, {
@@ -244,17 +245,18 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     if (loopType === 'Standard'
       || loopType === 'MultiInstanceSequential'
       || loopType === 'MultiInstanceParallel') {
-      attachMarker(group, element);
+      attachMarkerToChoreoActivity(group, element);
     }
     svgAppend(p, group);
     return group;
   };
 
-  function attachMarker(parentGfx, element) {
-    // The loops in choreos are mutually exclusive
+  function attachMarkerToChoreoActivity(parentGfx, element) {
+    const defaultFillColor = 'transparent';
+    const defaultStrokeColor = 'black';
     const bottomBandHeight = heightOfBottomBands(element);
-    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
 
+    // The loops in choreos are mutually exclusive
     if (element.businessObject.loopType === 'Standard') {
       drawStandardLoopType(parentGfx, element);
     } else if (element.businessObject.loopType === 'MultiInstanceSequential') {
@@ -301,6 +303,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         stroke: getStrokeColor(element, defaultStrokeColor)
       });
     }
+
     function drawParallelLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
         xScaleFactor: 1,
@@ -319,38 +322,57 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
       });
     }
 
-    function drawMarker(type, parentGfx, path, attrs) {
-      function drawPath(parentGfx, d, attrs) {
+  }
 
-        attrs = styles.computeStyle(attrs, ['no-fill'], {
-          strokeWidth: 2,
-          stroke: 'black'
-        });
-
-        var path = svgCreate('path');
-        svgAttr(path, { d: d });
-        svgAttr(path, attrs);
-
-        svgAppend(parentGfx, path);
-
-        return path;
-      }
-
-      return drawPath(parentGfx, path, assign({ 'data-marker': type }, attrs));
+  function attachMarkerToParticipant(parentGfx, element) {
+    const defaultFillColor = 'transparent';
+    const defaultStrokeColor = 'black';
+    const multiplicity = element.businessObject.participantMultiplicity;
+    if (multiplicity && multiplicity.maximum > 1) {
+      const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
+        xScaleFactor: 1,
+        yScaleFactor: 1,
+        containerWidth: element.width,
+        containerHeight: element.height,
+        position: {
+          mx: ((element.width / 2 - 6) / element.width),
+          my: (element.height - 15) / element.height
+        }
+      });
+      drawMarker('participant-multiplicity', parentGfx, markerPath, {
+        strokeWidth: 1,
+        fill: getFillColor(element, defaultFillColor),
+        stroke: getStrokeColor(element, defaultStrokeColor)
+      });
     }
+  }
 
+  function drawMarker(type, parentGfx, d, attrs) {
+    attrs = assign({ 'data-marker': type }, attrs);
+    attrs = styles.computeStyle(attrs, ['no-fill'], {
+      strokeWidth: 2,
+      stroke: 'black'
+    });
+
+    const path = svgCreate('path');
+    svgAttr(path, { d: d });
+    svgAttr(path, attrs);
+
+    svgAppend(parentGfx, path);
+
+    return path;
   }
 }
 
 inherits(CustomRenderer, BaseRenderer);
 
-CustomRenderer.$inject = [ 'eventBus', 'styles', 'textRenderer', 'pathMap'];
+CustomRenderer.$inject = ['eventBus', 'styles', 'textRenderer', 'pathMap'];
 
 
 CustomRenderer.prototype.canRender = function(element) {
   return element.type === 'bpmn:ChoreographyTask' ||
-         element.type === 'bpmn:SubChoreography' ||
-         element.type === 'bpmn:Participant';
+    element.type === 'bpmn:SubChoreography' ||
+    element.type === 'bpmn:Participant';
 };
 
 CustomRenderer.prototype.drawShape = function(p, element) {
