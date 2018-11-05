@@ -64,7 +64,7 @@ function getTaskOutline(x, y, width, height) {
     ['a', r, r, 0, 0, 0, r, r],
     ['l', width - 2 * r, 0],
     ['a', r, r, 0, 0, 0, r, -r],
-    ['l', 0, - height + 2 * r],
+    ['l', 0, -height + 2 * r],
     ['a', r, r, 0, 0, 0, -r, -r],
     ['z']
   ];
@@ -81,7 +81,7 @@ function getParticipantBandOutline(x, y, width, height, participantBandKind) {
       ['l', width, 0],
       ['l', 0, -height + r],
       ['a', r, r, 0, 0, 0, -r, -r],
-      ['l', -width + 2*r, 0],
+      ['l', -width + 2 * r, 0],
       ['a', r, r, 0, 0, 0, -r, r],
       ['z']
     ];
@@ -91,7 +91,7 @@ function getParticipantBandOutline(x, y, width, height, participantBandKind) {
       ['l', -width, 0],
       ['l', 0, height - r],
       ['a', r, r, 0, 0, 0, r, r],
-      ['l', width - 2*r, 0],
+      ['l', width - 2 * r, 0],
       ['a', r, r, 0, 0, 0, r, -r],
       ['z']
     ];
@@ -137,6 +137,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     let bandKind = element.diBand.participantBandKind || 'top-initiating';
     let isBottom = bandKind.startsWith('bottom');
     let isInitiating = !bandKind.endsWith('non_initiating');
+
     // optionally display an envelope for the attached message
     if (element.diBand.isMessageVisible) {
       // first, draw the connecting dotted line
@@ -197,9 +198,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
       fillOpacity: 1,
     });
     svgAppend(group, bandShape);
-    if (element.businessObject.participantMultiplicity) {
-      attachMarkerToParticipant(group, element);
-    }
+    attachMarkerToParticipant(group, element);
 
     // add the name of the participant
     let label = getBoxedLabel(element.businessObject.name, {
@@ -253,9 +252,11 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
   };
 
   function attachMarkerToChoreoActivity(parentGfx, element) {
-    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
-    // The loops in choreos are mutually exclusive
+    const defaultFillColor = 'transparent';
+    const defaultStrokeColor = 'black';
     const bottomBandHeight = heightOfBottomBands(element);
+
+    // The loops in choreos are mutually exclusive
     if (element.businessObject.loopType === 'Standard') {
       drawStandardLoopType(parentGfx, element);
     } else if (element.businessObject.loopType === 'MultiInstanceSequential') {
@@ -263,6 +264,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     } else if (element.businessObject.loopType === 'MultiInstanceParallel') {
       drawParallelLoopType(parentGfx, element);
     }
+
     function drawStandardLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_LOOP', {
         xScaleFactor: 1,
@@ -283,6 +285,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         strokeMiterlimit: 0.5
       });
     }
+
     function drawSequentialLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_SEQUENTIAL', {
         xScaleFactor: 1,
@@ -300,6 +303,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
         stroke: getStrokeColor(element, defaultStrokeColor)
       });
     }
+
     function drawParallelLoopType(parentGfx, element) {
       const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
         xScaleFactor: 1,
@@ -321,8 +325,10 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
   }
 
   function attachMarkerToParticipant(parentGfx, element) {
-    const defaultFillColor = 'transparent', defaultStrokeColor = 'black';
-    if (element.businessObject.participantMultiplicity.maximum > 1) {
+    const defaultFillColor = 'transparent';
+    const defaultStrokeColor = 'black';
+    const multiplicity = element.businessObject.participantMultiplicity;
+    if (multiplicity && multiplicity.maximum > 1) {
       const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
         xScaleFactor: 1,
         yScaleFactor: 1,
@@ -341,36 +347,32 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
     }
   }
 
-  function drawMarker(type, parentGfx, path, attrs) {
-    function drawPath(parentGfx, d, attrs) {
+  function drawMarker(type, parentGfx, d, attrs) {
+    attrs = assign({ 'data-marker': type }, attrs);
+    attrs = styles.computeStyle(attrs, ['no-fill'], {
+      strokeWidth: 2,
+      stroke: 'black'
+    });
 
-      attrs = styles.computeStyle(attrs, ['no-fill'], {
-        strokeWidth: 2,
-        stroke: 'black'
-      });
+    const path = svgCreate('path');
+    svgAttr(path, { d: d });
+    svgAttr(path, attrs);
 
-      var path = svgCreate('path');
-      svgAttr(path, { d: d });
-      svgAttr(path, attrs);
+    svgAppend(parentGfx, path);
 
-      svgAppend(parentGfx, path);
-
-      return path;
-    }
-
-    return drawPath(parentGfx, path, assign({ 'data-marker': type }, attrs));
+    return path;
   }
 }
 
 inherits(CustomRenderer, BaseRenderer);
 
-CustomRenderer.$inject = [ 'eventBus', 'styles', 'textRenderer', 'pathMap'];
+CustomRenderer.$inject = ['eventBus', 'styles', 'textRenderer', 'pathMap'];
 
 
 CustomRenderer.prototype.canRender = function(element) {
   return element.type === 'bpmn:ChoreographyTask' ||
-         element.type === 'bpmn:SubChoreography' ||
-         element.type === 'bpmn:Participant';
+    element.type === 'bpmn:SubChoreography' ||
+    element.type === 'bpmn:Participant';
 };
 
 CustomRenderer.prototype.drawShape = function(p, element) {
