@@ -12,17 +12,17 @@ import {
 } from 'min-dash';
 
 
-export default function CustomContextPadProvider(injector) {
+export default function ChoreoContextPadProvider(injector) {
   injector.invoke(ContextPadProvider, this);
 }
 
-inherits(CustomContextPadProvider, ContextPadProvider);
+inherits(ChoreoContextPadProvider, ContextPadProvider);
 
-CustomContextPadProvider.$inject = [
+ChoreoContextPadProvider.$inject = [
   'injector'
 ];
 
-CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
+ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
   var actions = {};
 
   if (element.type === 'label') {

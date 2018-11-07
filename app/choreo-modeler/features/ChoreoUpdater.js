@@ -12,10 +12,9 @@ import {
 
 
 /**
- * A handler responsible for updating the custom element's businessObject
- * once changes on the diagram happen.
+ * A handler responsible for updating the choreography elements.
  */
-export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, translate, elementRegistry) {
+export default function ChoreoUpdater(eventBus, bpmnFactory, connectionDocking, translate, elementRegistry) {
 
   BpmnUpdater.call(this, eventBus, bpmnFactory, connectionDocking, translate);
 
@@ -68,9 +67,9 @@ export default function CustomUpdater(eventBus, bpmnFactory, connectionDocking, 
   }));
 }
 
-inherits(CustomUpdater, BpmnUpdater);
+inherits(ChoreoUpdater, BpmnUpdater);
 
-CustomUpdater.$inject = [
+ChoreoUpdater.$inject = [
   'eventBus',
   'bpmnFactory',
   'connectionDocking',
@@ -78,13 +77,13 @@ CustomUpdater.$inject = [
   'elementRegistry'
 ];
 
-CustomUpdater.prototype.updateParent = function(element, oldParent) {
+ChoreoUpdater.prototype.updateParent = function(element, oldParent) {
   if (!is(element, 'bpmn:Participant')) {
     BpmnUpdater.prototype.updateParent.call(this, element, oldParent);
   }
 };
 
-CustomUpdater.prototype.updateSemanticParent = function(businessObject, newParent, visualParent) {
+ChoreoUpdater.prototype.updateSemanticParent = function(businessObject, newParent, visualParent) {
   if (!is(businessObject, 'bpmn:Participant')) {
     BpmnUpdater.prototype.updateSemanticParent.call(this, businessObject, newParent, visualParent);
   }

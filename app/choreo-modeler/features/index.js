@@ -1,10 +1,10 @@
-import CustomElementFactory from './CustomElementFactory';
-import CustomRenderer from './CustomRenderer';
-import CustomPalette from './CustomPalette';
-import CustomRules from './CustomRules';
-import CustomUpdater from './CustomUpdater';
-import CustomContextPadProvider from './CustomContextPadProvider';
-import CustomImporter from './CustomImporter';
+import ChoreoElementFactory from './ChoreoElementFactory';
+import ChoreoRenderer from './ChoreoRenderer';
+import ChoreoPaletteProvider from './ChoreoPaletteProvider';
+import ChoreoRules from './ChoreoRules';
+import ChoreoUpdater from './ChoreoUpdater';
+import ChoreoContextPadProvider from './ChoreoContextPadProvider';
+import ChoreoImporter from './ChoreoImporter';
 
 export default {
   __init__: [
@@ -16,11 +16,11 @@ export default {
     'bpmnUpdater',
     'contextPadProvider'
   ],
-  bpmnImporter: [ 'type', CustomImporter ],
-  elementFactory: [ 'type', CustomElementFactory ],
-  customRenderer: [ 'type', CustomRenderer ],
-  paletteProvider: [ 'type', CustomPalette ],
-  bpmnRules: [ 'type', CustomRules ],
-  bpmnUpdater: [ 'type', CustomUpdater ],
-  contextPadProvider: [ 'type', CustomContextPadProvider ]
+  bpmnImporter: [ 'type', ChoreoImporter ],
+  elementFactory: [ 'type', ChoreoElementFactory ],
+  customRenderer: [ 'type', ChoreoRenderer ],
+  paletteProvider: [ 'type', ChoreoPaletteProvider ],
+  bpmnRules: [ 'type', ChoreoRules ],
+  bpmnUpdater: [ 'type', ChoreoUpdater ],
+  contextPadProvider: [ 'type', ChoreoContextPadProvider ]
 };

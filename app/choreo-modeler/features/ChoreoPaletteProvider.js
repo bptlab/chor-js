@@ -4,9 +4,9 @@ import {
 
 
 /**
- * A palette that allows you to create BPMN _and_ custom elements.
+ * A palette that allows you to create choreography-related elements.
  */
-export default function PaletteProvider(palette, create, elementFactory, spaceTool, lassoTool) {
+export default function ChoreoPaletteProvider(palette, create, elementFactory, spaceTool, lassoTool) {
 
   this._create = create;
   this._elementFactory = elementFactory;
@@ -16,7 +16,7 @@ export default function PaletteProvider(palette, create, elementFactory, spaceTo
   palette.registerProvider(this);
 }
 
-PaletteProvider.$inject = [
+ChoreoPaletteProvider.$inject = [
   'palette',
   'create',
   'elementFactory',
@@ -25,7 +25,7 @@ PaletteProvider.$inject = [
 ];
 
 
-PaletteProvider.prototype.getPaletteEntries = function(element) {
+ChoreoPaletteProvider.prototype.getPaletteEntries = function(element) {
 
   var actions  = {},
       create = this._create,

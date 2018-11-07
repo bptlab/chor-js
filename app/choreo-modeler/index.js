@@ -2,7 +2,8 @@ import Modeler from 'bpmn-js/lib/Modeler';
 
 import inherits from 'inherits';
 
-import CustomModule from './custom';
+import FeaturesModule from './features';
+import ImportModule from './import';
 
 import {
   importChoreographyDiagram

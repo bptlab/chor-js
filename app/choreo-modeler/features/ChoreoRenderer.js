@@ -110,7 +110,7 @@ function getParticipantBandOutline(x, y, width, height, participantBandKind) {
 /**
  * A renderer that knows how to render choreography diagrams.
  */
-export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) {
+export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) {
 
   BaseRenderer.call(this, eventBus, 2000);
 
@@ -364,18 +364,18 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
   }
 }
 
-inherits(CustomRenderer, BaseRenderer);
+inherits(ChoreoRenderer, BaseRenderer);
 
-CustomRenderer.$inject = ['eventBus', 'styles', 'textRenderer', 'pathMap'];
+ChoreoRenderer.$inject = ['eventBus', 'styles', 'textRenderer', 'pathMap'];
 
 
-CustomRenderer.prototype.canRender = function(element) {
+ChoreoRenderer.prototype.canRender = function(element) {
   return element.type === 'bpmn:ChoreographyTask' ||
     element.type === 'bpmn:SubChoreography' ||
     element.type === 'bpmn:Participant';
 };
 
-CustomRenderer.prototype.drawShape = function(p, element) {
+ChoreoRenderer.prototype.drawShape = function(p, element) {
   var type = element.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
@@ -385,7 +385,7 @@ CustomRenderer.prototype.drawShape = function(p, element) {
   }
 };
 
-CustomRenderer.prototype.getShapePath = function(shape) {
+ChoreoRenderer.prototype.getShapePath = function(shape) {
   var type = shape.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
