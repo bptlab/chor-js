@@ -84,7 +84,16 @@ CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
         'append.choreography-task': appendAction(
           'bpmn:ChoreographyTask',
           'choreo-icon-choreography-task'
-        )
+        ),
+        'connect': {
+          group: 'edit',
+          className: 'bpmn-icon-connection',
+          title: this._translate('Connect using Sequence Flow'),
+          action: {
+            click: startConnect,
+            dragstart: startConnect
+          }
+        }
       });
     }
 
@@ -135,16 +144,7 @@ CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
       'append.text-annotation': appendAction(
         'bpmn:TextAnnotation',
         'bpmn-icon-text-annotation'
-      ),
-      'connect': {
-        group: 'edit',
-        className: 'bpmn-icon-connection',
-        title: this._translate('Connect using Sequence Flow'),
-        action: {
-          click: startConnect,
-          dragstart: startConnect
-        }
-      }
+      )
     });
   }
 
