@@ -1,7 +1,7 @@
 {
-  "name": "choreography-editor",
+  "name": "choreography-modeler",
   "version": "0.0.0",
-  "description": "An BPMN 2.0 choreography diagram editor based on bpmn-js",
+  "description": "An BPMN 2.0 choreography diagram modeler based on bpmn-js",
   "main": "app/app.js",
   "scripts": {
     "lint": "eslint .",
@@ -12,7 +12,7 @@
     "all": "run-s lint test bundle"
   },
   "keywords": [
-    "choreography-editor"
+    "choreography-modeler"
   ],
   "author": {
     "name": "Jan Ladleif",
