@@ -12,7 +12,7 @@ export default {
     'customRenderer',
     'elementFactory',
     'paletteProvider',
-    'customRules',
+    'bpmnRules',
     'bpmnUpdater',
     'contextPadProvider'
   ],
@@ -20,7 +20,7 @@ export default {
   elementFactory: [ 'type', CustomElementFactory ],
   customRenderer: [ 'type', CustomRenderer ],
   paletteProvider: [ 'type', CustomPalette ],
-  customRules: [ 'type', CustomRules ],
+  bpmnRules: [ 'type', CustomRules ],
   bpmnUpdater: [ 'type', CustomUpdater ],
   contextPadProvider: [ 'type', CustomContextPadProvider ]
 };

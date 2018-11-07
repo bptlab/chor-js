@@ -1,7 +1,3 @@
-import {
-  assign
-} from 'min-dash';
-
 import inherits from 'inherits';
 
 import {
@@ -9,40 +5,18 @@ import {
 } from 'bpmn-js/lib/util/ModelUtil';
 
 import BpmnElementFactory from 'bpmn-js/lib/features/modeling/ElementFactory';
-import {
-  DEFAULT_LABEL_SIZE
-} from 'bpmn-js/lib/util/LabelUtil';
-
 
 /**
  * A custom factory that knows how to create choreography elements.
  */
-export default function CustomElementFactory(bpmnFactory, moddle) {
-  BpmnElementFactory.call(this, bpmnFactory, moddle);
-
-  var self = this;
-
-  /**
-   * Create a diagram-js element with the given type (any of shape, connection, label).
-   *
-   * @param  {String} elementType
-   * @param  {Object} attrs
-   *
-   * @return {djs.model.Base}
-   */
-  this.create = function(elementType, attrs) {
-    if (elementType === 'label') {
-      return self.baseCreate(elementType, assign({ type: 'label' }, DEFAULT_LABEL_SIZE, attrs));
-    }
-    return self.createBpmnElement(elementType, attrs);
-  };
+export default function CustomElementFactory(injector) {
+  injector.invoke(BpmnElementFactory, this);
 }
 
 inherits(CustomElementFactory, BpmnElementFactory);
 
 CustomElementFactory.$inject = [
-  'bpmnFactory',
-  'moddle'
+  'injector'
 ];
 
 /**

@@ -1,19 +1,20 @@
 import inherits from 'inherits';
 
+import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
+
 import {
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
-import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
-
-var HIGH_PRIORITY = 1500;
-
+let HIGH_PRIORITY = 1500;
 
 /**
- * Specific rules for choreographies
+ * Specific rules for choreographies. We have to override and replace BpmnRules and can not add
+ * another RuleProvider. This is because BpmnRules is often directly called by other components
+ * to evaluate rules which bypasses the EventBus.
  */
-export default function CustomRules(eventBus, elementFactory) {
-  RuleProvider.call(this, eventBus);
+export default function CustomRules(injector, eventBus, elementFactory) {
+  injector.invoke(BpmnRules, this);
 
   eventBus.on('resize.start', HIGH_PRIORITY, function(event) {
     let context = event.context;
@@ -33,67 +34,155 @@ export default function CustomRules(eventBus, elementFactory) {
   });
 }
 
-inherits(CustomRules, RuleProvider);
+inherits(CustomRules, BpmnRules);
 
-CustomRules.$inject = [ 'eventBus', 'elementFactory' ];
+CustomRules.$inject = [ 'injector', 'eventBus', 'elementFactory' ];
 
-
+/**
+ * Unfortunately the rules they define in BpmnRules call local methods instead of prototype
+ * methods, i.e., canConnect() instead of this.canConnect(). That means that we have to redefine
+ * most rules as they would otherwise still call those local methods and not our overridden
+ * versions.
+ */
 CustomRules.prototype.init = function() {
+  let self = this;
 
-  /**
-   * Can shape be created on target container?
-   */
-  function canCreate(shape, target) {
-    // allow creation on choreography
-    return is(target, 'bpmn:Choreography');
-  }
+  this.addRule('connection.create', function(context) {
+    var source = context.source,
+        target = context.target,
+        hints = context.hints || {},
+        targetParent = hints.targetParent,
+        targetAttach = hints.targetAttach;
 
-  /**
-   * Can source and target be connected?
-   */
-  function canConnect(source, target) {
-    //TODO add rules for choreographies
-    return;
-  }
-
-  this.addRule('shape.create', HIGH_PRIORITY, function(context) {
-    var target = context.target,
-        shape = context.shape;
-
-    return canCreate(shape, target);
-  });
-
-  this.addRule('shape.resize', HIGH_PRIORITY, function(context) {
-    var shape = context.shape;
-
-    // choreography tasks and sub-choreographies can be resized
-    if (shape.type === 'bpmn:ChoreographyTask' || shape.type === 'bpmn:SubChoreography') {
-      return true;
-    } else if (shape.type === 'bpmn:Participant') {
+    // don't allow incoming connections on
+    // newly created boundary events
+    // to boundary events
+    if (targetAttach) {
       return false;
+    }
+
+    // temporarily set target parent for scoping
+    // checks to work
+    if (targetParent) {
+      target.parent = targetParent;
+    }
+
+    try {
+      return self.canConnect(source, target);
+    } finally {
+      // unset temporary target parent
+      if (targetParent) {
+        target.parent = null;
+      }
     }
   });
 
-  this.addRule('connection.create', HIGH_PRIORITY, function(context) {
-    var source = context.source,
-        target = context.target;
-
-    return canConnect(source, target);
-  });
-
-  this.addRule('connection.reconnectStart', HIGH_PRIORITY, function(context) {
+  this.addRule('connection.reconnectStart', function(context) {
     var connection = context.connection,
         source = context.hover || context.source,
         target = connection.target;
 
-    return canConnect(source, target, connection);
+    return self.canConnect(source, target, connection);
   });
 
-  this.addRule('connection.reconnectEnd', HIGH_PRIORITY, function(context) {
+  this.addRule('connection.reconnectEnd', function(context) {
     var connection = context.connection,
         source = connection.source,
         target = context.hover || context.target;
 
-    return canConnect(source, target, connection);
+    return self.canConnect(source, target, connection);
   });
+
+  this.addRule('shape.resize', function(context) {
+    var shape = context.shape,
+        newBounds = context.newBounds;
+
+    return self.canResize(shape, newBounds);
+  });
+
+  this.addRule('elements.move', function(context) {
+    var target = context.target,
+        shapes = context.shapes,
+        position = context.position;
+
+    return self.canAttach(shapes, target, null, position) ||
+           self.canReplace(shapes, target, position) ||
+           self.canMove(shapes, target, position) ||
+           self.canInsert(shapes, target, position);
+  });
+
+  this.addRule('shape.create', function(context) {
+    return self.canCreate(
+      context.shape,
+      context.target,
+      context.source,
+      context.position
+    );
+  });
+
+  this.addRule('shape.attach', function(context) {
+    return self.canAttach(
+      context.shape,
+      context.target,
+      null,
+      context.position
+    );
+  });
+
+  this.addRule('element.copy', function(context) {
+    var collection = context.collection,
+        element = context.element;
+
+    return self.canCopy(collection, element);
+  });
+
+  this.addRule('element.paste', function(context) {
+    var parent = context.parent,
+        element = context.element,
+        position = context.position,
+        source = context.source,
+        target = context.target;
+
+    if (source || target) {
+      return self.canConnect(source, target);
+    }
+
+    return self.canAttach([ element ], parent, null, position) || self.canCreate(element, parent, null, position);
+  });
+
+  this.addRule('elements.paste', function(context) {
+    var tree = context.tree,
+        target = context.target;
+
+    return self.canPaste(tree, target);
+  });
+};
+
+CustomRules.prototype.canCreate = function(shape, target, source, position) {
+  if (is(target, 'bpmn:Choreography')) {
+    // elements can be created within a choreography
+    return true;
+  }
+  return BpmnRules.prototype.canCreate.call(this, shape, target, source, position);
+};
+
+CustomRules.prototype.canConnect = function(source, target, connection) {
+  if (!is(connection, 'bpmn:DataAssociation')) {
+    if (is(source, 'bpmn:EventBasedGateway') && is(target, 'bpmn:ChoreographyTask')) {
+      // event-based gateways can connect to choreography tasks
+      return { type: 'bpmn:SequenceFlow' };
+    }
+  }
+  return BpmnRules.prototype.canConnect.call(this, source, target, connection);
+};
+
+CustomRules.prototype.canResize = function(shape, newBounds) {
+  if (shape.type === 'bpmn:ChoreographyTask' || shape.type === 'bpmn:SubChoreography') {
+    // choreography activities can be resized
+    return true;
+  } else if (shape.type === 'bpmn:Participant') {
+    // participants (= participant bands) can not be resized
+    return false;
+  }
+  return BpmnRules.prototype.canResize.call(this, shape, newBounds);
 };
