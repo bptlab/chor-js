@@ -1,4 +1,4 @@
-import ChoreographyTreeWalker from './ChoreographyTreeWalker';
+import ChoreoTreeWalker from './ChoreoTreeWalker';
 
 /**
  * Import the definitions into a diagram.
