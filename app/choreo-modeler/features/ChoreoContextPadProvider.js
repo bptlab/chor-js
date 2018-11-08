@@ -11,7 +11,11 @@ import {
   isArray
 } from 'min-dash';
 
-
+/**
+ * Provider responsible for populating the context pad menu of all elements.
+ * This menu appears whenever a user selects a shape in the modeler and can be
+ * used to append new elements or configure some properties.
+ */
 export default function ChoreoContextPadProvider(injector) {
   injector.invoke(ContextPadProvider, this);
 }
@@ -22,6 +26,11 @@ ChoreoContextPadProvider.$inject = [
   'injector'
 ];
 
+/**
+ * @param {Object} element Shape the user selected
+ *
+ * @return {Object} Context pad entries for the selected shape
+ */
 ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
   var actions = {};
 
@@ -32,6 +41,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
   var businessObject = element.businessObject;
   var self = this;
 
+  // define a few local functions that are reused later
   function startConnect(event, element, autoActivate) {
     self._connect.start(event, element, autoActivate);
   }
@@ -40,16 +50,6 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     self._modeling.removeElements([ element ]);
   }
 
-  /**
-   * Create an append action
-   *
-   * @param {String} type
-   * @param {String} className
-   * @param {String} [title]
-   * @param {Object} [options]
-   *
-   * @return {Object} descriptor
-   */
   function appendAction(type, className, title, options) {
     if (typeof title !== 'string') {
       options = title;
@@ -77,8 +77,9 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     };
   }
 
+  // generate the actual context pad entries based on the element type
   if (is(businessObject, 'bpmn:FlowNode')) {
-    // All elements except for end events can connect to at least choreography tasks.
+    // all elements except for end events can connect to at least choreography tasks
     if (!is(businessObject, 'bpmn:EndEvent')) {
       assign(actions, {
         'append.choreography-task': appendAction(
@@ -97,6 +98,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
       });
     }
 
+    // event-based gateways can connect to intermediate events
     if (is(businessObject, 'bpmn:EventBasedGateway')) {
       assign(actions, {
         'append.timer-intermediate-event': appendAction(
@@ -108,8 +110,8 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
       });
     }
 
-    // All elements except event-based gateways and end events can connect to some
-    // further elements.
+    // all elements except event-based gateways and end events can connect to a common
+    // set of further elements
     if (!is(businessObject, 'bpmn:EventBasedGateway') && !is(businessObject, 'bpmn:EndEvent')) {
       assign(actions, {
         'append.choreography-task': appendAction(
@@ -139,6 +141,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     }
   }
 
+  // flow nodes can be annotated
   if (is(businessObject, 'bpmn:FlowNode')) {
     assign(actions, {
       'append.text-annotation': appendAction(

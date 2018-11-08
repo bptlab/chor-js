@@ -12,9 +12,11 @@ import {
 
 
 /**
- * A handler responsible for updating the choreography elements.
+ * A handler responsible for updating the choreography shapes and business objects.
  */
-export default function ChoreoUpdater(eventBus, bpmnFactory, connectionDocking, translate, elementRegistry) {
+export default function ChoreoUpdater(
+    eventBus, bpmnFactory, connectionDocking,
+    translate, elementRegistry) {
 
   BpmnUpdater.call(this, eventBus, bpmnFactory, connectionDocking, translate);
 

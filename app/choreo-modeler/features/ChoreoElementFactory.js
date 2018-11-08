@@ -7,7 +7,8 @@ import {
 import BpmnElementFactory from 'bpmn-js/lib/features/modeling/ElementFactory';
 
 /**
- * A factory that knows how to create choreography elements.
+ * A factory that knows how to create choreography-related business objects.
+ * It also provides default sizes and other information.
  */
 export default function ChoreoElementFactory(injector) {
   injector.invoke(BpmnElementFactory, this);
@@ -22,7 +23,7 @@ ChoreoElementFactory.$inject = [
 /**
  * @param {Object} businessObject BPMN model object
  *
- * @return {Dimensions} a {width, height} object representing the size of the element
+ * @return {Dimensions} A {width, height} object representing the size of the element
  */
 ChoreoElementFactory.prototype._getDefaultSize = function(businessObject) {
   if (is(businessObject, 'bpmn:ChoreographyTask')) {

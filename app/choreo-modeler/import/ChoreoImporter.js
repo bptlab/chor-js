@@ -47,9 +47,8 @@ function notYetDrawn(translate, semantic, refSemantic, property) {
   }));
 }
 
-
 /**
- * An importer that adds bpmn choreography elements to the canvas
+ * An importer that adds BPMN 2.0 choreography elements to the canvas.
  *
  * @param {EventBus} eventBus
  * @param {Canvas} canvas
