@@ -2,7 +2,7 @@ import '../TestHelper';
 
 import TestContainer from 'mocha-test-container-support';
 
-import CustomModeler from '../../app/custom-modeler';
+import ChoreoModeler from '../../app/choreo-modeler';
 
 import {
   is
@@ -27,7 +27,7 @@ describe('custom modeler', function() {
     // spin up modeler with custom element before each test
     beforeEach(function(done) {
 
-      modeler = new CustomModeler({ container: container });
+      modeler = new ChoreoModeler({ container: container });
 
       // modeler.importXML(xml, function(err) {
       //   if (!err) {
