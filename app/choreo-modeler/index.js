@@ -6,17 +6,17 @@ import FeaturesModule from './features';
 import ImportModule from './import';
 
 import {
-  importChoreographyDiagram
-} from './import/ChoreographyImporter';
+  importChoreoDiagram
+} from './import/ImportHandler';
 
 
-export default function CustomModeler(options) {
+export default function ChoreoModeler(options) {
   Modeler.call(this, options);
 }
 
-inherits(CustomModeler, Modeler);
+inherits(ChoreoModeler, Modeler);
 
-CustomModeler.prototype.importDefinitions = function(definitions, done) {
+ChoreoModeler.prototype.importDefinitions = function(definitions, done) {
   // catch synchronous exceptions during #clear()
   try {
     if (this._definitions) {
@@ -31,12 +31,15 @@ CustomModeler.prototype.importDefinitions = function(definitions, done) {
   }
 
   // perform graphical import
-  return importChoreographyDiagram(this, definitions, done);
+  return importChoreoDiagram(this, definitions, done);
 };
 
-CustomModeler.prototype._modules = [].concat(
-  CustomModeler.prototype._modules,
+ChoreoModeler.prototype._modules = [].concat(
+  ChoreoModeler.prototype._modules,
   [
-    CustomModule
+    FeaturesModule
+  ],
+  [
+    ImportModule
   ]
 );
