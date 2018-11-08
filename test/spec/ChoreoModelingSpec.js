@@ -7,14 +7,14 @@ import {
   assign
 } from 'min-dash';
 
-import CustomModeler from '../../app/custom-modeler';
+import ChoreoModeler from '../../app/choreo-modeler';
 
 
 describe('custom modeling', function() {
 
   var xml = require('./diagram.bpmn');
 
-  beforeEach(bootstrapBpmnJS(CustomModeler, xml));
+  beforeEach(bootstrapBpmnJS(ChoreoModeler, xml));
 
 
   describe('custom elements', function() {

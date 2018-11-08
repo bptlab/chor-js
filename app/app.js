@@ -2,11 +2,11 @@ import diagram from '../resources/tasksWithMultiplicities.bpmn';
 
 import $ from 'jquery';
 
-import CustomModeler from './custom-modeler';
+import ChoreoModeler from './choreo-modeler';
 import PropertiesPanelModule from 'bpmn-js-properties-panel';
-import PropertiesProviderModule from './custom-modeler/properties-panel';
+import PropertiesProviderModule from './choreo-modeler/properties-panel';
 
-var modeler = new CustomModeler({
+var modeler = new ChoreoModeler({
   additionalModules: [
     PropertiesPanelModule,
     PropertiesProviderModule

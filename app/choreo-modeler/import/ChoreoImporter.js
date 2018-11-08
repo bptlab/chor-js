@@ -47,9 +47,8 @@ function notYetDrawn(translate, semantic, refSemantic, property) {
   }));
 }
 
-
 /**
- * An importer that adds bpmn choreography elements to the canvas
+ * An importer that adds BPMN 2.0 choreography elements to the canvas.
  *
  * @param {EventBus} eventBus
  * @param {Canvas} canvas
@@ -58,7 +57,7 @@ function notYetDrawn(translate, semantic, refSemantic, property) {
  * @param {Function} translate
  * @param {TextRenderer} textRenderer
  */
-export default function CustomImporter(
+export default function ChoreoImporter(
     eventBus, canvas, elementFactory,
     elementRegistry, translate, textRenderer) {
 
@@ -70,7 +69,7 @@ export default function CustomImporter(
   this._textRenderer = textRenderer;
 }
 
-CustomImporter.$inject = [
+ChoreoImporter.$inject = [
   'eventBus',
   'canvas',
   'elementFactory',
@@ -83,7 +82,7 @@ CustomImporter.$inject = [
 /**
  * Add bpmn element (semantic) to the canvas onto the specified parent shape.
  */
-CustomImporter.prototype.add = function(semantic, parentElement) {
+ChoreoImporter.prototype.add = function(semantic, parentElement) {
   var di,
       element,
       translate = this._translate,
@@ -240,7 +239,7 @@ CustomImporter.prototype.add = function(semantic, parentElement) {
  * @param {ModdleElement} boundarySemantic
  * @param {djs.model.Base} boundaryElement
  */
-CustomImporter.prototype._attachBoundary = function(boundarySemantic, boundaryElement) {
+ChoreoImporter.prototype._attachBoundary = function(boundarySemantic, boundaryElement) {
   var translate = this._translate;
   var hostSemantic = boundarySemantic.attachedToRef;
 
@@ -273,7 +272,7 @@ CustomImporter.prototype._attachBoundary = function(boundarySemantic, boundaryEl
 /**
  * add label for an element
  */
-CustomImporter.prototype.addLabel = function(semantic, element) {
+ChoreoImporter.prototype.addLabel = function(semantic, element) {
   var bounds,
       text,
       label;
@@ -306,7 +305,7 @@ CustomImporter.prototype.addLabel = function(semantic, element) {
  *
  * @throws {Error} if the end is not yet drawn
  */
-CustomImporter.prototype._getEnd = function(semantic, side) {
+ChoreoImporter.prototype._getEnd = function(semantic, side) {
 
   var element,
       refSemantic,
@@ -343,16 +342,16 @@ CustomImporter.prototype._getEnd = function(semantic, side) {
   }
 };
 
-CustomImporter.prototype._getSource = function(semantic) {
+ChoreoImporter.prototype._getSource = function(semantic) {
   return this._getEnd(semantic, 'source');
 };
 
-CustomImporter.prototype._getTarget = function(semantic) {
+ChoreoImporter.prototype._getTarget = function(semantic) {
   return this._getEnd(semantic, 'target');
 };
 
 
-CustomImporter.prototype._getElement = function(semantic) {
+ChoreoImporter.prototype._getElement = function(semantic) {
   return this._elementRegistry.get(semantic.id);
 };
 

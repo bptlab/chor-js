@@ -13,7 +13,7 @@ let HIGH_PRIORITY = 1500;
  * another RuleProvider. This is because BpmnRules is often directly called by other components
  * to evaluate rules which bypasses the EventBus.
  */
-export default function CustomRules(injector, eventBus, elementFactory) {
+export default function ChoreoRules(injector, eventBus, elementFactory) {
   injector.invoke(BpmnRules, this);
 
   eventBus.on('resize.start', HIGH_PRIORITY, function(event) {
@@ -34,9 +34,9 @@ export default function CustomRules(injector, eventBus, elementFactory) {
   });
 }
 
-inherits(CustomRules, BpmnRules);
+inherits(ChoreoRules, BpmnRules);
 
-CustomRules.$inject = [ 'injector', 'eventBus', 'elementFactory' ];
+ChoreoRules.$inject = [ 'injector', 'eventBus', 'elementFactory' ];
 
 /**
  * Unfortunately the rules they define in BpmnRules call local methods instead of prototype
@@ -44,7 +44,7 @@ CustomRules.$inject = [ 'injector', 'eventBus', 'elementFactory' ];
  * most rules as they would otherwise still call those local methods and not our overridden
  * versions.
  */
-CustomRules.prototype.init = function() {
+ChoreoRules.prototype.init = function() {
   let self = this;
 
   this.addRule('connection.create', function(context) {
@@ -158,7 +158,7 @@ CustomRules.prototype.init = function() {
   });
 };
 
-CustomRules.prototype.canCreate = function(shape, target, source, position) {
+ChoreoRules.prototype.canCreate = function(shape, target, source, position) {
   if (is(target, 'bpmn:Choreography')) {
     // elements can be created within a choreography
     return true;
@@ -166,7 +166,7 @@ CustomRules.prototype.canCreate = function(shape, target, source, position) {
   return BpmnRules.prototype.canCreate.call(this, shape, target, source, position);
 };
 
-CustomRules.prototype.canConnect = function(source, target, connection) {
+ChoreoRules.prototype.canConnect = function(source, target, connection) {
   if (!is(connection, 'bpmn:DataAssociation')) {
     if (is(source, 'bpmn:EventBasedGateway') && is(target, 'bpmn:ChoreographyTask')) {
       // event-based gateways can connect to choreography tasks
@@ -176,7 +176,7 @@ CustomRules.prototype.canConnect = function(source, target, connection) {
   return BpmnRules.prototype.canConnect.call(this, source, target, connection);
 };
 
-CustomRules.prototype.canResize = function(shape, newBounds) {
+ChoreoRules.prototype.canResize = function(shape, newBounds) {
   if (shape.type === 'bpmn:ChoreographyTask' || shape.type === 'bpmn:SubChoreography') {
     // choreography activities can be resized
     return true;

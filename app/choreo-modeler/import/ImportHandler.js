@@ -1,4 +1,4 @@
-import ChoreographyTreeWalker from './ChoreographyTreeWalker';
+import ChoreoTreeWalker from './ChoreoTreeWalker';
 
 /**
  * Import the definitions into a diagram.
@@ -9,7 +9,7 @@ import ChoreographyTreeWalker from './ChoreographyTreeWalker';
  * @param  {ModdleElement} definitions
  * @param  {Function} done the callback, invoked with (err, [ warning ]) once the import is done
  */
-export function importChoreographyDiagram(diagram, definitions, done) {
+export function importChoreoDiagram(diagram, definitions, done) {
 
   var importer,
       eventBus,
@@ -41,7 +41,7 @@ export function importChoreographyDiagram(diagram, definitions, done) {
       }
     };
 
-    var walker = new ChoreographyTreeWalker(visitor, translate);
+    var walker = new ChoreoTreeWalker(visitor, translate);
 
     // traverse BPMN 2.0 document model,
     // starting at definitions

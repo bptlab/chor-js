@@ -26,7 +26,6 @@ function is(element, type) {
   return element.$instanceOf(type);
 }
 
-
 /**
  * Find a suitable display candidate for definitions where the DI does not
  * correctly specify one.
@@ -37,8 +36,7 @@ function findDisplayCandidate(definitions) {
   });
 }
 
-
-export default function ChoreographyTreeWalker(handler, translate) {
+export default function ChoreoTreeWalker(handler, translate) {
 
   // list of containers already walked
   var handledElements = {};

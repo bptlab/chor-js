@@ -26,91 +26,16 @@ import {
   classes as svgClasses
 } from 'tiny-svg';
 
-// display specific constants, they are not part of the BPMNDI information
+// display specific constants that are not part of the BPMNDI standard
 let CHOREO_TASK_ROUNDING = 10;
 let MESSAGE_WIDTH = 35;
 let MESSAGE_HEIGHT = MESSAGE_WIDTH / 7 * 5;
 let MESSAGE_DISTANCE = 20;
 
-function translate(x, y, object) {
-  let group = svgAttr(svgCreate('g'), {
-    transform: 'translate(' + x + ', ' + y + ')'
-  });
-  svgAppend(group, object);
-  return group;
-}
-
-function getEnvelopePath(width, height) {
-  let flap = height * 0.6;
-  let path = [
-    ['M', 0, 0],
-    ['l', 0, height],
-    ['l', width, 0],
-    ['l', 0, -height],
-    ['z'],
-    ['M', 0, 0],
-    ['l', width / 2., flap],
-    ['l', width / 2., -flap]
-  ];
-  return componentsToPath(path);
-}
-
-function getTaskOutline(x, y, width, height) {
-  let r = CHOREO_TASK_ROUNDING;
-  let path = [
-    ['M', x + r, y],
-    ['a', r, r, 0, 0, 0, -r, r],
-    ['l', 0, height - 2 * r],
-    ['a', r, r, 0, 0, 0, r, r],
-    ['l', width - 2 * r, 0],
-    ['a', r, r, 0, 0, 0, r, -r],
-    ['l', 0, -height + 2 * r],
-    ['a', r, r, 0, 0, 0, -r, -r],
-    ['z']
-  ];
-  return componentsToPath(path);
-}
-
-function getParticipantBandOutline(x, y, width, height, participantBandKind) {
-  let path;
-  let r = CHOREO_TASK_ROUNDING;
-  participantBandKind = participantBandKind || 'top_initiating';
-  if (participantBandKind.startsWith('top')) {
-    path = [
-      ['M', x, y + height],
-      ['l', width, 0],
-      ['l', 0, -height + r],
-      ['a', r, r, 0, 0, 0, -r, -r],
-      ['l', -width + 2 * r, 0],
-      ['a', r, r, 0, 0, 0, -r, r],
-      ['z']
-    ];
-  } else if (participantBandKind.startsWith('bottom')) {
-    path = [
-      ['M', x + width, y],
-      ['l', -width, 0],
-      ['l', 0, height - r],
-      ['a', r, r, 0, 0, 0, r, r],
-      ['l', width - 2 * r, 0],
-      ['a', r, r, 0, 0, 0, r, -r],
-      ['z']
-    ];
-  } else {
-    path = [
-      ['M', x, y + height],
-      ['l', width, 0],
-      ['l', 0, -height],
-      ['l', -width, 0],
-      ['z']
-    ];
-  }
-  return componentsToPath(path);
-}
-
 /**
- * A renderer that knows how to render choreography diagrams.
+ * A renderer for BPMN 2.0 choreography diagrams.
  */
-export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) {
+export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) {
 
   BaseRenderer.call(this, eventBus, 2000);
 
@@ -364,18 +289,18 @@ export default function CustomRenderer(eventBus, styles, textRenderer, pathMap) 
   }
 }
 
-inherits(CustomRenderer, BaseRenderer);
+inherits(ChoreoRenderer, BaseRenderer);
 
-CustomRenderer.$inject = ['eventBus', 'styles', 'textRenderer', 'pathMap'];
+ChoreoRenderer.$inject = ['eventBus', 'styles', 'textRenderer', 'pathMap'];
 
 
-CustomRenderer.prototype.canRender = function(element) {
+ChoreoRenderer.prototype.canRender = function(element) {
   return element.type === 'bpmn:ChoreographyTask' ||
     element.type === 'bpmn:SubChoreography' ||
     element.type === 'bpmn:Participant';
 };
 
-CustomRenderer.prototype.drawShape = function(p, element) {
+ChoreoRenderer.prototype.drawShape = function(p, element) {
   var type = element.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
@@ -385,7 +310,7 @@ CustomRenderer.prototype.drawShape = function(p, element) {
   }
 };
 
-CustomRenderer.prototype.getShapePath = function(shape) {
+ChoreoRenderer.prototype.getShapePath = function(shape) {
   var type = shape.type;
 
   if (type === 'bpmn:ChoreographyTask' || type === 'bpmn:SubChoreography') {
@@ -394,3 +319,78 @@ CustomRenderer.prototype.getShapePath = function(shape) {
     return getParticipantBandOutline(shape.x, shape.y, shape.width, shape.height, shape.diBand.participantBandKind);
   }
 };
+
+function translate(x, y, object) {
+  let group = svgAttr(svgCreate('g'), {
+    transform: 'translate(' + x + ', ' + y + ')'
+  });
+  svgAppend(group, object);
+  return group;
+}
+
+function getEnvelopePath(width, height) {
+  let flap = height * 0.6;
+  let path = [
+    ['M', 0, 0],
+    ['l', 0, height],
+    ['l', width, 0],
+    ['l', 0, -height],
+    ['z'],
+    ['M', 0, 0],
+    ['l', width / 2., flap],
+    ['l', width / 2., -flap]
+  ];
+  return componentsToPath(path);
+}
+
+function getTaskOutline(x, y, width, height) {
+  let r = CHOREO_TASK_ROUNDING;
+  let path = [
+    ['M', x + r, y],
+    ['a', r, r, 0, 0, 0, -r, r],
+    ['l', 0, height - 2 * r],
+    ['a', r, r, 0, 0, 0, r, r],
+    ['l', width - 2 * r, 0],
+    ['a', r, r, 0, 0, 0, r, -r],
+    ['l', 0, -height + 2 * r],
+    ['a', r, r, 0, 0, 0, -r, -r],
+    ['z']
+  ];
+  return componentsToPath(path);
+}
+
+function getParticipantBandOutline(x, y, width, height, participantBandKind) {
+  let path;
+  let r = CHOREO_TASK_ROUNDING;
+  participantBandKind = participantBandKind || 'top_initiating';
+  if (participantBandKind.startsWith('top')) {
+    path = [
+      ['M', x, y + height],
+      ['l', width, 0],
+      ['l', 0, -height + r],
+      ['a', r, r, 0, 0, 0, -r, -r],
+      ['l', -width + 2 * r, 0],
+      ['a', r, r, 0, 0, 0, -r, r],
+      ['z']
+    ];
+  } else if (participantBandKind.startsWith('bottom')) {
+    path = [
+      ['M', x + width, y],
+      ['l', -width, 0],
+      ['l', 0, height - r],
+      ['a', r, r, 0, 0, 0, r, r],
+      ['l', width - 2 * r, 0],
+      ['a', r, r, 0, 0, 0, r, -r],
+      ['z']
+    ];
+  } else {
+    path = [
+      ['M', x, y + height],
+      ['l', width, 0],
+      ['l', 0, -height],
+      ['l', -width, 0],
+      ['z']
+    ];
+  }
+  return componentsToPath(path);
+}

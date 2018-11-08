@@ -4,10 +4,9 @@ import {
 
 
 /**
- * A palette that allows you to create BPMN _and_ custom elements.
+ * A provider responsible for populating the palette.
  */
-export default function PaletteProvider(palette, create, elementFactory, spaceTool, lassoTool) {
-
+export default function ChoreoPaletteProvider(palette, create, elementFactory, spaceTool, lassoTool) {
   this._create = create;
   this._elementFactory = elementFactory;
   this._spaceTool = spaceTool;
@@ -16,7 +15,7 @@ export default function PaletteProvider(palette, create, elementFactory, spaceTo
   palette.registerProvider(this);
 }
 
-PaletteProvider.$inject = [
+ChoreoPaletteProvider.$inject = [
   'palette',
   'create',
   'elementFactory',
@@ -24,9 +23,12 @@ PaletteProvider.$inject = [
   'lassoTool'
 ];
 
-
-PaletteProvider.prototype.getPaletteEntries = function(element) {
-
+/**
+ * @param {Object} element (not provided by caller and not used)
+ *
+ * @return {Object} an object containing the palette specification
+ */
+ChoreoPaletteProvider.prototype.getPaletteEntries = function(element) {
   var actions  = {},
       create = this._create,
       elementFactory = this._elementFactory,
@@ -34,7 +36,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       lassoTool = this._lassoTool;
 
   function createAction(type, group, className, title, options) {
-
     function createListener(event) {
       var shape = elementFactory.createShape(assign({ type: type }, options));
 
@@ -84,37 +85,61 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
       separator: true
     },
     'create.choreography-task': createAction(
-      'bpmn:ChoreographyTask', 'choreography', 'choreo-icon-choreography-task'
+      'bpmn:ChoreographyTask',
+      'choreography',
+      'choreo-icon-choreography-task'
     ),
     'create.subchoreography-collapsed': createAction(
-      'bpmn:SubChoreography', 'activity', 'choreo-icon-subchoreography-collapsed', 'Create collapsed SubChoreography',
+      'bpmn:SubChoreography',
+      'choreography',
+      'choreo-icon-subchoreography-collapsed',
+      'Create collapsed SubChoreography',
       { isExpanded: false }
     ),
     'create.subchoreography-expanded': createAction(
-      'bpmn:SubChoreography', 'activity', 'choreo-icon-subchoreography-expanded', 'Create expanded SubChoreography',
+      'bpmn:SubChoreography',
+      'choreography',
+      'choreo-icon-subchoreography-expanded',
+      'Create expanded SubChoreography',
       { isExpanded: true }
     ),
-    'custom-separator': {
-      group: 'custom',
+    'choreo-separator': {
+      group: 'choreography',
       separator: true
     },
     'create.start-event': createAction(
-      'bpmn:StartEvent', 'event', 'bpmn-icon-start-event-none'
+      'bpmn:StartEvent',
+      'event',
+      'bpmn-icon-start-event-none'
     ),
     'create.intermediate-event': createAction(
-      'bpmn:IntermediateThrowEvent', 'event', 'bpmn-icon-intermediate-event-none'
+      'bpmn:IntermediateThrowEvent',
+      'event',
+      'bpmn-icon-intermediate-event-none'
     ),
     'create.end-event': createAction(
-      'bpmn:EndEvent', 'event', 'bpmn-icon-end-event-none'
+      'bpmn:EndEvent',
+      'event',
+      'bpmn-icon-end-event-none'
     ),
+    'event-separator': {
+      group: 'event',
+      separator: true
+    },
     'create.exclusive-gateway': createAction(
-      'bpmn:ExclusiveGateway', 'gateway', 'bpmn-icon-gateway-xor'
+      'bpmn:ExclusiveGateway',
+      'gateway',
+      'bpmn-icon-gateway-xor'
     ),
     'create.parallel-gateway': createAction(
-      'bpmn:ParallelGateway', 'gateway', 'bpmn-icon-gateway-parallel'
+      'bpmn:ParallelGateway',
+      'gateway',
+      'bpmn-icon-gateway-parallel'
     ),
     'create.event-based-gateway': createAction(
-      'bpmn:EventBasedGateway', 'gateway', 'bpmn-icon-gateway-eventbased'
+      'bpmn:EventBasedGateway',
+      'gateway',
+      'bpmn-icon-gateway-eventbased'
     )
   });
 
