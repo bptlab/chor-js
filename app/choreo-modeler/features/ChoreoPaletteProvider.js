@@ -87,15 +87,15 @@ ChoreoPaletteProvider.prototype.getPaletteEntries = function(element) {
       'bpmn:ChoreographyTask', 'choreography', 'choreo-icon-choreography-task'
     ),
     'create.subchoreography-collapsed': createAction(
-      'bpmn:SubChoreography', 'activity', 'choreo-icon-subchoreography-collapsed', 'Create collapsed SubChoreography',
+      'bpmn:SubChoreography', 'choreography', 'choreo-icon-subchoreography-collapsed', 'Create collapsed SubChoreography',
       { isExpanded: false }
     ),
     'create.subchoreography-expanded': createAction(
-      'bpmn:SubChoreography', 'activity', 'choreo-icon-subchoreography-expanded', 'Create expanded SubChoreography',
+      'bpmn:SubChoreography', 'choreography', 'choreo-icon-subchoreography-expanded', 'Create expanded SubChoreography',
       { isExpanded: true }
     ),
-    'custom-separator': {
-      group: 'custom',
+    'choreo-separator': {
+      group: 'choreography',
       separator: true
     },
     'create.start-event': createAction(
@@ -107,6 +107,10 @@ ChoreoPaletteProvider.prototype.getPaletteEntries = function(element) {
     'create.end-event': createAction(
       'bpmn:EndEvent', 'event', 'bpmn-icon-end-event-none'
     ),
+    'event-separator': {
+      group: 'event',
+      separator: true
+    },
     'create.exclusive-gateway': createAction(
       'bpmn:ExclusiveGateway', 'gateway', 'bpmn-icon-gateway-xor'
     ),

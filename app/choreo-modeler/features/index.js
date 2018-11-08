@@ -7,7 +7,7 @@ import ChoreoContextPadProvider from './ChoreoContextPadProvider';
 
 export default {
   __init__: [
-    'customRenderer',
+    'choreoRenderer',
     'elementFactory',
     'paletteProvider',
     'bpmnRules',
@@ -15,7 +15,7 @@ export default {
     'contextPadProvider'
   ],
   elementFactory: [ 'type', ChoreoElementFactory ],
-  customRenderer: [ 'type', ChoreoRenderer ],
+  choreoRenderer: [ 'type', ChoreoRenderer ],
   paletteProvider: [ 'type', ChoreoPaletteProvider ],
   bpmnRules: [ 'type', ChoreoRules ],
   bpmnUpdater: [ 'type', ChoreoUpdater ],
