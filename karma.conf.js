@@ -3,7 +3,7 @@
 // configures browsers to run test against
 // any of [ 'ChromeHeadless', 'Chrome', 'Firefox', 'IE', 'PhantomJS' ]
 var browsers =
-  (process.env.TEST_BROWSERS || 'PhantomJS')
+  (process.env.TEST_BROWSERS || 'ChromeHeadless')
     .replace(/^\s+|\s+$/, '')
     .split(/\s*,\s*/g)
     .map(function(browser) {
@@ -14,6 +14,7 @@ var browsers =
         if (process.platform === 'linux') {
           return 'ChromeHeadless_Linux';
         }
+        return browser;
       } else {
         return browser;
       }
