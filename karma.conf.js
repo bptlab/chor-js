@@ -9,11 +9,6 @@ var browsers =
     .map(function(browser) {
       if (browser === 'ChromeHeadless') {
         process.env.CHROME_BIN = require('puppeteer').executablePath();
-
-        // workaround https://github.com/GoogleChrome/puppeteer/issues/290
-        if (process.platform === 'linux') {
-          return 'ChromeHeadless_Linux';
-        }
         return browser;
       } else {
         return browser;
