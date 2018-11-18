@@ -96,14 +96,26 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
     /*
      * For participant bands, the DI object is not as easy to get as there can
      * be multiple bands for the same semantic object (i.e., a bpmn:Participant).
-     * For that reason, we have to iterate through all band DIs of the activity
-     * and find the right one.
+     * For that reason, we have to iterate through all band DIs and find the right one.
      */
-    di = parentElement.diBands.find(diBand => {
-      return diBand.bpmnElement === semantic;
-    });
+    di = semantic.di.$parent.planeElement.find(
+      diBand => diBand.choreographyActivityShape === parentElement.businessObject.di && diBand.bpmnElement === semantic
+    );
   } else {
     di = semantic.di;
+  }
+
+  /**
+   * For choreography activities, we order the participants according
+   * to the y position of their band.
+   */
+  if (isChoreoActivity) {
+    let participants = semantic.participantRefs;
+    participants.forEach(participant => {
+      participant.diTemp = semantic.di.$parent.planeElement.find(
+        diBand => diBand.choreographyActivityShape === parentElement.businessObject.di && diBand.bpmnElement === semantic
+      );
+    })
   }
 
   var parentIndex;
@@ -136,15 +148,10 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
       height: Math.round(bounds.height)
     });
 
-    // choreography activity shapes need references to the band shapes and
-    // band DIs
+    // choreography activity shapes need references to the band shapes
     if (isChoreoActivity) {
-      let diBands = semantic.di.$parent.planeElement.filter(
-        diBand => diBand.choreographyActivityShape === di
-      );
       data = assign(data, {
-        bandShapes: [],
-        diBands: diBands
+        bandShapes: []
       });
     }
 
