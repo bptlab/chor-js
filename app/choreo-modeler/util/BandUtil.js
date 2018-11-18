@@ -13,8 +13,6 @@ export function hasBandMarker(bandShape) {
   return multiplicity && multiplicity.maximum > 1;
 }
 
-//export function orderAndResizeBands
-
 /**
  * Return the bounds of the n-th participant band of the given choreography activity.
  * The bands are numbered from top to bottom.

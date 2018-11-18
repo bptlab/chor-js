@@ -18,6 +18,10 @@ import {
   isExpanded
 } from 'bpmn-js/lib/util/DiUtil';
 
+import {
+  calculateBandBounds
+} from '../util/BandUtil';
+
 function elementToString(e) {
   if (!e) {
     return '<null>';
@@ -112,10 +116,14 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
   if (isChoreoActivity) {
     let participants = semantic.participantRefs;
     participants.forEach(participant => {
-      participant.diTemp = semantic.di.$parent.planeElement.find(
-        diBand => diBand.choreographyActivityShape === parentElement.businessObject.di && diBand.bpmnElement === semantic
+      participant.diBand = semantic.di.$parent.planeElement.find(
+        diBand => diBand.choreographyActivityShape === di && diBand.bpmnElement === participant
       );
-    })
+    });
+    participants.sort((left, right) => left.diBand.bounds.y - right.diBand.bounds.y);
+    participants.forEach(participant => {
+      delete participant.diBand;
+    });
   }
 
   var parentIndex;
@@ -138,6 +146,14 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
     hidden = parentElement && (parentElement.hidden || parentElement.collapsed);
 
     var bounds = di.bounds;
+
+    // participant band positions are recalculated
+    if (isParticipantBand) {
+      bounds = calculateBandBounds(
+        parentElement,
+        parentElement.
+      )
+    }
 
     var data = elementData(semantic, {
       collapsed: collapsed,

@@ -86,7 +86,6 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
       }, boundsB));
 
       shape.bandShapes = [ shapeA, shapeB ];
-      shape.diBands = [ diA, diB ];
 
       canvas.addShape(shapeA, shape, 0);
       canvas.addShape(shapeB, shape, 0);
