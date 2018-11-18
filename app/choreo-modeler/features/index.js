@@ -1,3 +1,5 @@
+import BehaviorModule from './behavior';
+
 import ChoreoElementFactory from './ChoreoElementFactory';
 import ChoreoRenderer from './ChoreoRenderer';
 import ChoreoPaletteProvider from './ChoreoPaletteProvider';
@@ -13,6 +15,9 @@ export default {
     'bpmnRules',
     'bpmnUpdater',
     'contextPadProvider'
+  ],
+  __depends__: [
+    BehaviorModule
   ],
   elementFactory: [ 'type', ChoreoElementFactory ],
   choreoRenderer: [ 'type', ChoreoRenderer ],

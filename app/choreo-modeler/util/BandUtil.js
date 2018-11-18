@@ -1,3 +1,5 @@
+const BAND_HEIGHT = 20;
+
 /**
  * Find the gap in the bands, i.e., spliting them in top and bottom bands
  * @param bandShapes
@@ -14,6 +16,34 @@ function findBandGapIndex(bandShapes) {
     }
   }
   return breakIndex;
+}
+
+/**
+ * Return the bounds of the n-th participant band
+ * of the given choreography activity. The ordering is
+ * alternating from top to bottom bands.
+ *
+ * /---\
+ *   0
+ *   2
+ *
+ *  ...
+ *
+ *   3
+ *   1
+ * \---/
+ *
+ * @param {Object} taskShape shape of the choreo activity
+ * @param {Number} bandIndex index of the band
+ */
+export function getBandBounds(taskShape, bandIndex) {
+  let offset = Math.ceil(bandIndex / 2) * BAND_HEIGHT;
+  return {
+    x: taskShape.x,
+    y: taskShape.y + ((bandIndex % 2 == 0) ? offset : (taskShape.height - offset)),
+    width: taskShape.width,
+    height: BAND_HEIGHT
+  }
 }
 
 /**
