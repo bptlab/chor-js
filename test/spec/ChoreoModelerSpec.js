@@ -5,7 +5,7 @@ import TestContainer from 'mocha-test-container-support';
 import ChoreoModeler from '../../app/choreo-modeler';
 
 
-describe('choreo modelerr', function() {
+describe('choreo modeler', function() {
   const choreoWithMultiplicities = require('../../resources/tasksWithMultiplicities.bpmn');
   const choreoWithLoops = require('../../resources/tasksWithLoopType.bpmn');
 
@@ -23,13 +23,13 @@ describe('choreo modelerr', function() {
    */
   function createModeler(xml, importDone) {
 
-    const modelerr = new ChoreoModeler({
+    const modeler = new ChoreoModeler({
       container: container
     });
 
-    const elementRegistry = modelerr.get('elementRegistry');
+    const elementRegistry = modeler.get('elementRegistry');
 
-    modelerr.importXML(xml, (err, warnings) => importDone(modelerr, elementRegistry, err, warnings));
+    modeler.importXML(xml, (err, warnings) => importDone(modeler, elementRegistry, err, warnings));
   }
 
   /**
@@ -46,35 +46,35 @@ describe('choreo modelerr', function() {
   describe('choreo import', function() {
 
     it.skip('should have no warnings on import of choreo with multiplicities', function(done) {
-      createModeler(choreoWithMultiplicities, function(modelerr, elemReg, err, warnings) {
+      createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
       });
     });
 
     it('should have no error on import of choreo with multiplicities', function(done) {
-      createModeler(choreoWithMultiplicities, function(modelerr, elemReg, err, warnings) {
+      createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
         expect(err).to.be.undefined;
         done();
       });
     });
 
     it.skip('should have no warnings on import of choreo with loops', function(done) {
-      createModeler(choreoWithLoops, function(modelerr, elemReg, err, warnings) {
+      createModeler(choreoWithLoops, function(modeler, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
       });
     });
 
     it('should have no error on import of choreo with loops', function(done) {
-      createModeler(choreoWithLoops, function(modelerr, elemReg, err, warnings) {
+      createModeler(choreoWithLoops, function(modeler, elemReg, err, warnings) {
         expect(err).to.be.undefined;
         done();
       });
     });
 
     it('should have correct choreo names', function(done) {
-      createModeler(choreoWithMultiplicities, function(modelerr, elemReg) {
+      createModeler(choreoWithMultiplicities, function(modeler, elemReg) {
         let choreoTask_1 = elemReg.get('ChoreographyTask_1').businessObject;
         expect(choreoTask_1.name).to.eql('Task 1');
         done();
@@ -82,7 +82,7 @@ describe('choreo modelerr', function() {
     });
 
     it('should have standard loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modelerr, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_2').businessObject;
         expect(businessObject.loopType).to.equal('Standard');
         const gfx = elemReg.getGraphics('ChoreographyTask_2');
