@@ -6,7 +6,7 @@ import ChoreoModeler from '../../app/choreo-modeler';
 
 
 describe('choreo modeler', function() {
-  const choreWithMultiplicities = require('../../resources/tasksWithMultiplicities.bpmn');
+  const choreoWithMultiplicities = require('../../resources/tasksWithMultiplicities.bpmn');
   const choreoWithLoops = require('../../resources/tasksWithLoopType.bpmn');
 
   let container;
@@ -38,7 +38,7 @@ describe('choreo modeler', function() {
    * error, and warnings
    */
   function createModelerForEachDiagram(importDone) {
-    const allDiagrams = [choreoWithLoops, choreWithMultiplicities];
+    const allDiagrams = [choreoWithLoops, choreoWithMultiplicities];
     allDiagrams.forEach(xml => createModeler(xml, importDone));
   }
 
@@ -46,14 +46,14 @@ describe('choreo modeler', function() {
   describe('choreo import', function() {
 
     it.skip('should have no warnings on import of choreo with multiplicities', function(done) {
-      createModeler(choreWithMultiplicities, function(modeler, elemReg, err, warnings) {
+      createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
       });
     });
 
     it('should have no error on import of choreo with multiplicities', function(done) {
-      createModeler(choreWithMultiplicities, function(modeler, elemReg, err, warnings) {
+      createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
         expect(err).to.be.undefined;
         done();
       });
@@ -74,7 +74,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have correct choreo names', function(done) {
-      createModeler(choreWithMultiplicities, function(modeler, elemReg) {
+      createModeler(choreoWithMultiplicities, function(modeler, elemReg) {
         let choreoTask_1 = elemReg.get('ChoreographyTask_1').businessObject;
         expect(choreoTask_1.name).to.eql('Task 1');
         done();
@@ -82,7 +82,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have standard loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modele, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_2').businessObject;
         expect(businessObject.loopType).to.equal('Standard');
         const gfx = elemReg.getGraphics('ChoreographyTask_2');
@@ -143,10 +143,10 @@ describe('choreo modeler', function() {
       });
     });
 
-    it('should have at least two participants for each ChoreoTask', function(done) {
+    it('should have exactly two participants for each ChoreoTask', function(done) {
       createModelerForEachDiagram(function(modele, elemReg) {
         elemReg.filter(shape => shape.type === 'bpmn:ChoreographyTask').forEach(
-          choreoTask => expect(choreoTask.businessObject.participantRefs, 'Participants').to.have.lengthOf.at.least(2)
+          choreoTask => expect(choreoTask.businessObject.participantRefs, 'Participants').to.have.lengthOf(2)
         );
         done();
       });
