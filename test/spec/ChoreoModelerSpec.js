@@ -5,7 +5,7 @@ import TestContainer from 'mocha-test-container-support';
 import ChoreoModeler from '../../app/choreo-modeler';
 
 
-describe('choreo modeler', function() {
+describe('choreo modelerr', function() {
   const choreoWithMultiplicities = require('../../resources/tasksWithMultiplicities.bpmn');
   const choreoWithLoops = require('../../resources/tasksWithLoopType.bpmn');
 
@@ -23,13 +23,13 @@ describe('choreo modeler', function() {
    */
   function createModeler(xml, importDone) {
 
-    const modeler = new ChoreoModeler({
+    const modelerr = new ChoreoModeler({
       container: container
     });
 
-    const elementRegistry = modeler.get('elementRegistry');
+    const elementRegistry = modelerr.get('elementRegistry');
 
-    modeler.importXML(xml, (err, warnings) => importDone(modeler, elementRegistry, err, warnings));
+    modelerr.importXML(xml, (err, warnings) => importDone(modelerr, elementRegistry, err, warnings));
   }
 
   /**
@@ -46,35 +46,35 @@ describe('choreo modeler', function() {
   describe('choreo import', function() {
 
     it.skip('should have no warnings on import of choreo with multiplicities', function(done) {
-      createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
+      createModeler(choreoWithMultiplicities, function(modelerr, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
       });
     });
 
     it('should have no error on import of choreo with multiplicities', function(done) {
-      createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
+      createModeler(choreoWithMultiplicities, function(modelerr, elemReg, err, warnings) {
         expect(err).to.be.undefined;
         done();
       });
     });
 
     it.skip('should have no warnings on import of choreo with loops', function(done) {
-      createModeler(choreoWithLoops, function(modeler, elemReg, err, warnings) {
+      createModeler(choreoWithLoops, function(modelerr, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
       });
     });
 
     it('should have no error on import of choreo with loops', function(done) {
-      createModeler(choreoWithLoops, function(modeler, elemReg, err, warnings) {
+      createModeler(choreoWithLoops, function(modelerr, elemReg, err, warnings) {
         expect(err).to.be.undefined;
         done();
       });
     });
 
     it('should have correct choreo names', function(done) {
-      createModeler(choreoWithMultiplicities, function(modeler, elemReg) {
+      createModeler(choreoWithMultiplicities, function(modelerr, elemReg) {
         let choreoTask_1 = elemReg.get('ChoreographyTask_1').businessObject;
         expect(choreoTask_1.name).to.eql('Task 1');
         done();
@@ -82,7 +82,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have standard loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modeler, elemReg) {
+      createModeler(choreoWithLoops, function(modelerr, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_2').businessObject;
         expect(businessObject.loopType).to.equal('Standard');
         const gfx = elemReg.getGraphics('ChoreographyTask_2');
@@ -93,7 +93,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have parallel loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modele, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_3').businessObject;
         expect(businessObject.loopType).to.equal('MultiInstanceParallel');
         const gfx = elemReg.getGraphics('ChoreographyTask_3');
@@ -104,7 +104,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have sequential loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modele, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_4').businessObject;
         expect(businessObject.loopType).to.equal('MultiInstanceSequential');
         const gfx = elemReg.getGraphics('ChoreographyTask_4');
@@ -115,7 +115,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have sequential loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modele, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_4').businessObject;
         expect(businessObject.loopType).to.equal('MultiInstanceSequential');
         const gfx = elemReg.getGraphics('ChoreographyTask_4');
@@ -126,7 +126,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have correct bpmn:ChoreographyTask type for Choreo Tasks', function(done) {
-      createModeler(choreoWithLoops, function(modele, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const choreoTask = elemReg.get('ChoreographyTask_1');
         expect(choreoTask.businessObject.$type).to.equal('bpmn:ChoreographyTask');
         expect(choreoTask.type).to.equal('bpmn:ChoreographyTask');
@@ -135,7 +135,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have one initiating participant', function(done) {
-      createModeler(choreoWithLoops, function(modele, elemReg) {
+      createModeler(choreoWithLoops, function(modeler, elemReg) {
         const businessObject = elemReg.get('ChoreographyTask_1').businessObject;
         expect(businessObject.initiatingParticipantRef).to.exist;
         expect(businessObject.initiatingParticipantRef.$type).to.equal('bpmn:Participant');
@@ -144,7 +144,7 @@ describe('choreo modeler', function() {
     });
 
     it('should have exactly two participants for each ChoreoTask', function(done) {
-      createModelerForEachDiagram(function(modele, elemReg) {
+      createModelerForEachDiagram(function(modeler, elemReg) {
         elemReg.filter(shape => shape.type === 'bpmn:ChoreographyTask').forEach(
           choreoTask => expect(choreoTask.businessObject.participantRefs, 'Participants').to.have.lengthOf(2)
         );
