@@ -145,7 +145,7 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
         x: di.bounds.x,
         width: di.bounds.width,
         height: getBandHeight(diBand.bpmnElement)
-      }
+      };
     });
 
     // then, set the y position for all top bands

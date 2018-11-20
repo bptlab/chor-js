@@ -53,7 +53,7 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
 }
 
 export function heightOfBottomBands(taskShape) {
-  const bottomBands = sortedBands.slice(getGapIndex(taskShape.bandShapes.length));
-  const totalHeight = bottomBands.reduce((sum, band) => sum + band.bounds.height, 0);
+  const bottomBands = taskShape.bandShapes.slice(getBandGapIndex(taskShape.bandShapes.length));
+  const totalHeight = bottomBands.reduce((sum, bandShape) => sum + bandShape.diBand.bounds.height, 0);
   return totalHeight;
 }
