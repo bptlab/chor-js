@@ -16,7 +16,7 @@ import {
  */
 export default function ChoreoUpdater(
     eventBus, bpmnFactory, connectionDocking,
-    translate, elementRegistry) {
+    translate) {
 
   BpmnUpdater.call(this, eventBus, bpmnFactory, connectionDocking, translate);
 
@@ -28,9 +28,8 @@ export default function ChoreoUpdater(
     resizeBands(context.shape, oldBounds, newBounds);
     // fire a shape.changed event for each band so they get properly updated
     context.shape.bandShapes.forEach(bandShape => {
-      eventBus.fire('shape.changed', {
-        element: bandShape,
-        gfx: elementRegistry.getGraphics(bandShape)
+      eventBus.fire('element.changed', {
+        element: bandShape
       });
     });
   }
@@ -75,8 +74,7 @@ ChoreoUpdater.$inject = [
   'eventBus',
   'bpmnFactory',
   'connectionDocking',
-  'translate',
-  'elementRegistry'
+  'translate'
 ];
 
 ChoreoUpdater.prototype.updateParent = function(element, oldParent) {
