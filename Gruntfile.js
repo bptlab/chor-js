@@ -106,8 +106,7 @@ module.exports = function(grunt) {
 
       less: {
         files: [
-          'styles/**/*.less',
-          'node_modules/bpmn-js-properties-panel/styles/**/*.less'
+          'styles/**/*.less'
         ],
         tasks: [
           'less'

@@ -55,7 +55,6 @@
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "bpmn-js": "^2.5.2",
-    "bpmn-js-properties-panel": "^0.26.2",
     "diagram-js": "^2.0.0",
     "inherits": "^2.0.1",
     "jquery": "^3.3.1",
