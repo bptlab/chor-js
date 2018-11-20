@@ -16,7 +16,9 @@ import {
 } from 'min-dash';
 
 import {
-  heightOfBottomBands
+  heightOfBottomBands,
+  heightOfTopBands,
+  hasBandMarker,
 } from '../util/BandUtil';
 
 import {
@@ -31,6 +33,7 @@ let CHOREO_TASK_ROUNDING = 10;
 let MESSAGE_WIDTH = 35;
 let MESSAGE_HEIGHT = MESSAGE_WIDTH / 7 * 5;
 let MESSAGE_DISTANCE = 20;
+let MARKER_HEIGHT = 15;
 
 /**
  * A renderer for BPMN 2.0 choreography diagrams.
@@ -130,7 +133,7 @@ export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) 
       x: 0,
       y: 0,
       width: element.width,
-      height: element.height
+      height: element.height - ((hasBandMarker(element.businessObject)) ? MARKER_HEIGHT : 0)
     }, 'center-middle');
     svgAppend(group, label);
 
@@ -150,11 +153,8 @@ export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) 
     });
     svgAppend(group, shape);
 
-    //TODO the size of the label should be determined by the participant bands, i.e.,
-    //it should extend from the bottom of the last participant band on the top to the
-    //top of the first participant band on the bottom
-    let top = 0;
-    let bottom = element.height;
+    let top = heightOfTopBands(element);
+    let bottom = element.height - heightOfBottomBands(element);
     let align = 'center-middle';
     if (element.type === 'bpmn:SubChoreography' && !element.collapsed) {
       align = 'left';
@@ -237,7 +237,7 @@ export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) 
         containerHeight: element.height,
         position: {
           mx: ((element.width / 2 - 6) / element.width),
-          my: (element.height - 20 - 20) / element.height
+          my: (element.height - 20 - bottomBandHeight) / element.height
         }
       });
 
@@ -252,8 +252,7 @@ export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) 
   function attachMarkerToParticipant(parentGfx, element) {
     const defaultFillColor = 'transparent';
     const defaultStrokeColor = 'black';
-    const multiplicity = element.businessObject.participantMultiplicity;
-    if (multiplicity && multiplicity.maximum > 1) {
+    if (hasBandMarker(element.businessObject)) {
       const markerPath = pathMap.getScaledPath('MARKER_PARALLEL', {
         xScaleFactor: 1,
         yScaleFactor: 1,
@@ -261,7 +260,7 @@ export default function ChoreoRenderer(eventBus, styles, textRenderer, pathMap) 
         containerHeight: element.height,
         position: {
           mx: ((element.width / 2 - 6) / element.width),
-          my: (element.height - 15) / element.height
+          my: (element.height - MARKER_HEIGHT) / element.height
         }
       });
       drawMarker('participant-multiplicity', parentGfx, markerPath, {

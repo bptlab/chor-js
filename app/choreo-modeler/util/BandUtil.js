@@ -52,8 +52,24 @@ export function resizeBands(activityShape, oldBounds, newBounds) {
   });
 }
 
+export function heightOfTopBands(activityShape) {
+  // Calculate using the participants directly because when this method is called
+  // the participant bands might not have been created yet.
+  let participants = activityShape.businessObject.participantRefs;
+  let totalHeight = 0;
+  for (let i = 0; i < getBandGapIndex(participants.length); i++) {
+    totalHeight += getBandHeight(participants[i]);
+  }
+  return totalHeight;
+}
+
 export function heightOfBottomBands(activityShape) {
-  const bottomBands = activityShape.bandShapes.slice(getBandGapIndex(activityShape.bandShapes.length));
-  const totalHeight = bottomBands.reduce((sum, bandShape) => sum + bandShape.diBand.bounds.height, 0);
+  // Calculate using the participants directly because when this method is called
+  // the participant bands might not have been created yet.
+  let participants = activityShape.businessObject.participantRefs;
+  let totalHeight = 0;
+  for (let i = getBandGapIndex(participants.length); i < participants.length; i++) {
+    totalHeight += getBandHeight(participants[i]);
+  }
   return totalHeight;
 }
