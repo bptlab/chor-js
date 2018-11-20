@@ -32,6 +32,7 @@ MoveParticipantBandHandler.prototype.moveBand = function(activityShape, bandShap
 
   // swap the bands if we are moving downwards so we always move upwards
   if (!upwards) {
+    upwards = true;
     index++;
     bandShape = bandShapes[index];
   }
@@ -40,6 +41,12 @@ MoveParticipantBandHandler.prototype.moveBand = function(activityShape, bandShap
   // swap shapes in original array
   bandShapes[index] = swapBandShape;
   bandShapes[index - 1] = bandShape;
+
+  // swap participants in the business object
+  let participantRefs = activityShape.businessObject.participantRefs;
+  let swapParticipant = participantRefs[index];
+  participantRefs[index] = participantRefs[index - 1];
+  participantRefs[index - 1] = swapParticipant;
 
   // calculate the new y coordinate of the two shapes
   let newY = swapBandShape.y;
@@ -72,6 +79,11 @@ MoveParticipantBandHandler.prototype.moveBand = function(activityShape, bandShap
   this._eventBus.fire('element.changed', {
     element: swapBandShape
   });
+  if (index == gapIndex) {
+    this._eventBus.fire('element.changed', {
+      element: activityShape
+    });
+  }
 };
 
 MoveParticipantBandHandler.prototype.execute = function(context) {

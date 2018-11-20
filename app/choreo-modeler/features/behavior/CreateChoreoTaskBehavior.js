@@ -25,7 +25,7 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
 
   CommandInterceptor.call(this, eventBus);
 
-  this.postExecute('shape.create', function(event) {
+  this.preExecute('shape.create', function(event) {
 
     var context = event.context,
         shape = context.shape;
@@ -41,16 +41,27 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
         participants.push(participant);
         participant.name = 'Participant ' + participants.length;
       }
-      let partA = participants[0];
-      let partB = participants[1];
 
       // set the properties of the choreo activity business object
       let activity = shape.businessObject;
       activity.participantRefs = [
-        partA,
-        partB
+        participants[0],
+        participants[1]
       ];
-      activity.initiatingParticipantRef = partA;
+      activity.initiatingParticipantRef = participants[0];
+      activity.name = 'New Activity';
+    }
+  });
+
+  this.postExecute('shape.create', function(event) {
+
+    var context = event.context,
+        shape = context.shape;
+
+    if (is(shape, 'bpmn:ChoreographyActivity') && shape.type !== 'label') {
+      let partA = shape.businessObject.participantRefs[0];
+      let partB = shape.businessObject.participantRefs[1];
+      let activity = shape.businessObject;
 
       // create the participant bands
       let boundsA = {
