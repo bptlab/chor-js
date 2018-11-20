@@ -72,12 +72,12 @@ MoveParticipantBandHandler.prototype.moveBand = function(activityShape, bandShap
   this._eventBus.fire('element.changed', {
     element: swapBandShape
   });
-}
+};
 
 MoveParticipantBandHandler.prototype.execute = function(context) {
   this.moveBand(context.activityShape, context.bandShape, context.upwards);
-}
+};
 
 MoveParticipantBandHandler.prototype.revert = function(context) {
   this.moveBand(context.activityShape, context.bandShape, !context.upwards);
-}
+};

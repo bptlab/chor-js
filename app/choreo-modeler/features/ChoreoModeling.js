@@ -34,4 +34,4 @@ ChoreoModeling.prototype.moveParticipantBand = function(activityShape, bandShape
     bandShape: bandShape,
     upwards: upwards
   });
-}
+};
