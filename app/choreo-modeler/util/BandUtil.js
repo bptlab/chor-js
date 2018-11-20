@@ -1,55 +1,16 @@
 const BAND_HEIGHT = 20;
 
-function getGapIndex(taskShape) {
-  return Math.floor(taskShape.bandShapes.length / 2) + 1;
+export function getBandHeight(participant) {
+  return hasBandMarker(participant) ? Math.floor(1.8 * BAND_HEIGHT) : BAND_HEIGHT;
 }
 
-function getBandHeight(bandShape) {
-  return hasBandMarker(band) ? (2 * BAND_HEIGHT) : BAND_HEIGHT;
-}
-
-export function hasBandMarker(bandShape) {
-  let multiplicity = bandShape.businessObject.participantMultiplicity;
+export function hasBandMarker(participant) {
+  let multiplicity = participant.participantMultiplicity;
   return multiplicity && multiplicity.maximum > 1;
 }
 
-/**
- * Return the bounds of the n-th participant band of the given choreography activity.
- * The bands are numbered from top to bottom.
- *
- * /---\
- *   0
- *   1
- *
- *  ...
- *
- *  n-1
- *   n
- * \---/
- *
- * @param {Object} taskShape shape of the choreo activity
- * @param {Number} bandIndex index of the band
- */
-export function calculateBandBounds(taskShape, bandIndex) {
-  let bandShapes = taskShape.bandShapes;
-  let band = bandShapes[bandIndex];
-  let offset = 0;
-  if (bandIndex < getGapIndex(taskShape)) {
-    for (let i = 0; i < bandIndex; i++) {
-      offset += getBandHeight(bandShapes[i]);
-    }
-  } else {
-    offset = taskShape.height;
-    for (let i = bandShapes.length - 1; i >= bandIndex; i--) {
-      offset -= getBandHeight(bandShapes[i]);
-    }
-  }
-  return {
-    x: taskShape.x,
-    y: taskShape.y + offset,
-    width: taskShape.width,
-    height: getBandHeight(band)
-  }
+export function getBandGapIndex(n) {
+  return Math.ceil(n / 2);
 }
 
 /**
@@ -72,9 +33,9 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
     bandShape.diBand.bounds.width = newBounds.width;
   });
 
-  let breakIndex = getGapIndex(taskShape);
-  let topShapes = bandShapes.slice(0, breakIndex);
-  let bottomShapes = bandShapes.slice(breakIndex);
+  let gapIndex = getBandGapIndex(bandShapes.length);
+  let topShapes = bandShapes.slice(0, gapIndex);
+  let bottomShapes = bandShapes.slice(gapIndex);
 
   // move top bands up
   let deltaTop = newBounds.y - oldBounds.y;
@@ -92,7 +53,7 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
 }
 
 export function heightOfBottomBands(taskShape) {
-  const bottomBands = sortedBands.slice(getGapIndex(taskShape));
+  const bottomBands = sortedBands.slice(getGapIndex(taskShape.bandShapes.length));
   const totalHeight = bottomBands.reduce((sum, band) => sum + band.bounds.height, 0);
   return totalHeight;
 }

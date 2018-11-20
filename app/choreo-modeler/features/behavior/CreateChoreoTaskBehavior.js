@@ -5,7 +5,7 @@ import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 import IdGenerator from 'diagram-js/lib/util/IdGenerator';
 
 import {
-  getBandBounds
+  getBandHeight,
 } from '../../util/BandUtil';
 
 import {
@@ -53,7 +53,12 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
       activity.initiatingParticipantRef = partA;
 
       // create the participant bands
-      let boundsA = getBandBounds(shape, 0);
+      let boundsA = {
+        x: shape.x,
+        y: shape.y,
+        width: shape.width,
+        height: getBandHeight(partA)
+      };
       let diA = bpmnFactory.create('bpmndi:BPMNShape', {
         choreographyActivityShape: activity.di,
         bpmnElement: partA,
@@ -69,7 +74,12 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
         id: idGenerator.next()
       }, boundsA));
 
-      let boundsB = getBandBounds(shape, 1);
+      let boundsB = {
+        x: shape.x,
+        y: shape.y + shape.height - getBandHeight(partB),
+        width: shape.width,
+        height: getBandHeight(partB)
+      };
       let diB = bpmnFactory.create('bpmndi:BPMNShape', {
         choreographyActivityShape: activity.di,
         bpmnElement: partB,
