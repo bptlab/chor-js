@@ -18,12 +18,12 @@ export function getBandGapIndex(n) {
  * according to the activity's bounds. Updates both the shapes as well
  * as the underlying DI objects.
  *
- * @param {Object} taskShape shape object of the choreography activity
+ * @param {Object} activityShape shape object of the choreography activity
  * @param {Object} oldBounds old bounds of the choreography activity
  * @param {Object} newBounds new bounds of the choreography activity
  */
-export function resizeBands(taskShape, oldBounds, newBounds) {
-  let bandShapes = taskShape.bandShapes;
+export function resizeBands(activityShape, oldBounds, newBounds) {
+  let bandShapes = activityShape.bandShapes;
 
   // all bands' widths needs to be adapted
   bandShapes.forEach(bandShape => {
@@ -52,8 +52,8 @@ export function resizeBands(taskShape, oldBounds, newBounds) {
   });
 }
 
-export function heightOfBottomBands(taskShape) {
-  const bottomBands = taskShape.bandShapes.slice(getBandGapIndex(taskShape.bandShapes.length));
+export function heightOfBottomBands(activityShape) {
+  const bottomBands = activityShape.bandShapes.slice(getBandGapIndex(activityShape.bandShapes.length));
   const totalHeight = bottomBands.reduce((sum, bandShape) => sum + bandShape.diBand.bounds.height, 0);
   return totalHeight;
 }
