@@ -70,7 +70,7 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
         type: 'bpmn:Participant',
         businessObject: partA,
         diBand: diA,
-        activityShape: activity,
+        activityShape: shape,
         id: idGenerator.next()
       }, boundsA));
 
@@ -91,7 +91,7 @@ export default function CreateChoreoTaskBehavior(eventBus, bpmnFactory, canvas, 
         type: 'bpmn:Participant',
         businessObject: partB,
         diBand: diB,
-        activityShape: activity,
+        activityShape: shape,
         id: idGenerator.next()
       }, boundsB));
 
