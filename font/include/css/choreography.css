@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'choreography';
-  src: url('../font/choreography.eot?22976300');
-  src: url('../font/choreography.eot?22976300#iefix') format('embedded-opentype'),
-       url('../font/choreography.woff2?22976300') format('woff2'),
-       url('../font/choreography.woff?22976300') format('woff'),
-       url('../font/choreography.ttf?22976300') format('truetype'),
-       url('../font/choreography.svg?22976300#choreography') format('svg');
+  src: url('../font/choreography.eot?857125');
+  src: url('../font/choreography.eot?857125#iefix') format('embedded-opentype'),
+       url('../font/choreography.woff2?857125') format('woff2'),
+       url('../font/choreography.woff?857125') format('woff'),
+       url('../font/choreography.ttf?857125') format('truetype'),
+       url('../font/choreography.svg?857125#choreography') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'choreography';
-    src: url('../font/choreography.svg?22976300#choreography') format('svg');
+    src: url('../font/choreography.svg?857125#choreography') format('svg');
   }
 }
 */
@@ -39,6 +39,9 @@
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
  
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+ 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
  
@@ -50,6 +53,8 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
+.choreo-icon-up:before { content: '\e806'; } /* '' */
+.choreo-icon-down:before { content: '\e807'; } /* '' */
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
 .choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
 .choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */

@@ -47,6 +47,34 @@
       "search": [
         "subchoreography-expanded"
       ]
+    },
+    {
+      "uid": "01e6b4f3979e21a3ac51927f5c2d292a",
+      "css": "up",
+      "code": 59398,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M500 281.9L763.6 718.1 236.4 718.1Z",
+        "width": 1000
+      },
+      "search": [
+        "up"
+      ]
+    },
+    {
+      "uid": "59f29e820a587573f80f5d18ae71428f",
+      "css": "down",
+      "code": 59399,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M500 718.1L236.4 281.9 763.6 281.9Z",
+        "width": 1000
+      },
+      "search": [
+        "down"
+      ]
     }
   ]
 }

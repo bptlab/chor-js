@@ -77,6 +77,41 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     };
   }
 
+  // context pad for participant bands
+  if (is(businessObject, 'bpmn:Participant')) {
+    // move the band up/down depending on its position
+    let bandShapes = element.activityShape.bandShapes;
+    let bandCount = bandShapes.length;
+    let bandIndex = bandShapes.findIndex(shape => shape === element);
+
+    if (bandIndex > 0) {
+      // move up
+      assign(actions, {
+        'move-upwards': {
+          group: 'move',
+          className: 'choreo-icon-up',
+          title: this._translate('Move upwards'),
+          action: {
+            click: () => self._modeling.moveParticipantBand(element.activityShape, element, true)
+          }
+        }
+      });
+    }
+    if (bandIndex < bandCount - 1) {
+      // move down
+      assign(actions, {
+        'move-downwards': {
+          group: 'move',
+          className: 'choreo-icon-down',
+          title: this._translate('Move downwards'),
+          action: {
+            click: () => self._modeling.moveParticipantBand(element.activityShape, element, false)
+          }
+        }
+      });
+    }
+  }
+
   // generate the actual context pad entries based on the element type
   if (is(businessObject, 'bpmn:FlowNode')) {
     // all elements except for end events can connect to at least choreography tasks

@@ -18,6 +18,11 @@ import {
   isExpanded
 } from 'bpmn-js/lib/util/DiUtil';
 
+import {
+  getBandGapIndex,
+  getBandHeight
+} from '../util/BandUtil';
+
 function elementToString(e) {
   if (!e) {
     return '<null>';
@@ -96,14 +101,89 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
     /*
      * For participant bands, the DI object is not as easy to get as there can
      * be multiple bands for the same semantic object (i.e., a bpmn:Participant).
-     * For that reason, we have to iterate through all band DIs of the activity
-     * and find the right one.
+     * For that reason, we have to iterate through all band DIs and find the right one.
      */
-    di = parentElement.diBands.find(diBand => {
-      return diBand.bpmnElement === semantic;
-    });
+    di = semantic.di.$parent.planeElement.find(
+      diBand => diBand.choreographyActivityShape === parentElement.businessObject.di && diBand.bpmnElement === semantic
+    );
   } else {
     di = semantic.di;
+  }
+
+  /**
+   * For choreography activities, we order the participants according
+   * to the y position of their band. We then reposition and resize the
+   * bands to fit the look and feel of our modeler.
+   *
+   * On a side note, we set the properties of the di elements ourselves
+   * and largely ignore the values in the model. Most external modelers do
+   * not properly maintain these values and they can not really be trusted.
+   */
+  if (isChoreoActivity) {
+    let participants = semantic.participantRefs;
+
+    // temporarily link all participant business objects to the di band
+    // for this specific choreography activity
+    participants.forEach(participant => {
+      participant.diBand = semantic.di.$parent.planeElement.find(
+        diBand => diBand.choreographyActivityShape === di && diBand.bpmnElement === participant
+      );
+    });
+
+    // sort the participants by their y coordinate and get all the di bands
+    participants.sort((left, right) => - left.diBand.bounds.y - right.diBand.bounds.y);
+    let diBands = participants.map(participant => participant.diBand);
+
+    // remove the temporary reference to the di band we stored in participants
+    participants.forEach(participant => {
+      delete participant.diBand;
+    });
+
+    // set the bounds (except for y) for each band
+    diBands.forEach(diBand => {
+      diBand.bounds = {
+        x: di.bounds.x,
+        width: di.bounds.width,
+        height: getBandHeight(diBand.bpmnElement)
+      };
+    });
+
+    // then, set the y position for all top bands
+    for (let offset = 0, i = 0; i < getBandGapIndex(diBands.length); i++) {
+      diBands[i].bounds.y = di.bounds.y + offset;
+      offset += diBands[i].bounds.height;
+    }
+
+    // then, set the y position for all bottom bands
+    for (let offset = 0, i = diBands.length - 1; i >= getBandGapIndex(diBands.length); i--) {
+      offset += diBands[i].bounds.height;
+      diBands[i].bounds.y = di.bounds.y + di.bounds.height - offset;
+    }
+
+    // update the participant band kind of all bands
+    diBands.forEach((diBand, index) => {
+      let bandKind;
+      if (index == 0) {
+        bandKind = 'top_';
+      } else if (index == diBands.length - 1) {
+        bandKind = 'bottom_';
+      } else {
+        bandKind = 'middle_';
+      }
+      if (diBand.bpmnElement === semantic.initiatingParticipantRef) {
+        bandKind += 'initiating';
+      } else {
+        bandKind += 'non_initiating';
+      }
+      diBand.participantBandKind = bandKind;
+    });
+
+    // messages can only be visible for choreography tasks
+    if (!is(semantic, 'bpmn:ChoreographyTask')) {
+      diBands.forEach(diBand => {
+        diBand.isMessageVisible = false;
+      });
+    }
   }
 
   var parentIndex;
@@ -136,15 +216,10 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
       height: Math.round(bounds.height)
     });
 
-    // choreography activity shapes need references to the band shapes and
-    // band DIs
+    // choreography activity shapes need references to the band shapes
     if (isChoreoActivity) {
-      let diBands = semantic.di.$parent.planeElement.filter(
-        diBand => diBand.choreographyActivityShape === di
-      );
       data = assign(data, {
-        bandShapes: [],
-        diBands: diBands
+        bandShapes: []
       });
     }
 
