@@ -1,5 +1,3 @@
-@import "bpmn-js-properties-panel/styles/properties";
-
 * {
   box-sizing: border-box;
 }
@@ -77,14 +75,12 @@ a:link {
     bottom: 0;
   }
 
-  .canvas,
-  .properties-panel-parent {
+  .canvas {
     display: none;
   }
 
   &.with-diagram {
-    .canvas,
-    .properties-panel-parent  {
+    .canvas {
       display: block;
     }
   }
@@ -118,24 +114,5 @@ a:link {
 
   a.active {
     opacity: 1.0;
-  }
-}
-
-.properties-panel-parent {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 200px;
-  z-index: 10;
-  border-left: 1px solid #ccc;
-  background-color: #f8f8f8;
-  overflow: auto;
-  &:empty {
-    display: none;
-  }
-  > .djs-properties-panel {
-    padding-bottom: 70px;
-    min-height:100%;
   }
 }
