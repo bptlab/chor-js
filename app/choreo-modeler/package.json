@@ -1,0 +1,32 @@
+{
+  "name": "choreo-js",
+  "version": "1.0.0",
+  "description": "A choreography diagram rendering toolkit and web modeler.",
+  "keywords": [
+    "choreography model",
+    "distributed ledger technology",
+    "modeler",
+    "browser",
+    "choreo-js",
+    "toolkit"
+  ],
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Ladleif",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jan-ladleif/choreography-modeler"
+  },
+  "dependencies": {
+    "bpmn-js": "^3.0.2",
+    "diagram-js": "^3.0.1",
+    "min-dash": "^3.2.0",
+    "tiny-svg": "^2.2.0"
+  }
+}
