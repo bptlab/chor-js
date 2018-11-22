@@ -3,15 +3,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
-  var path = require('path');
-
-  /**
-   * Resolve external project resource as file path
-   */
-  function resolvePath(project, file) {
-    return path.join(path.dirname(require.resolve(project)), file);
-  }
-
   grunt.initConfig({
     browserify: {
       options: {
@@ -45,7 +36,7 @@ module.exports = function(grunt) {
       diagram_js: {
         files: [
           {
-            src: resolvePath('diagram-js', 'assets/diagram-js.css'),
+            src: 'app/choreo-modeler/node_modules/diagram-js/assets/diagram-js.css',
             dest: 'dist/css/diagram-js.css'
           }
         ]
@@ -54,7 +45,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: resolvePath('bpmn-js', 'dist'),
+            cwd: 'app/choreo-modeler/node_modules/bpmn-js/dist',
             src: ['**/*.*', '!**/*.js'],
             dest: 'dist/vendor/bpmn-js'
           }
@@ -64,7 +55,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'font/include',
+            cwd: 'app/choreo-modeler/assets/font/include',
             src: ['**/*.*', '!**/*.json'],
             dest: 'dist/font'
           }
