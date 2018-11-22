@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       diagram_js: {
         files: [
           {
-            src: resolvePath('diagram-js', 'assets/diagram-js.css'),
+            src: 'app/choreo-modeler/node_modules/diagram-js/assets/diagram-js.css',
             dest: 'dist/css/diagram-js.css'
           }
         ]
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: resolvePath('bpmn-js', 'dist'),
+            cwd: 'app/choreo-modeler/node_modules/bpmn-js/dist',
             src: ['**/*.*', '!**/*.js'],
             dest: 'dist/vendor/bpmn-js'
           }
