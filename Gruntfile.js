@@ -3,15 +3,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
-  var path = require('path');
-
-  /**
-   * Resolve external project resource as file path
-   */
-  function resolvePath(project, file) {
-    return path.join(path.dirname(require.resolve(project)), file);
-  }
-
   grunt.initConfig({
     browserify: {
       options: {
