@@ -9,6 +9,7 @@
     "test": "karma start",
     "bundle": "grunt build",
     "dev": "grunt auto-build",
+    "postinstall": "cd app/choreo-modeler && npm install",
     "all": "run-s lint test bundle"
   },
   "keywords": [
