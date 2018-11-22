@@ -2,12 +2,12 @@ import Modeler from 'bpmn-js/lib/Modeler';
 
 import inherits from 'inherits';
 
-import FeaturesModule from './features';
-import ImportModule from './import';
+import FeaturesModule from './lib/features';
+import ImportModule from './lib/import';
 
 import {
   importChoreoDiagram
-} from './import/ImportHandler';
+} from './lib/import/ImportHandler';
 
 
 export default function ChoreoModeler(options) {
