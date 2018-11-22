@@ -17,7 +17,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jan Ladleif",
+  "author": {
+    "name": "Jan Ladleif",
+    "url": "https://github.com/jan-ladleif"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
