@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'font/include',
+            cwd: 'app/choreo-modeler/assets/font/include',
             src: ['**/*.*', '!**/*.json'],
             dest: 'dist/font'
           }
