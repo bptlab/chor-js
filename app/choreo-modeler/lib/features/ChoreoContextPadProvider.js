@@ -87,7 +87,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     if (bandIndex > 0) {
       // move up
       assign(actions, {
-        'move-upwards': {
+        'band.move-upwards': {
           group: 'move',
           className: 'choreo-icon-up',
           title: this._translate('Move upwards'),
@@ -100,12 +100,36 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     if (bandIndex < bandCount - 1) {
       // move down
       assign(actions, {
-        'move-downwards': {
+        'band.move-downwards': {
           group: 'move',
           className: 'choreo-icon-down',
           title: this._translate('Move downwards'),
           action: {
             click: () => self._modeling.moveParticipantBand(element.activityShape, element, false)
+          }
+        }
+      });
+    }
+
+    // on sub-choreographies, we can create or delete bands
+    if (is(element.activityShape, 'bpmn:SubChoreography')) {
+      assign(actions, {
+        'band.delete': {
+          group: 'edit',
+          className: 'bpmn-icon-trash',
+          title: this._translate('Delete'),
+          action: {
+            click: () => self._modeling.deleteParticipantBand(element.activityShape, bandIndex, false, false) // TODO actual values for last two parameters
+          }
+        }
+      });
+      assign(actions, {
+        'band.create': {
+          group: 'edit',
+          className: 'bpmn-icon-task',
+          title: this._translate('Create'),
+          action: {
+            click: () => self._modeling.createParticipantBand(element.activityShape, bandIndex, false, false) // TODO actual values for last two parameters
           }
         }
       });
