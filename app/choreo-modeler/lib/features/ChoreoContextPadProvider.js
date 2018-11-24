@@ -119,7 +119,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
           className: 'bpmn-icon-trash',
           title: this._translate('Delete'),
           action: {
-            click: () => self._modeling.deleteParticipantBand(element.activityShape, bandIndex, false, false) // TODO actual values for last two parameters
+            click: () => self._modeling.deleteParticipantBand(element.activityShape, bandIndex)
           }
         }
       });
@@ -129,7 +129,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
           className: 'bpmn-icon-task',
           title: this._translate('Create'),
           action: {
-            click: () => self._modeling.createParticipantBand(element.activityShape, bandIndex, false, false) // TODO actual values for last two parameters
+            click: () => self._modeling.createParticipantBand(element.activityShape, bandIndex)
           }
         }
       });

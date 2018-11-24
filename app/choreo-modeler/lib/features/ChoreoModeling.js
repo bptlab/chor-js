@@ -43,9 +43,7 @@ ChoreoModeling.prototype.createParticipantBand = function(activityShape, index, 
   this._commandStack.execute('band.create', {
     delete: false,
     activityShape: activityShape,
-    index: index,
-    isInitiating: isInitiating,
-    isMessageVisible: isMessageVisible
+    index: index
   });
 };
 
@@ -53,8 +51,6 @@ ChoreoModeling.prototype.deleteParticipantBand = function(activityShape, index, 
   this._commandStack.execute('band.delete', {
     delete: true,
     activityShape: activityShape,
-    index: index,
-    isInitiating: isInitiating,
-    isMessageVisible: isMessageVisible
+    index: index
   });
 };

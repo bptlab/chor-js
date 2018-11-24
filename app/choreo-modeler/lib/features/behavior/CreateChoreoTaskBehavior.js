@@ -2,10 +2,9 @@ import inherits from 'inherits';
 
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
-import IdGenerator from 'diagram-js/lib/util/IdGenerator';
-
 import {
   getBandHeight,
+  idGenerator
 } from '../../util/BandUtil';
 
 import {
@@ -15,8 +14,6 @@ import {
 import {
   assign
 } from 'min-dash';
-
-let idGenerator = new IdGenerator('ParticipantBand');
 
 /**
  * Behavior when creating a choreography task.
