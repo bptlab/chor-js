@@ -4,7 +4,8 @@ import {
 
 import {
   resetAllBands,
-  idGenerator
+  idGenerator,
+  getBandGapIndex
 } from '../../util/BandUtil';
 
 /**
@@ -108,6 +109,11 @@ CreateParticipantBandHandler.prototype.createBand = function(context) {
   let activity = activityShape.businessObject;
   let index = context.index;
   let bandShape = context.bandShape;
+
+  if (!index) {
+    index = getBandGapIndex(activityShape.bandShapes.length);
+    context.index = index;
+  }
 
   // if we have no existing band shape, we have to create one
   if (!bandShape) {

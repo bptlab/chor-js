@@ -39,18 +39,17 @@ ChoreoModeling.prototype.moveParticipantBand = function(activityShape, bandShape
   });
 };
 
-ChoreoModeling.prototype.createParticipantBand = function(activityShape, index, isInitiating, isMessageVisible) {
+ChoreoModeling.prototype.createParticipantBand = function(activityShape) {
   this._commandStack.execute('band.create', {
     delete: false,
-    activityShape: activityShape,
-    index: index
+    activityShape: activityShape
   });
 };
 
-ChoreoModeling.prototype.deleteParticipantBand = function(activityShape, index, isInitiating, isMessageVisible) {
+ChoreoModeling.prototype.deleteParticipantBand = function(activityShape, bandShape) {
   this._commandStack.execute('band.delete', {
     delete: true,
     activityShape: activityShape,
-    index: index
+    index: activityShape.bandShapes.indexOf(bandShape)
   });
 };

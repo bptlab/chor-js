@@ -46,10 +46,6 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     self._connect.start(event, element, autoActivate);
   }
 
-  function removeElement(e) {
-    self._modeling.removeElements([ element ]);
-  }
-
   function appendAction(type, className, title, options) {
     if (typeof title !== 'string') {
       options = title;
@@ -78,13 +74,12 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
   }
 
   // context pad for participant bands
-  if (is(businessObject, 'bpmn:Participant')) {
-    // move the band up/down depending on its position
-    let bandShapes = element.activityShape.bandShapes;
-    let bandCount = bandShapes.length;
-    let bandIndex = bandShapes.findIndex(shape => shape === element);
-
-    if (bandIndex > 0) {
+  if (is(element, 'bpmn:Participant')) {
+    if (this._rules.allowed('band.move', {
+      activityShape: element.activityShape,
+      bandShape: element,
+      upwards: true
+    })) {
       // move up
       assign(actions, {
         'band.move-upwards': {
@@ -97,7 +92,12 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
         }
       });
     }
-    if (bandIndex < bandCount - 1) {
+
+    if (this._rules.allowed('band.move', {
+      activityShape: element.activityShape,
+      bandShape: element,
+      upwards: false
+    })) {
       // move down
       assign(actions, {
         'band.move-downwards': {
@@ -111,25 +111,17 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
       });
     }
 
-    // on sub-choreographies, we can create or delete bands
-    if (is(element.activityShape, 'bpmn:SubChoreography')) {
+    if (this._rules.allowed('band.delete', {
+      activityShape: element.activityShape
+    })) {
+      // delete
       assign(actions, {
         'band.delete': {
           group: 'edit',
           className: 'bpmn-icon-trash',
           title: this._translate('Delete'),
           action: {
-            click: () => self._modeling.deleteParticipantBand(element.activityShape, bandIndex)
-          }
-        }
-      });
-      assign(actions, {
-        'band.create': {
-          group: 'edit',
-          className: 'bpmn-icon-task',
-          title: this._translate('Create'),
-          action: {
-            click: () => self._modeling.createParticipantBand(element.activityShape, bandIndex)
+            click: () => self._modeling.deleteParticipantBand(element.activityShape, element)
           }
         }
       });
@@ -200,6 +192,24 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
     }
   }
 
+  // create new participant bands
+  if (is(element, 'bpmn:SubChoreography') || is(element, 'bpmn:CallChoreography')) {
+    if (this._rules.allowed('band.create', {
+      activityShape: element
+    })) {
+      assign(actions, {
+        'band.create': {
+          group: 'edit',
+          className: 'bpmn-icon-task',
+          title: this._translate('Create'),
+          action: {
+            click: () => self._modeling.createParticipantBand(element)
+          }
+        }
+      });
+    }
+  }
+
   // flow nodes can be annotated
   if (is(businessObject, 'bpmn:FlowNode')) {
     assign(actions, {
@@ -225,7 +235,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
         className: 'bpmn-icon-trash',
         title: this._translate('Remove'),
         action: {
-          click: removeElement
+          click: () => self._modeling.removeElements([ element ])
         }
       }
     });
