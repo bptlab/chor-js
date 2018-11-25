@@ -1,5 +1,6 @@
 import {
-  assign
+  assign,
+  isUndefined
 } from 'min-dash';
 
 import {
@@ -110,13 +111,13 @@ CreateParticipantBandHandler.prototype.createBand = function(context) {
   let index = context.index;
   let bandShape = context.bandShape;
 
-  if (!index) {
+  if (isUndefined(index)) {
     index = getBandGapIndex(activityShape.bandShapes.length);
     context.index = index;
   }
 
   // if we have no existing band shape, we have to create one
-  if (!bandShape) {
+  if (isUndefined(bandShape)) {
     // choose a participant for the new band
     let choreo = this._canvas.getRootElement();
     let participants = choreo.businessObject.participants;
@@ -129,7 +130,7 @@ CreateParticipantBandHandler.prototype.createBand = function(context) {
     }
 
     // if we found no participant, create a new one
-    if (!participant) {
+    if (isUndefined(participant)) {
       participant = this._bpmnFactory.create('bpmn:Participant');
       participants.push(participant);
       participant.name = 'Participant ' + participants.length;
