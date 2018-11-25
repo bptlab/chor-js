@@ -26,7 +26,7 @@ import {
  *     Whether the band should be the initiating one or not.
  */
 export default function CreateParticipantBandHandler(
-  commandStack, eventBus, canvas, bpmnFactory, elementFactory
+    commandStack, eventBus, canvas, bpmnFactory, elementFactory
 ) {
   this._commandStack = commandStack;
   this._eventBus = eventBus;
@@ -69,7 +69,7 @@ CreateParticipantBandHandler.prototype.updateAllBandShapes = function(context) {
   this._eventBus.fire('element.changed', {
     element: activityShape
   });
-}
+};
 
 /**
  * Delete the band specified in the context.
@@ -96,7 +96,7 @@ CreateParticipantBandHandler.prototype.deleteBand = function(context) {
   }
 
   this.updateAllBandShapes(context);
-}
+};
 
 /**
  * Create/attach a band as specified in the context.
@@ -162,7 +162,7 @@ CreateParticipantBandHandler.prototype.createBand = function(context) {
   }
 
   this.updateAllBandShapes(context);
-}
+};
 
 CreateParticipantBandHandler.prototype.execute = function(context) {
   if (context.delete) {

@@ -19,8 +19,6 @@ import {
 } from 'bpmn-js/lib/util/DiUtil';
 
 import {
-  getBandGapIndex,
-  getBandHeight,
   resetAllBands
 } from '../util/BandUtil';
 
