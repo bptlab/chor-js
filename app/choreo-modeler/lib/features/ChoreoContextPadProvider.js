@@ -118,7 +118,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
       assign(actions, {
         'band.delete': {
           group: 'edit',
-          className: 'bpmn-icon-trash',
+          className: 'choreo-icon-delete-participant-band',
           title: this._translate('Delete'),
           action: {
             click: () => self._modeling.deleteParticipantBand(element.activityShape, element)
@@ -200,7 +200,7 @@ ChoreoContextPadProvider.prototype.getContextPadEntries = function(element) {
       assign(actions, {
         'band.create': {
           group: 'edit',
-          className: 'bpmn-icon-task',
+          className: 'choreo-icon-add-participant-band',
           title: this._translate('Create'),
           action: {
             click: () => self._modeling.createParticipantBand(element)
