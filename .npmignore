@@ -1,0 +1,8 @@
+node_modules
+test
+assets/font/*
+!assets/font/include/
+.eslintignore
+.eslintrc
+.travis.yml
+karma.conf.js

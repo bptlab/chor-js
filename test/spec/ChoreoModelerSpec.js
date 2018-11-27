@@ -2,12 +2,12 @@ import '../TestHelper';
 
 import TestContainer from 'mocha-test-container-support';
 
-import ChoreoModeler from '../../app/choreo-modeler';
+import ChoreoModeler from '../../lib/Modeler';
 
 
 describe('choreo modeler', function() {
-  const choreoWithMultiplicities = require('../../resources/tasksWithMultiplicities.bpmn');
-  const choreoWithLoops = require('../../resources/tasksWithLoopType.bpmn');
+  const choreoWithMultiplicities = require('../resources/tasksWithMultiplicities.bpmn');
+  const choreoWithLoops = require('../resources/tasksWithLoopType.bpmn');
 
   let container;
 
