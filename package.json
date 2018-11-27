@@ -1,5 +1,5 @@
 {
-  "name": "choreography-modeler",
+  "name": "choreography-js-demo",
   "version": "0.0.0",
   "description": "An BPMN 2.0 choreography diagram modeler based on bpmn-js",
   "main": "app/app.js",

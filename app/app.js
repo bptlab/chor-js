@@ -1,4 +1,4 @@
-import diagram from '../resources/tasksWithMultiplicities.bpmn';
+import diagram from '../resources/subChoreographies.bpmn';
 
 import $ from 'jquery';
 

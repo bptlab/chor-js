@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       diagram_js: {
         files: [
           {
-            src: 'app/choreo-modeler/node_modules/diagram-js/assets/diagram-js.css',
+            src: 'node_modules/diagram-js/assets/diagram-js.css',
             dest: 'dist/css/diagram-js.css'
           }
         ]
@@ -45,19 +45,19 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'app/choreo-modeler/node_modules/bpmn-js/dist',
+            cwd: 'node_modules/bpmn-js/dist',
             src: ['**/*.*', '!**/*.js'],
             dest: 'dist/vendor/bpmn-js'
           }
         ]
       },
-      font: {
+      chor_js: {
         files: [
           {
             expand: true,
-            cwd: 'app/choreo-modeler/assets/font/include',
+            cwd: 'node_modules/chor-js/dist',
             src: ['**/*.*', '!**/*.json'],
-            dest: 'dist/font'
+            dest: 'dist/vendor/chor-js'
           }
         ]
       },
