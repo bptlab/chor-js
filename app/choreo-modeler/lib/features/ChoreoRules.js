@@ -77,6 +77,45 @@ ChoreoRules.prototype.init = function() {
     }
   });
 
+  this.addRule('band.create', function(context) {
+    let activityShape = context.activityShape;
+
+    // bands can only be created on sub- and call choreographies
+    return (is(activityShape, 'bpmn:SubChoreography') || is(activityShape, 'bpmn:CallChoreography'));
+  });
+
+  this.addRule('band.delete', function(context) {
+    let activityShape = context.activityShape;
+
+    // bands can only be deleted from sub and call choreographies when there are
+    // at least two left afterwards
+    if (is(activityShape, 'bpmn:SubChoreography') || is(activityShape, 'bpmn:CallChoreography')) {
+      return activityShape.bandShapes.length > 2;
+    }
+    return false;
+  });
+
+  this.addRule('band.move', function(context) {
+    let activityShape = context.activityShape;
+    let bandShape = context.bandShape;
+    let upwards = context.upwards;
+    let bandIndex = activityShape.bandShapes.findIndex(shape => shape === bandShape);
+
+    if (upwards) {
+      // bands can only move upwards if they are not already at the top
+      return bandIndex > 0;
+    } else {
+      // bands can only move downwards if they are not already at the bottom
+      return bandIndex < activityShape.bandShapes.length - 1;
+    }
+  });
+
+  this.addRule('elements.delete', function(context) {
+    // participant bands cannot be removed using the regular pathway, they need to
+    // be removed via band.delete or via the deletion of a choreo activity
+    return context.elements.filter(element => !is(element, 'bpmn:Participant'));
+  });
+
   this.addRule('connection.reconnectStart', function(context) {
     var connection = context.connection,
         source = context.hover || context.source,

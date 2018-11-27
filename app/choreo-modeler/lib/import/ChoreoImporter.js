@@ -19,8 +19,7 @@ import {
 } from 'bpmn-js/lib/util/DiUtil';
 
 import {
-  getBandGapIndex,
-  getBandHeight
+  resetAllBands
 } from '../util/BandUtil';
 
 function elementToString(e) {
@@ -131,7 +130,7 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
     });
 
     // sort the participants by their y coordinate and get all the di bands
-    participants.sort((left, right) => - left.diBand.bounds.y - right.diBand.bounds.y);
+    participants.sort((left, right) => left.diBand.bounds.y - right.diBand.bounds.y);
     let diBands = participants.map(participant => participant.diBand);
 
     // remove the temporary reference to the di band we stored in participants
@@ -139,51 +138,8 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
       delete participant.diBand;
     });
 
-    // set the bounds (except for y) for each band
-    diBands.forEach(diBand => {
-      diBand.bounds = {
-        x: di.bounds.x,
-        width: di.bounds.width,
-        height: getBandHeight(diBand.bpmnElement)
-      };
-    });
-
-    // then, set the y position for all top bands
-    for (let offset = 0, i = 0; i < getBandGapIndex(diBands.length); i++) {
-      diBands[i].bounds.y = di.bounds.y + offset;
-      offset += diBands[i].bounds.height;
-    }
-
-    // then, set the y position for all bottom bands
-    for (let offset = 0, i = diBands.length - 1; i >= getBandGapIndex(diBands.length); i--) {
-      offset += diBands[i].bounds.height;
-      diBands[i].bounds.y = di.bounds.y + di.bounds.height - offset;
-    }
-
-    // update the participant band kind of all bands
-    diBands.forEach((diBand, index) => {
-      let bandKind;
-      if (index == 0) {
-        bandKind = 'top_';
-      } else if (index == diBands.length - 1) {
-        bandKind = 'bottom_';
-      } else {
-        bandKind = 'middle_';
-      }
-      if (diBand.bpmnElement === semantic.initiatingParticipantRef) {
-        bandKind += 'initiating';
-      } else {
-        bandKind += 'non_initiating';
-      }
-      diBand.participantBandKind = bandKind;
-    });
-
-    // messages can only be visible for choreography tasks
-    if (!is(semantic, 'bpmn:ChoreographyTask')) {
-      diBands.forEach(diBand => {
-        diBand.isMessageVisible = false;
-      });
-    }
+    // reset all the underlying di attributes
+    resetAllBands(semantic, diBands, di.bounds);
   }
 
   var parentIndex;

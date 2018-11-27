@@ -1,4 +1,10 @@
+import { is } from 'bpmn-js/lib/util/ModelUtil';
+
+import IdGenerator from 'diagram-js/lib/util/IdGenerator';
+
 const BAND_HEIGHT = 20;
+
+export let idGenerator = new IdGenerator('ParticipantBand');
 
 export function getBandHeight(participant) {
   return hasBandMarker(participant) ? Math.floor(1.8 * BAND_HEIGHT) : BAND_HEIGHT;
@@ -11,6 +17,62 @@ export function hasBandMarker(participant) {
 
 export function getBandGapIndex(n) {
   return Math.ceil(n / 2);
+}
+
+/**
+ * Resets and recalculates the bounds and other properties of the participant bands
+ * of an activity *on a DI level*, not on shapes.
+ *
+ * @param {Object} activity activity business object
+ * @param {Array<Object>} diBands array of all band DIs attached to the activity
+ * @param {Object} bounds bounds to fit the bands in
+ */
+export function resetAllBands(activity, diBands, bounds) {
+  // set the bounds (except for y) for each band
+  diBands.forEach(diBand => {
+    diBand.bounds = {
+      x: bounds.x,
+      width: bounds.width,
+      height: getBandHeight(diBand.bpmnElement)
+    };
+  });
+
+  // then, set the y position for all top bands
+  for (let offset = 0, i = 0; i < getBandGapIndex(diBands.length); i++) {
+    diBands[i].bounds.y = bounds.y + offset;
+    offset += diBands[i].bounds.height;
+  }
+
+  // then, set the y position for all bottom bands
+  for (let offset = 0, i = diBands.length - 1; i >= getBandGapIndex(diBands.length); i--) {
+    offset += diBands[i].bounds.height;
+    diBands[i].bounds.y = bounds.y + bounds.height - offset;
+  }
+
+  // update the participant band kind of all bands
+  diBands.forEach((diBand, index) => {
+    let bandKind;
+    if (index == 0) {
+      bandKind = 'top_';
+    } else if (index == diBands.length - 1) {
+      bandKind = 'bottom_';
+    } else {
+      bandKind = 'middle_';
+    }
+    if (diBand.bpmnElement === activity.initiatingParticipantRef) {
+      bandKind += 'initiating';
+    } else {
+      bandKind += 'non_initiating';
+    }
+    diBand.participantBandKind = bandKind;
+  });
+
+  // messages can only be visible for choreography tasks
+  if (!is(activity, 'bpmn:ChoreographyTask')) {
+    diBands.forEach(diBand => {
+      diBand.isMessageVisible = false;
+    });
+  }
 }
 
 /**
