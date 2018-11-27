@@ -130,7 +130,7 @@ ChoreoImporter.prototype.add = function(semantic, parentElement) {
     });
 
     // sort the participants by their y coordinate and get all the di bands
-    participants.sort((left, right) => - left.diBand.bounds.y - right.diBand.bounds.y);
+    participants.sort((left, right) => left.diBand.bounds.y - right.diBand.bounds.y);
     let diBands = participants.map(participant => participant.diBand);
 
     // remove the temporary reference to the di band we stored in participants
