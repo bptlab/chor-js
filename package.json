@@ -51,6 +51,7 @@
     "puppeteer": "~1.10.0"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "bpmn-js": "^3.0.2",
     "diagram-js": "^3.0.1",
     "min-dash": "^3.2.0",
