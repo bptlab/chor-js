@@ -45,7 +45,7 @@ describe('choreo modeler', function() {
 
   describe('choreo import', function() {
 
-    it.skip('should have no warnings on import of choreo with multiplicities', function(done) {
+    it('should have no warnings on import of choreo with multiplicities', function(done) {
       createModeler(choreoWithMultiplicities, function(modeler, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
@@ -59,7 +59,7 @@ describe('choreo modeler', function() {
       });
     });
 
-    it.skip('should have no warnings on import of choreo with loops', function(done) {
+    it('should have no warnings on import of choreo with loops', function(done) {
       createModeler(choreoWithLoops, function(modeler, elemReg, err, warnings) {
         expect(warnings).to.be.empty;
         done();
