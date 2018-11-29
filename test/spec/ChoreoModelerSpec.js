@@ -151,6 +151,15 @@ describe('choreo modeler', function() {
         done();
       });
     });
+
+    it('should export xml without error', function(done) {
+      createModelerForEachDiagram(function(modeler, elemReg) {
+        modeler.saveXML({ format: true }, function(err, xml) {
+          expect(err).to.be.undefined;
+        });
+        done();
+      });
+    });
   });
 
 });
