@@ -37,18 +37,18 @@
     <bpmn2:choreographyTask id="ChoreographyTask_1" name="Choreography Task 1" initiatingParticipantRef="Participant_1">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
-      <bpmn2:participantRefs>Participant_1</bpmn2:participantRefs>
-      <bpmn2:participantRefs>Participant_2</bpmn2:participantRefs>
+      <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
       <bpmn2:messageFlowRef>MessageFlow_1</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:subChoreography id="SubChoreography_1" name="Sub Choreography 1" initiatingParticipantRef="Participant_3">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
-      <bpmn2:participantRefs>Participant_3</bpmn2:participantRefs>
-      <bpmn2:participantRefs>Participant_2</bpmn2:participantRefs>
-      <bpmn2:participantRefs>Participant_5</bpmn2:participantRefs>
-      <bpmn2:participantRefs>Participant_4</bpmn2:participantRefs>
-      <bpmn2:participantRefs>Participant_1</bpmn2:participantRefs>
+      <bpmn2:participantRef>Participant_3</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_5</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_4</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
     </bpmn2:subChoreography>
     <bpmn2:startEvent id="StartEvent_1" name="Start Event 1">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
