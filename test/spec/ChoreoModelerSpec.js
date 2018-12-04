@@ -146,7 +146,7 @@ describe('choreo modeler', function() {
     it('should have exactly two participants for each ChoreoTask', function(done) {
       createModelerForEachDiagram(function(modeler, elemReg) {
         elemReg.filter(shape => shape.type === 'bpmn:ChoreographyTask').forEach(
-          choreoTask => expect(choreoTask.businessObject.participantRefs, 'Participants').to.have.lengthOf(2)
+          choreoTask => expect(choreoTask.businessObject.participantRef, 'Participants').to.have.lengthOf(2)
         );
         done();
       });
