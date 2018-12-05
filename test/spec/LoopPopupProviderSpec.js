@@ -3,6 +3,12 @@ import { bootstrapBpmnJS as bootstrapChorJS, getBpmnJS as getChorJS, inject } fr
 
 describe('loop popup provider', function() {
 
+  /**
+   * Invokes an action in the Popup menu
+   * @param popupMenu use inject to get the popup menu
+   * @param element to open the menu on
+   * @param loopType {string} that should be selected from menu
+   */
   let invokeAction = function(popupMenu, element, loopType) {
     popupMenu.open(element, 'loop-provider', { x: 0, y: 0 });
     const entry = popupMenu._current.headerEntries.find(x => x.loopType === loopType);
