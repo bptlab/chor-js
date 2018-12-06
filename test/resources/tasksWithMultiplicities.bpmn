@@ -14,34 +14,37 @@
       </bpmn2:extensionElements>
       <bpmn2:participantMultiplicity id="_wfNp0NIDEeiw4v0Tm7WDnw" maximum="2"/>
     </bpmn2:participant>
-    <bpmn2:messageFlow id="_9m3pINHuEeiw4v0Tm7WDnw" messageRef="_9m3pIdHuEeiw4v0Tm7WDnw" sourceRef="Participant_1" targetRef="Participant_2"/>
+    <bpmn2:messageFlow id="_9m3pINHuEeiw4v0Tm7WDnw_1" messageRef="_9m3pIdHuEeiw4v0Tm7WDnw" sourceRef="Participant_1" targetRef="Participant_2"/>
+    <bpmn2:messageFlow id="_9m3pINHuEeiw4v0Tm7WDnw_2" messageRef="_9m3pIdHuEeiw4v0Tm7WDnw" sourceRef="Participant_1" targetRef="Participant_2"/>
+    <bpmn2:messageFlow id="_9m3pINHuEeiw4v0Tm7WDnw_3" messageRef="_9m3pIdHuEeiw4v0Tm7WDnw" sourceRef="Participant_1" targetRef="Participant_2"/>
+    <bpmn2:messageFlow id="_9m3pINHuEeiw4v0Tm7WDnw_4" messageRef="_9m3pIdHuEeiw4v0Tm7WDnw" sourceRef="Participant_1" targetRef="Participant_2"/>
     <bpmn2:choreographyTask id="ChoreographyTask_1" name="Task 1" initiatingParticipantRef="Participant_1">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
       <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
       <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
-      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw_1</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:choreographyTask id="ChoreographyTask_2" name="Task 2" initiatingParticipantRef="Participant_2">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
       <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
       <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
-      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw_2</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:choreographyTask id="ChoreographyTask_3" name="Task 3" initiatingParticipantRef="Participant_2">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
       <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
-      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw_3</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:choreographyTask id="ChoreographyTask_4" name="Task 4" initiatingParticipantRef="Participant_1">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
       <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
-      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>_9m3pINHuEeiw4v0Tm7WDnw_4</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="ChoreographyTask_1" targetRef="ChoreographyTask_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ChoreographyTask_2" targetRef="ChoreographyTask_3"/>
