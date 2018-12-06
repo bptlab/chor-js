@@ -103,6 +103,48 @@
       "search": [
         "delete-participant-band"
       ]
+    },
+    {
+      "uid": "8cd68a44b67fcd95b96dcae3f615ebca",
+      "css": "add-message",
+      "code": 59412,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M77.6 215V667.4H437.7V611.8H133.2V291.1L413.3 475.4 693.5 291.1V364.9H749V215ZM204.5 271.6H622.2L413.3 408.9ZM671.6 439.1V594.8H515.9V689.9H671.6V845.6H766.7V689.9H922.4V594.8H766.7V439.1Z",
+        "width": 1000
+      },
+      "search": [
+        "add-message"
+      ]
+    },
+    {
+      "uid": "f1dff178eec0dce640dd83f41165c70e",
+      "css": "show-message",
+      "code": 59414,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M77.6 215V786.1H925.3V215ZM237.8 286.4H765.1L501.5 459.9ZM147.8 311.1L501.5 543.8 855.2 311.1V716H147.8Z",
+        "width": 1000
+      },
+      "search": [
+        "show-message"
+      ]
+    },
+    {
+      "uid": "f1130265245465f8f45bbb506318a575",
+      "css": "hide-message",
+      "code": 59415,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M549.5 87.3L516.2 215H77.6V786.1H367.3L340.2 890.1 450.5 918.9 659.8 116ZM734.6 215L716 286.4H765.1L705.8 325.4 679.4 426.7 855.2 311.1V716H604L585.7 786.1H925.3V215ZM237.8 286.4H497.6L459.5 432.3ZM147.8 311.1L440.8 503.9 385.5 716H147.8Z",
+        "width": 1000
+      },
+      "search": [
+        "hide-message"
+      ]
     }
   ]
 }
