@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'choreography';
-  src: url('../font/choreography.eot?43261202');
-  src: url('../font/choreography.eot?43261202#iefix') format('embedded-opentype'),
-       url('../font/choreography.woff2?43261202') format('woff2'),
-       url('../font/choreography.woff?43261202') format('woff'),
-       url('../font/choreography.ttf?43261202') format('truetype'),
-       url('../font/choreography.svg?43261202#choreography') format('svg');
+  src: url('../font/choreography.eot?23041460');
+  src: url('../font/choreography.eot?23041460#iefix') format('embedded-opentype'),
+       url('../font/choreography.woff2?23041460') format('woff2'),
+       url('../font/choreography.woff?23041460') format('woff'),
+       url('../font/choreography.ttf?23041460') format('truetype'),
+       url('../font/choreography.svg?23041460#choreography') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'choreography';
-    src: url('../font/choreography.svg?43261202#choreography') format('svg');
+    src: url('../font/choreography.svg?23041460#choreography') format('svg');
   }
 }
 */
@@ -57,9 +57,9 @@
 .choreo-icon-down:before { content: '\e807'; } /* '' */
 .choreo-icon-add-participant-band:before { content: '\e80a'; } /* '' */
 .choreo-icon-delete-participant-band:before { content: '\e80b'; } /* '' */
-.choreo-icon-add-message:before { content: '\e80e'; } /* '' */
-.choreo-icon-hide-message:before { content: '\e80f'; } /* '' */
-.choreo-icon-show-message:before { content: '\e810'; } /* '' */
+.choreo-icon-add-message:before { content: '\e814'; } /* '' */
+.choreo-icon-show-message:before { content: '\e816'; } /* '' */
+.choreo-icon-hide-message:before { content: '\e817'; } /* '' */
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
 .choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
 .choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */
