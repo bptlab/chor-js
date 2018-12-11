@@ -1,8 +1,9 @@
 
+.choreo-icon-add-participant:before { content: '\e800'; } /* '' */
+.choreo-icon-participant:before { content: '\e801'; } /* '' */
+.choreo-icon-remove-participant:before { content: '\e802'; } /* '' */
 .choreo-icon-up:before { content: '\e806'; } /* '' */
 .choreo-icon-down:before { content: '\e807'; } /* '' */
-.choreo-icon-add-participant-band:before { content: '\e80a'; } /* '' */
-.choreo-icon-delete-participant-band:before { content: '\e80b'; } /* '' */
 .choreo-icon-add-message:before { content: '\e814'; } /* '' */
 .choreo-icon-show-message:before { content: '\e816'; } /* '' */
 .choreo-icon-hide-message:before { content: '\e817'; } /* '' */
