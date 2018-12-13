@@ -97,8 +97,8 @@ describe('choreo modeler', function() {
         const businessObject = elemReg.get('ChoreographyTask_3').businessObject;
         expect(businessObject.loopType).to.equal('MultiInstanceParallel');
         const gfx = elemReg.getGraphics('ChoreographyTask_3');
-        const marker = gfx.querySelectorAll('[data-marker=parallel]');
-        expect(marker).to.have.lengthOf(1);
+        const marker = gfx.querySelector('[data-marker=parallel]');
+        expect(marker).to.exist;
         done();
       });
     });
@@ -108,19 +108,8 @@ describe('choreo modeler', function() {
         const businessObject = elemReg.get('ChoreographyTask_4').businessObject;
         expect(businessObject.loopType).to.equal('MultiInstanceSequential');
         const gfx = elemReg.getGraphics('ChoreographyTask_4');
-        const marker = gfx.querySelectorAll('[data-marker=sequential]');
-        expect(marker).to.have.lengthOf(1);
-        done();
-      });
-    });
-
-    it('should have sequential loop marker', function(done) {
-      createModeler(choreoWithLoops, function(modeler, elemReg) {
-        const businessObject = elemReg.get('ChoreographyTask_4').businessObject;
-        expect(businessObject.loopType).to.equal('MultiInstanceSequential');
-        const gfx = elemReg.getGraphics('ChoreographyTask_4');
-        const marker = gfx.querySelectorAll('[data-marker=sequential]');
-        expect(marker).to.have.lengthOf(1);
+        const marker = gfx.querySelector('[data-marker=sequential]');
+        expect(marker).to.exist;
         done();
       });
     });
