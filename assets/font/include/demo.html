@@ -229,11 +229,11 @@ body {
 }
 @font-face {
       font-family: 'choreography';
-      src: url('./font/choreography.eot?92866055');
-      src: url('./font/choreography.eot?92866055#iefix') format('embedded-opentype'),
-           url('./font/choreography.woff?92866055') format('woff'),
-           url('./font/choreography.ttf?92866055') format('truetype'),
-           url('./font/choreography.svg?92866055#choreography') format('svg');
+      src: url('./font/choreography.eot?60913374');
+      src: url('./font/choreography.eot?60913374#iefix') format('embedded-opentype'),
+           url('./font/choreography.woff?60913374') format('woff'),
+           url('./font/choreography.ttf?60913374') format('truetype'),
+           url('./font/choreography.svg?60913374#choreography') format('svg');
       font-weight: normal;
       font-style: normal;
     }
@@ -275,11 +275,11 @@ body {
       /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
     }
      </style>
-    <link rel="stylesheet" href="css/animation.css"><!--[if IE 7]><link rel="stylesheet" href="css/choreography-ie7.css"><![endif]-->
+    <link rel="stylesheet" href="css/animation.css"><!--[if IE 7]><link rel="stylesheet" href="css/" + font.fontname + "-ie7.css"><![endif]-->
     <script>
       function toggleCodes(on) {
         var obj = document.getElementById('icons');
-        
+      
         if (on) {
           obj.className += ' codesOn';
         } else {
@@ -291,31 +291,32 @@ body {
   </head>
   <body>
     <div class="container header">
-      <h1>
-        choreography
-         <small>font demo</small>
-      </h1>
+      <h1>choreography <small>font demo</small></h1>
       <label class="switch">
         <input type="checkbox" onclick="toggleCodes(this.checked)">show codes
       </label>
     </div>
-    <div id="icons" class="container">
+    <div class="container" id="icons">
       <div class="row">
-        <div title="Code: 0xe800" class="the-icons span3"><i class="demo-icon choreo-icon-add-participant">&#xe800;</i> <span class="i-name">choreo-icon-add-participant</span><span class="i-code">0xe800</span></div>
-        <div title="Code: 0xe801" class="the-icons span3"><i class="demo-icon choreo-icon-participant">&#xe801;</i> <span class="i-name">choreo-icon-participant</span><span class="i-code">0xe801</span></div>
-        <div title="Code: 0xe802" class="the-icons span3"><i class="demo-icon choreo-icon-remove-participant">&#xe802;</i> <span class="i-name">choreo-icon-remove-participant</span><span class="i-code">0xe802</span></div>
-        <div title="Code: 0xe806" class="the-icons span3"><i class="demo-icon choreo-icon-up">&#xe806;</i> <span class="i-name">choreo-icon-up</span><span class="i-code">0xe806</span></div>
+        <div class="the-icons span3" title="Code: 0xe800"><i class="demo-icon choreo-icon-add-participant">&#xe800;</i> <span class="i-name">choreo-icon-add-participant</span><span class="i-code">0xe800</span></div>
+        <div class="the-icons span3" title="Code: 0xe801"><i class="demo-icon choreo-icon-participant">&#xe801;</i> <span class="i-name">choreo-icon-participant</span><span class="i-code">0xe801</span></div>
+        <div class="the-icons span3" title="Code: 0xe802"><i class="demo-icon choreo-icon-remove-participant">&#xe802;</i> <span class="i-name">choreo-icon-remove-participant</span><span class="i-code">0xe802</span></div>
+        <div class="the-icons span3" title="Code: 0xe803"><i class="demo-icon choreo-icon-callchoreography-expanded">&#xe803;</i> <span class="i-name">choreo-icon-callchoreography-expanded</span><span class="i-code">0xe803</span></div>
       </div>
       <div class="row">
-        <div title="Code: 0xe807" class="the-icons span3"><i class="demo-icon choreo-icon-down">&#xe807;</i> <span class="i-name">choreo-icon-down</span><span class="i-code">0xe807</span></div>
-        <div title="Code: 0xe814" class="the-icons span3"><i class="demo-icon choreo-icon-add-message">&#xe814;</i> <span class="i-name">choreo-icon-add-message</span><span class="i-code">0xe814</span></div>
-        <div title="Code: 0xe816" class="the-icons span3"><i class="demo-icon choreo-icon-show-message">&#xe816;</i> <span class="i-name">choreo-icon-show-message</span><span class="i-code">0xe816</span></div>
-        <div title="Code: 0xe817" class="the-icons span3"><i class="demo-icon choreo-icon-hide-message">&#xe817;</i> <span class="i-name">choreo-icon-hide-message</span><span class="i-code">0xe817</span></div>
+        <div class="the-icons span3" title="Code: 0xe806"><i class="demo-icon choreo-icon-up">&#xe806;</i> <span class="i-name">choreo-icon-up</span><span class="i-code">0xe806</span></div>
+        <div class="the-icons span3" title="Code: 0xe807"><i class="demo-icon choreo-icon-down">&#xe807;</i> <span class="i-name">choreo-icon-down</span><span class="i-code">0xe807</span></div>
+        <div class="the-icons span3" title="Code: 0xe814"><i class="demo-icon choreo-icon-add-message">&#xe814;</i> <span class="i-name">choreo-icon-add-message</span><span class="i-code">0xe814</span></div>
+        <div class="the-icons span3" title="Code: 0xe815"><i class="demo-icon choreo-icon-callchoreography-collapsed">&#xe815;</i> <span class="i-name">choreo-icon-callchoreography-collapsed</span><span class="i-code">0xe815</span></div>
       </div>
       <div class="row">
-        <div title="Code: 0xe900" class="the-icons span3"><i class="demo-icon choreo-icon-choreography-task">&#xe900;</i> <span class="i-name">choreo-icon-choreography-task</span><span class="i-code">0xe900</span></div>
-        <div title="Code: 0xe901" class="the-icons span3"><i class="demo-icon choreo-icon-subchoreography-collapsed">&#xe901;</i> <span class="i-name">choreo-icon-subchoreography-collapsed</span><span class="i-code">0xe901</span></div>
-        <div title="Code: 0xe902" class="the-icons span3"><i class="demo-icon choreo-icon-subchoreography-expanded">&#xe902;</i> <span class="i-name">choreo-icon-subchoreography-expanded</span><span class="i-code">0xe902</span></div>
+        <div class="the-icons span3" title="Code: 0xe816"><i class="demo-icon choreo-icon-show-message">&#xe816;</i> <span class="i-name">choreo-icon-show-message</span><span class="i-code">0xe816</span></div>
+        <div class="the-icons span3" title="Code: 0xe817"><i class="demo-icon choreo-icon-hide-message">&#xe817;</i> <span class="i-name">choreo-icon-hide-message</span><span class="i-code">0xe817</span></div>
+        <div class="the-icons span3" title="Code: 0xe900"><i class="demo-icon choreo-icon-choreography-task">&#xe900;</i> <span class="i-name">choreo-icon-choreography-task</span><span class="i-code">0xe900</span></div>
+        <div class="the-icons span3" title="Code: 0xe901"><i class="demo-icon choreo-icon-subchoreography-collapsed">&#xe901;</i> <span class="i-name">choreo-icon-subchoreography-collapsed</span><span class="i-code">0xe901</span></div>
+      </div>
+      <div class="row">
+        <div class="the-icons span3" title="Code: 0xe902"><i class="demo-icon choreo-icon-subchoreography-expanded">&#xe902;</i> <span class="i-name">choreo-icon-subchoreography-expanded</span><span class="i-code">0xe902</span></div>
       </div>
     </div>
     <div class="container footer">Generated by <a href="http://fontello.com">fontello.com</a></div>
