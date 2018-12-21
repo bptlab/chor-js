@@ -10,6 +10,7 @@
 .choreo-icon-show-message:before { content: '\e816'; } /* '' */
 .choreo-icon-hide-message:before { content: '\e817'; } /* '' */
 .choreo-icon-toggle-initiating:before { content: '\e81a'; } /* '' */
+.choreo-icon-collapse-marker:before { content: '\e81c'; } /* '' */
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
 .choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
 .choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */

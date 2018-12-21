@@ -201,6 +201,20 @@
       "search": [
         "toggle-initiating"
       ]
+    },
+    {
+      "uid": "bcf5126211ea0ccb5fdccab1e4ca8b11",
+      "css": "collapse-marker",
+      "code": 59420,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M150 150V175 850H850V150ZM194 194H806V806H194ZM300 455V545H700V455Z",
+        "width": 1000
+      },
+      "search": [
+        "collapse-marker"
+      ]
     }
   ]
 }
