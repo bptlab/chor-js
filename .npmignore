@@ -1,5 +1,6 @@
 node_modules
 test
+resources
 assets/font/*
 !assets/font/include/
 .eslintignore
