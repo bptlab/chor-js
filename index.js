@@ -1,3 +1,3 @@
 export {
   default
-} from './lib/Modeler';
+} from './lib/Viewer';
