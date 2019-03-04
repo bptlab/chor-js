@@ -48,18 +48,19 @@ describe('features/copy-paste', function() {
       it('selected elements', inject(function(elementRegistry, copyPaste) {
 
         // when
-        var tree = copy(['SubChoreography_1lywprj']);
+        const SUB_CHOREO_ID = 'SubChoreography_1lywprj';
+        const tree = copy([SUB_CHOREO_ID]);
+        const subChoreo = tree.getElement(SUB_CHOREO_ID);
 
-        var subProcess = tree.getElement('SubProcess_1kd6ist');
-
+        const ids = ['SubChoreography_1lywprj', 'ChoreographyTask_093vv4x', 'StartEvent_0vgi8b6', 'EndEvent_1gmyy45',
+          'Participant_1_SubChoreography_1lywprj', 'Participant_2_SubChoreography_1lywprj', 'SequenceFlow_102fgpm',
+          'SequenceFlow_0jv4yjf', 'StartEvent_0vgi8b6_label', 'EndEvent_1gmyy45_label',
+          'Participant_1_ChoreographyTask_093vv4x', 'Participant_2_ChoreographyTask_093vv4x', 'Message_0bkq11l'];
         // then
-        expect(tree.getLength()).to.equal(3);
+        expect(Object.keys(tree._tree).length).to.equal(13);
+        expect(Object.values(tree._tree).map(o => o.id)).to.have.all.members(ids);
 
-        expect(tree.getDepthLength(0)).to.equal(1);
-        expect(tree.getDepthLength(1)).to.equal(3);
-        expect(tree.getDepthLength(2)).to.equal(12);
-
-        expect(subProcess.isExpanded).to.be.true;
+        expect(subChoreo.isExpanded).to.be.true;
       }));
 
 
