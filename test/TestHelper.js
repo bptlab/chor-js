@@ -1,4 +1,25 @@
-export * from 'bpmn-js/test/helper';
+export { inject } from 'bpmn-js/test/helper';
+import ChoreoModeler from '../lib/Modeler';
+import { bootstrapBpmnJS, getBpmnJS } from 'bpmn-js/test/helper';
+
+/**
+ * Bootstraps an instance of the Choreo Modeler.
+ * @param diagram the xml file
+ * @param options
+ * @param locals
+ * @returns {ChoreoModeler}
+ */
+export function bootstrapChorModeler(diagram, options, locals) {
+  return bootstrapBpmnJS(ChoreoModeler, diagram, options, locals);
+}
+
+/**
+ * Returns the current active Choreo Modeler instance
+ * @returns {ChoreoModeler}
+ */
+export function getChorJS() {
+  return getBpmnJS();
+}
 
 import {
   insertCSS

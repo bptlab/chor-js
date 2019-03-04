@@ -1,5 +1,4 @@
-import ChoreoModeler from '../../lib/Modeler';
-import { bootstrapBpmnJS as bootstrapChorJS, getBpmnJS as getChorJS, inject } from 'bpmn-js/test/helper/index';
+import { bootstrapChorModeler, getChorJS, inject } from '../TestHelper';
 
 describe('loop popup provider', function() {
 
@@ -17,7 +16,7 @@ describe('loop popup provider', function() {
 
   const choreoWithLoops = require('../resources/tasksWithLoopType.bpmn');
 
-  beforeEach(bootstrapChorJS(ChoreoModeler, choreoWithLoops));
+  beforeEach(bootstrapChorModeler(choreoWithLoops));
 
   it('should mark selected loop types as active', function(done) {
     const elem = getChorJS().get('elementRegistry').get('ChoreographyTask_2');
