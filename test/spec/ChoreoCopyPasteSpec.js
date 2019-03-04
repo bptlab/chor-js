@@ -57,10 +57,29 @@ describe('features/copy-paste', function() {
           'SequenceFlow_0jv4yjf', 'StartEvent_0vgi8b6_label', 'EndEvent_1gmyy45_label',
           'Participant_1_ChoreographyTask_093vv4x', 'Participant_2_ChoreographyTask_093vv4x', 'Message_0bkq11l'];
         // then
+        expect(tree.getHeight()).to.equal(4);
         expect(Object.keys(tree._tree).length).to.equal(13);
         expect(Object.values(tree._tree).map(o => o.id)).to.have.all.members(ids);
 
         expect(subChoreo.isExpanded).to.be.true;
+      }));
+
+      it('selected elements 2', inject(function(elementRegistry, copyPaste) {
+
+        const START_EVENT_ID = 'StartEvent_0ptuctp';
+
+        // given
+        var event = elementRegistry.get(START_EVENT_ID);
+        // when
+        var tree = copy([event]);
+
+        var eventDescriptor = tree.getElement(START_EVENT_ID);
+
+        // then
+        expect(tree.getHeight()).to.equal(1);
+        expect(Object.values(tree.getElementsAtDepth(0)).length).to.equal(2); //Event and label
+
+        expect(eventDescriptor.type).to.eql('bpmn:StartEvent');
       }));
 
 

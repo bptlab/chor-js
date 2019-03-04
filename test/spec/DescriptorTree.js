@@ -1,4 +1,3 @@
-// Copied from bpmn.js
 var forEach = require('min-dash').forEach;
 
 
@@ -24,15 +23,24 @@ export default function DescriptorTree(tree) {
   });
 }
 
-DescriptorTree.prototype.getLength = function() {
+/**
+ * Returns the height of the tree, which is equivalent to the nesting level of the copied elements
+ * @returns {number}
+ */
+DescriptorTree.prototype.getHeight = function() {
   return this._length;
 };
-
+/**
+ * Get element by Id
+ * @param id
+ * @returns {*}
+ */
 DescriptorTree.prototype.getElement = function(id) {
   return this._tree[id];
 };
 
-DescriptorTree.prototype.getDepth = function(depth) {
+
+DescriptorTree.prototype.getElementsAtDepth = function(depth) {
   var newTree = {};
 
   forEach(this._tree, function(element) {
@@ -44,7 +52,7 @@ DescriptorTree.prototype.getDepth = function(depth) {
   return newTree;
 };
 
-DescriptorTree.prototype.getDepthLength = function(depth) {
+DescriptorTree.prototype.numberOfElementsAtDepth = function(depth) {
   var length = 0;
 
   forEach(this._tree, function(element) {
