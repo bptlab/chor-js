@@ -84,6 +84,109 @@ describe('features/copy-paste', function() {
 
 
     });
+    describe('paste', function() {
+      it('should paste twice', inject(
+        function(elementRegistry, canvas, copyPaste) {
+          // given
+          const element = elementRegistry.get('SubChoreography_1lywprj');
+          const rootElement = canvas.getRootElement();
+
+          // when
+          copyPaste.copy(element);
+
+          copyPaste.paste({
+            element: rootElement,
+            point: {
+              x: 1000,
+              y: 100
+            }
+          });
+
+          copyPaste.paste({
+            element: rootElement,
+            point: {
+              x: 1500,
+              y: 275
+            }
+          });
+
+          //Due to a bug in bpmnjs, labels visual form get the root element as their parent
+          //https://github.com/bpmn-io/bpmn-js/issues/945
+          //thus it should be:
+          //expect(rootElement.children).to.have.length(21); 25 - 4*labels
+          expect(rootElement.children).to.have.length(25);
+
+          var pastedElements = elementRegistry.filter(function(e) {
+            return e !== element && is(e, 'bpmn:SubChoreography') && e.businessObject.name === 'ExpandedSubChoreo';
+          });
+          expect(element.children).to.have.length(9);
+          expect(pastedElements[0].children).to.have.length(7); //Due to the bug some labels are now root's children
+          expect(pastedElements[1].children).to.have.length(7);
+          expect(pastedElements[0].id).not.to.equal(pastedElements[1].id).not.to.equal('SubChoreography_1lywprj');
+        }
+      ));
+
+      it('should keep participants but chang bands', inject(
+        function(elementRegistry, canvas, copyPaste) {
+          // given
+          const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
+          const rootElement = canvas.getRootElement();
+
+          // when
+          copyPaste.copy(element);
+
+          copyPaste.paste({
+            element: rootElement,
+            point: {
+              x: 1000,
+              y: 100
+            }
+          });
+
+          var pastedElement = elementRegistry.filter(function(e) {
+            return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
+          })[0];
+          //eql = deep equal
+          expect(pastedElement.businessObject.particpantRef).to.eql(element.businessObject.particpantRef);
+          expect(pastedElement.businessObject.initiatingParticipantRef).to.equal(element.businessObject.initiatingParticipantRef);
+          expect(pastedElement.bandShapes).to.not.eql(element.bandShapes);
+
+          for (let i = 0; i < pastedElement.bandShapes.length; i++) {
+            expect(pastedElement.bandShapes[i].businessObject).to.equal(element.bandShapes[i].businessObject);
+            expect(pastedElement.bandShapes[i].activityShape).to.equal(pastedElement);
+            expect(pastedElement.bandShapes[i].diBand).to.not.eql(element.bandShapes[i].diBand);
+            expect(pastedElement.bandShapes[i].diBand.choreographyActivityShape).to.equal(pastedElement.businessObject.di);
+          }
+
+        }
+      ));
+
+      it('should create new message flow', inject(
+        function(elementRegistry, canvas, copyPaste) {
+          // given
+          const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
+          const rootElement = canvas.getRootElement();
+
+          // when
+          copyPaste.copy(element);
+
+          copyPaste.paste({
+            element: rootElement,
+            point: {
+              x: 1000,
+              y: 100
+            }
+          });
+
+          var pastedElements = elementRegistry.filter(function(e) {
+            return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
+          });
+          //eql = deep equal
+          expect(pastedElements[0].businessObject.messageFlow).to.not.eql(element.businessObject.messageFlow);
+        }
+      ));
+    });
+
   });
 
 });
