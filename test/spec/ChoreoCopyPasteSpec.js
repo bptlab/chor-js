@@ -1,5 +1,3 @@
-/* global sinon */
-
 import {
   bootstrapChorModeler,
   getChorJS,
@@ -7,17 +5,9 @@ import {
 } from '../TestHelper';
 
 
-import bpmnCopyPasteModule from '../../lib/features/copy-paste';
-import copyPasteModule from 'diagram-js/lib/features/copy-paste';
-import tooltipsModule from 'diagram-js/lib/features/tooltips';
-import modelingModule from '../../lib/features/modeling';
-import coreModule from '../../lib/core';
-
 import {
   map,
-  filter,
-  forEach,
-  uniqueBy
+  forEach
 } from 'min-dash';
 
 import DescriptorTree from './DescriptorTree';
@@ -27,13 +17,7 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 
 describe('features/copy-paste', function() {
 
-  var testModules = [
-    bpmnCopyPasteModule,
-    copyPasteModule,
-    tooltipsModule,
-    modelingModule,
-    coreModule
-  ];
+
 
   const basicXML = require('../resources/AllChoreoTypes.bpmn');
 
@@ -178,11 +162,19 @@ describe('features/copy-paste', function() {
             }
           });
 
-          var pastedElements = elementRegistry.filter(function(e) {
+          var pastedElement = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
-          });
+          })[0];
           //eql = deep equal
-          expect(pastedElements[0].businessObject.messageFlow).to.not.eql(element.businessObject.messageFlow);
+          expect(pastedElement.businessObject.messageFlowRef).to.not.eql(element.businessObject.messageFlowRef);
+          expect(pastedElement.businessObject.messageFlowRef[0].$parent).to.equal(element.businessObject.messageFlowRef[0].$parent);
+          expect(pastedElement.businessObject.messageFlowRef[0].sourceRef).to.equal(element.businessObject.messageFlowRef[0].sourceRef);
+          expect(pastedElement.businessObject.messageFlowRef[0].targetRef).to.equal(element.businessObject.messageFlowRef[0].targetRef);
+          expect(pastedElement.businessObject.messageFlowRef[0].messageRef).to.not.eql(element.businessObject.messageFlowRef[0].messageRef);
+          expect(pastedElement.businessObject.messageFlowRef[0].messageRef.id).to.not.equal(element.businessObject.messageFlowRef[0].messageRef.id);
+          expect(pastedElement.bandShapes[0].children[0].id).not.to.equal(element.bandShapes[0].children[0].id);
+          expect(pastedElement.bandShapes[0].children[0].parent).to.equal(pastedElement.bandShapes[0]);
+
         }
       ));
 
@@ -324,7 +316,6 @@ function mapProperty(shapes, prop) {
 }
 
 function expectCollection(collA, collB, contains) {
-  expect(collA).to.have.length(collB.length);
 
   forEach(collB, function(element) {
     if (!element.parent) {
