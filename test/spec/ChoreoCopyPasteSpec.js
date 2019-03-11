@@ -185,6 +185,8 @@ describe('features/copy-paste', function() {
           expect(pastedElements[0].businessObject.messageFlow).to.not.eql(element.businessObject.messageFlow);
         }
       ));
+
+      it('should undo and redo', inject(integrationTest(['ChoreographyTask_1jjb8x4'])));
     });
 
   });
@@ -205,7 +207,10 @@ function integrationTest(ids) {
     var initialContext = {
         type: mapProperty(shapes, 'type'),
         ids: mapProperty(shapes, 'id'),
-        length: shapes.length
+        length: shapes.length,
+        sequenceFlowLenght: elementRegistry.filter(function(element) {
+          return is(element, 'bpmn:SequenceFlow');
+        }).length
       },
       currentContext;
 
@@ -264,11 +269,14 @@ function integrationTest(ids) {
     currentContext = {
       type: mapProperty(elements, 'type'),
       ids: mapProperty(elements, 'id'),
-      length: elements.length
+      length: elements.length,
+      sequenceFlowLenght: elementRegistry.filter(function(element) {
+        return is(element, 'bpmn:SequenceFlow');
+      }).length
     };
-
     // then
-    expect(initialContext).to.have.length(currentContext.length);
+    expect(currentContext).to.have.length(initialContext.length - initialContext.sequenceFlowLenght + currentContext.sequenceFlowLenght);
+
 
     expectCollection(initialContext.type, currentContext.type, true);
     expectCollection(initialContext.ids, currentContext.ids, false);
