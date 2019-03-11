@@ -205,14 +205,16 @@ function integrationTest(ids) {
       rootElement;
 
     var initialContext = {
-        type: mapProperty(shapes, 'type'),
-        ids: mapProperty(shapes, 'id'),
-        length: shapes.length,
-        sequenceFlowLenght: elementRegistry.filter(function(element) {
-          return is(element, 'bpmn:SequenceFlow');
-        }).length
-      },
-      currentContext;
+      type: mapProperty(shapes, 'type'),
+      ids: mapProperty(shapes, 'id'),
+      length: shapes.length,
+      sequenceFlowLenght: elementRegistry.filter(function(element) {
+        return is(element, 'bpmn:SequenceFlow');
+      }).length,
+      messageLength: elementRegistry.filter(function(element) {
+        return is(element, 'bpmn:Message');
+      }).length
+    };
 
     var elements = map(ids, function(id) {
       return elementRegistry.get(id);
@@ -248,7 +250,7 @@ function integrationTest(ids) {
 
     elements = elementRegistry.getAll();
 
-    currentContext = {
+    let currentContext = {
       type: mapProperty(elements, 'type'),
       ids: mapProperty(elements, 'id'),
       length: elements.length
@@ -272,10 +274,17 @@ function integrationTest(ids) {
       length: elements.length,
       sequenceFlowLenght: elementRegistry.filter(function(element) {
         return is(element, 'bpmn:SequenceFlow');
+      }).length,
+      messageLength: elementRegistry.filter(function(element) {
+        return is(element, 'bpmn:Message');
       }).length
     };
     // then
-    expect(currentContext).to.have.length(initialContext.length - initialContext.sequenceFlowLenght + currentContext.sequenceFlowLenght);
+    // Some sequence flows might have been deleted
+    const sequenceFlowDiff = initialContext.sequenceFlowLenght - currentContext.sequenceFlowLenght;
+    // Due to some unintended behaviour some messages where part of
+    const messageDiff = initialContext.messageLength - currentContext.messageLength;
+    expect(currentContext).to.have.length(initialContext.length - sequenceFlowDiff);
 
 
     expectCollection(initialContext.type, currentContext.type, true);
