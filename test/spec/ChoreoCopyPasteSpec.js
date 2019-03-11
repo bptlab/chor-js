@@ -193,8 +193,8 @@ function integrationTest(ids) {
 
   return function(canvas, elementRegistry, modeling, copyPaste, commandStack) {
     // given
-    var shapes = elementRegistry.getAll(),
-      rootElement;
+    var shapes = elementRegistry.getAll();
+    let rootElement;
 
     var initialContext = {
       type: mapProperty(shapes, 'type'),
@@ -275,7 +275,6 @@ function integrationTest(ids) {
     // Some sequence flows might have been deleted
     const sequenceFlowDiff = initialContext.sequenceFlowLenght - currentContext.sequenceFlowLenght;
     // Due to some unintended behaviour some messages where part of
-    const messageDiff = initialContext.messageLength - currentContext.messageLength;
     expect(currentContext).to.have.length(initialContext.length - sequenceFlowDiff);
 
 
