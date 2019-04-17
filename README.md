@@ -14,7 +14,7 @@ View and edit [BPMN 2.0](https://www.omg.org/spec/BPMN/2.0.2/) choreography diag
 - show, hide and swap messages
 - import/export standard-compliant BPMN2 XML
 
-chor-js supports most of the elements in the choreography diagram standard. For an up-to-date overview, see [our wiki](https://github.com/jan-ladleif/chor-js/wiki/Element-Support).
+chor-js supports most of the elements in the choreography diagram standard. For an up-to-date overview, see [our wiki](https://github.com/jan-ladleif/chor-js/wiki/).
 
 ## Installation & Usage
 
