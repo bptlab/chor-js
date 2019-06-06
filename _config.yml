@@ -1,1 +1,15 @@
+# Configuration of the GitHub pages integration
 theme: jekyll-theme-minimal
+layouts_dir : docs/_layouts
+data_dir: docs/_data
+include:
+  - docs
+exclude:
+  - assets
+  - node_modules
+  - lib
+  - resources
+  - test
+  - karma.conf.js
+  - LICENSE
+  - package.json

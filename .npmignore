@@ -7,3 +7,7 @@ assets/font/*
 .eslintrc
 .travis.yml
 karma.conf.js
+_config.yml
+Gemfile
+docs
+_site
