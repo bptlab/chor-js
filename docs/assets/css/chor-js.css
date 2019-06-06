@@ -1,3 +1,7 @@
 nav {
   margin-bottom: 20px;
 }
+
+nav a.active {
+  font-weight: bold;
+}

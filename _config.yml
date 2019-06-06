@@ -1,5 +1,6 @@
 # Configuration of the GitHub pages integration
 theme: jekyll-theme-minimal
+baseurl: /chor-js
 layouts_dir : docs/_layouts
 data_dir: docs/_data
 include:
