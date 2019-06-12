@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.djs-select-wrapper {
+.djs-select-wrapper, .djs-rename-wrapper {
     padding: 8px;
     margin-top: -1px;
     height: fit-content;
@@ -11,7 +11,11 @@
     display: flex;
 }
 
-.djs-select-wrapper > *:last-child {
+.djs-rename-wrapper {
+    display: none;
+}
+
+.djs-select-wrapper > *:last-child, .djs-rename-wrapper > *:last-child {
     margin-right: 0;
 }
 
