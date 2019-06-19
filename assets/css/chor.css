@@ -1,27 +1,48 @@
-.djs-palette.open {
-    display: flex;
-}
-
 .djs-select-wrapper, .djs-rename-wrapper {
+    position: absolute;
+    display: flex;
+    left: 55px;
+    top: 0px;
     padding: 8px;
     margin-top: -1px;
-    height: 100%;
+    height: 46px;
     background-color: #FAFAFA;
     border: 1px solid #CCCCCC;
-    display: flex;
+    border-radius: 2px;
+}
+
+.two-column.open .djs-select-wrapper,
+.two-column.open .djs-rename-wrapper {
+    left: 101px;
 }
 
 .djs-rename-wrapper {
     display: none;
 }
 
-.djs-select-wrapper > *:last-child, .djs-rename-wrapper > *:last-child {
+.djs-select-wrapper > *:last-child,
+.djs-rename-wrapper > *:last-child {
     margin-right: 0;
 }
 
+.djs-select-wrapper > button {
+    font-size: 20px;
+    text-align: center;
+    line-height: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+
+    background-color: transparent;
+    border-style: none;
+}
+
+.djs-select-wrapper > button:hover {
+    color: #FF7400;
+}
+
 .djs-rename,
-.djs-select,
-.djs-button {
+.djs-select {
     margin-right: 10px;
 }
 
