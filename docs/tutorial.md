@@ -9,7 +9,7 @@ permalink: /tutorial/
 
 ### Setup
 
-Setup `chor-js-demo` according to our [usage instructions](https://github.com/jan-ladleif/chor-js-demo).
+Setup `chor-js-demo` according to our [usage instructions](https://github.com/bptlab/chor-js-demo).
 
 __We recommend using the live version deployed at__  
 __<https://bpt-lab.org/chor-js-demo/>!__
