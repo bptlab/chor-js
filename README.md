@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/jan-ladleif/chor-js.svg?branch=master)](https://travis-ci.com/jan-ladleif/chor-js)
 
+> ***[Try it online!](https://bpt-lab.org/chor-js-demo/)***
+
 View and edit [BPMN 2.0](https://www.omg.org/spec/BPMN/2.0.2/) choreography diagrams in the browser.
 
 [![chor-js screencast](./docs/assets/img/screencast.gif "chor-js in action")](https://github.com/bptlab/chor-js-demo)
