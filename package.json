@@ -1,6 +1,6 @@
 {
   "name": "chor-js",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "A BPMN 2.0 choreography diagram rendering toolkit and web modeler.",
   "keywords": [
     "choreography model",
@@ -26,7 +26,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jan-ladleif/chor-js"
+    "url": "https://github.com/bptlab/chor-js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

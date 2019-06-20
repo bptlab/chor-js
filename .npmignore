@@ -9,5 +9,6 @@ assets/font/*
 karma.conf.js
 _config.yml
 Gemfile
+Gemfile.lock
 docs
 _site

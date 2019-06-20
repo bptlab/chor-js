@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.com/jan-ladleif/chor-js.svg?branch=master)](https://travis-ci.com/jan-ladleif/chor-js)
 
+> ***[Try it online!](https://bpt-lab.org/chor-js-demo/)***
+
 View and edit [BPMN 2.0](https://www.omg.org/spec/BPMN/2.0.2/) choreography diagrams in the browser.
 
-[![chor-js screencast](./docs/assets/img/screencast.gif "chor-js in action")](https://github.com/jan-ladleif/chor-js-demo)
+[![chor-js screencast](./docs/assets/img/screencast.gif "chor-js in action")](https://github.com/bptlab/chor-js-demo)
 
 ## Features
 
@@ -14,14 +16,15 @@ View and edit [BPMN 2.0](https://www.omg.org/spec/BPMN/2.0.2/) choreography diag
 - show, hide and swap messages
 - import/export standard-compliant BPMN2 XML
 
-chor-js supports most of the elements in the choreography diagram standard. For an up-to-date overview, see [our wiki](https://github.com/jan-ladleif/chor-js/wiki/).
+chor-js supports most of the elements in the choreography diagram standard.
 
-## Installation & Usage
-
-chor-js is packaged [through npm](https://www.npmjs.com/package/chor-js). For an example, see [our demo](https://github.com/jan-ladleif/chor-js-demo). 
+## Usage & Installation
+chor-js is packaged [through npm](https://www.npmjs.com/package/chor-js).
+For an example of how to use the package, see [our demo](https://github.com/bptlab/chor-js-demo).
+A development setup is described there as well.
 
 As the library is heavily based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/), a lot of the instructions and techniques described there also work for chor-js.
 
 ## License
 
-Licensed under the [MIT license](https://github.com/jan-ladleif/chor-js/blob/master/LICENSE).
+Licensed under the [MIT license](https://github.com/bptlab/chor-js/blob/master/LICENSE).
