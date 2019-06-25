@@ -1,6 +1,6 @@
 # chor-js
 
-[![Build Status](https://travis-ci.com/jan-ladleif/chor-js.svg?branch=master)](https://travis-ci.com/jan-ladleif/chor-js)
+[![Build Status](https://travis-ci.com/bptlab/chor-js.svg?branch=master)](https://travis-ci.com/bptlab/chor-js)
 
 > ***[Try it online!](https://bpt-lab.org/chor-js-demo/)***
 
