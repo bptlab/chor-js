@@ -76,7 +76,7 @@
     outline: none;
 }
 
-.activity-wrench-provider .djs-popup-body .entry.active {
+.activity-wrench-provider .djs-popup-body .entry.active,  .participant-linking-provider .djs-popup-body .entry.active{
     color: rgb(255, 116, 0);
     border: solid 1px rgb(255, 116, 0);
 }
