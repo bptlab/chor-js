@@ -60,18 +60,23 @@
     -webkit-appearance: none;
     appearance: none;
 
-    background-image: 
-        linear-gradient(45deg, transparent 50%, #A6A6A6 50%), 
+    background-image:
+        linear-gradient(45deg, transparent 50%, #A6A6A6 50%),
         linear-gradient(135deg, #A6A6A6 50%, transparent 50%);
-    background-position: 
-        calc(100% - 15px) calc(1em + 0px), 
+    background-position:
+        calc(100% - 15px) calc(1em + 0px),
         calc(100% - 10px) calc(1em + 0px);
-    background-size: 
-        5px 5px, 
+    background-size:
+        5px 5px,
         5px 5px;
     background-repeat: no-repeat;
 }
 
 .djs-select:focus {
     outline: none;
+}
+
+.activity-wrench-provider .djs-popup-body .entry.active {
+    color: rgb(255, 116, 0);
+    border: solid 1px rgb(255, 116, 0);
 }
