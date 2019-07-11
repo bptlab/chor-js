@@ -6,7 +6,7 @@
 
 View and edit [BPMN 2.0](https://www.omg.org/spec/BPMN/2.0.2/) choreography diagrams in the browser.
 
-[![chor-js screencast](./docs/assets/img/screencast.gif "chor-js in action")](https://github.com/bptlab/chor-js-demo)
+[![chor-js screencast](./docs/screencast.gif "chor-js in action")](https://github.com/bptlab/chor-js-demo)
 
 ## Features
 
