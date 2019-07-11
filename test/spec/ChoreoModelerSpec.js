@@ -22,9 +22,7 @@ describe('choreo modeler', function() {
     const modeler = new ChoreoModeler({
       container: container
     });
-    return modeler.setXML(xml).then(res => {
-      return modeler.displayChoreography();
-    }).then(res => {
+    return modeler.importXML(xml).then(() => {
       return modeler;
     });
   }
