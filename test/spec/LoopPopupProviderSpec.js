@@ -9,7 +9,7 @@ describe('loop popup provider', function() {
    * @param loopType {string} that should be selected from menu
    */
   let invokeAction = function(popupMenu, element, loopType) {
-    popupMenu.open(element, 'activity-wrench-provider', { x: 0, y: 0 });
+    popupMenu.open(element, 'loop-provider', { x: 0, y: 0 });
     const entry = popupMenu._current.headerEntries.find(x => x.loopType === loopType);
     entry.action(undefined, entry);
   };
@@ -21,7 +21,7 @@ describe('loop popup provider', function() {
   it('should mark selected loop types as active', function(done) {
     const elem = getChorJS().get('elementRegistry').get('ChoreographyTask_2');
     inject(function(popupMenu) {
-      popupMenu.open(elem, 'activity-wrench-provider', { x: 0, y: 0 });
+      popupMenu.open(elem, 'loop-provider', { x: 0, y: 0 });
       let entry = popupMenu._current.headerEntries.find(x => x.active);
       expect(entry.loopType).to.equal('Standard');
       done();
@@ -38,7 +38,7 @@ describe('loop popup provider', function() {
   it('can be opened', function(done) {
     inject(function(popupMenu) {
       const elem = getChorJS().get('elementRegistry').get('ChoreographyTask_2');
-      popupMenu.open(elem, 'activity-wrench-provider', { x: 0, y: 0 });
+      popupMenu.open(elem, 'loop-provider', { x: 0, y: 0 });
       expect(popupMenu.isOpen()).to.be.true;
       done();
     })();
@@ -118,7 +118,7 @@ describe('loop popup provider', function() {
   it('should have three loop types selectable', function(done) {
     const elem = getChorJS().get('elementRegistry').get('ChoreographyTask_1');
     inject(function(popupMenu) {
-      popupMenu.open(elem, 'activity-wrench-provider', { x: 0, y: 0 });
+      popupMenu.open(elem, 'loop-provider', { x: 0, y: 0 });
       expect(popupMenu._current.headerEntries.map(x => x.loopType)).to.have.members([
         'MultiInstanceParallel', 'MultiInstanceSequential', 'Standard']);
       done();
