@@ -76,7 +76,11 @@
     outline: none;
 }
 
-.activity-wrench-provider .djs-popup-body .entry.active {
+.link-call-choreo-provider .djs-popup-body .entry.active,  .participant-linking-provider .djs-popup-body .entry.active{
     color: rgb(255, 116, 0);
     border: solid 1px rgb(255, 116, 0);
+}
+
+.djs-popup-body > .italic {
+    font-style: italic;
 }

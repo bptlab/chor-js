@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'choreography';
-  src: url('../font/choreography.eot?51706104');
-  src: url('../font/choreography.eot?51706104#iefix') format('embedded-opentype'),
-       url('../font/choreography.woff2?51706104') format('woff2'),
-       url('../font/choreography.woff?51706104') format('woff'),
-       url('../font/choreography.ttf?51706104') format('truetype'),
-       url('../font/choreography.svg?51706104#choreography') format('svg');
+  src: url('../font/choreography.eot?81756888');
+  src: url('../font/choreography.eot?81756888#iefix') format('embedded-opentype'),
+       url('../font/choreography.woff2?81756888') format('woff2'),
+       url('../font/choreography.woff?81756888') format('woff'),
+       url('../font/choreography.ttf?81756888') format('truetype'),
+       url('../font/choreography.svg?81756888#choreography') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'choreography';
-    src: url('../font/choreography.svg?51706104#choreography') format('svg');
+    src: url('../font/choreography.svg?81756888#choreography') format('svg');
   }
 }
 */
@@ -39,9 +39,6 @@
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
  
-  /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
- 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
  
@@ -59,12 +56,14 @@
 .choreo-icon-callchoreography-expanded:before { content: '\e803'; } /* '' */
 .choreo-icon-up:before { content: '\e806'; } /* '' */
 .choreo-icon-down:before { content: '\e807'; } /* '' */
-.choreo-icon-add-message:before { content: '\e814'; } /* '' */
 .choreo-icon-callchoreography-collapsed:before { content: '\e815'; } /* '' */
 .choreo-icon-show-message:before { content: '\e816'; } /* '' */
-.choreo-icon-hide-message:before { content: '\e817'; } /* '' */
+.choreo-icon-remove-message:before { content: '\e817'; } /* '' */
 .choreo-icon-toggle-initiating:before { content: '\e81a'; } /* '' */
 .choreo-icon-collapse-marker:before { content: '\e81c'; } /* '' */
+.choreo-icon-link-participant:before { content: '\e81e'; } /* '' */
+.choreo-icon-hide-message:before { content: '\e81f'; } /* '' */
+.choreo-icon-link:before { content: '\e820'; } /* '' */
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
 .choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
 .choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */

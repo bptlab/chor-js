@@ -5,12 +5,14 @@
 .choreo-icon-callchoreography-expanded:before { content: '\e803'; } /* '' */
 .choreo-icon-up:before { content: '\e806'; } /* '' */
 .choreo-icon-down:before { content: '\e807'; } /* '' */
-.choreo-icon-add-message:before { content: '\e814'; } /* '' */
 .choreo-icon-callchoreography-collapsed:before { content: '\e815'; } /* '' */
 .choreo-icon-show-message:before { content: '\e816'; } /* '' */
-.choreo-icon-hide-message:before { content: '\e817'; } /* '' */
+.choreo-icon-remove-message:before { content: '\e817'; } /* '' */
 .choreo-icon-toggle-initiating:before { content: '\e81a'; } /* '' */
 .choreo-icon-collapse-marker:before { content: '\e81c'; } /* '' */
+.choreo-icon-link-participant:before { content: '\e81e'; } /* '' */
+.choreo-icon-hide-message:before { content: '\e81f'; } /* '' */
+.choreo-icon-link:before { content: '\e820'; } /* '' */
 .choreo-icon-choreography-task:before { content: '\e900'; } /* '' */
 .choreo-icon-subchoreography-collapsed:before { content: '\e901'; } /* '' */
 .choreo-icon-subchoreography-expanded:before { content: '\e902'; } /* '' */
