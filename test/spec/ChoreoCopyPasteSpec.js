@@ -61,7 +61,7 @@ describe('features/copy-paste', function() {
 
         // then
         expect(tree.getHeight()).to.equal(1);
-        expect(Object.values(tree.getElementsAtDepth(0)).length).to.equal(2); //Event and label
+        expect(Object.values(tree.getElementsAtDepth(0)).length).to.equal(2); // Event and label
 
         expect(eventDescriptor.type).to.eql('bpmn:StartEvent');
       }));
@@ -94,17 +94,17 @@ describe('features/copy-paste', function() {
             }
           });
 
-          //Due to a bug in bpmnjs, labels visual form get the root element as their parent
-          //https://github.com/bpmn-io/bpmn-js/issues/945
-          //thus it should be:
-          //expect(rootElement.children).to.have.length(21); 25 - 4*labels
+          // Due to a bug in bpmnjs, labels visual form get the root element as their parent
+          // https://github.com/bpmn-io/bpmn-js/issues/945
+          // thus it should be:
+          // expect(rootElement.children).to.have.length(21); 25 - 4*labels
           expect(rootElement.children).to.have.length(25);
 
           var pastedElements = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:SubChoreography') && e.businessObject.name === 'ExpandedSubChoreo';
           });
           expect(element.children).to.have.length(9);
-          expect(pastedElements[0].children).to.have.length(7); //Due to the bug some labels are now root's children
+          expect(pastedElements[0].children).to.have.length(7); // Due to the bug some labels are now root's children
           expect(pastedElements[1].children).to.have.length(7);
           expect(pastedElements[0].id).not.to.equal(pastedElements[1].id).not.to.equal('SubChoreography_1lywprj');
         }
@@ -130,7 +130,7 @@ describe('features/copy-paste', function() {
           var pastedElement = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
           })[0];
-          //eql = deep equal
+          // eql = deep equal
           expect(pastedElement.businessObject.particpantRef).to.eql(element.businessObject.particpantRef);
           expect(pastedElement.businessObject.initiatingParticipantRef).to.equal(element.businessObject.initiatingParticipantRef);
           expect(pastedElement.bandShapes).to.not.eql(element.bandShapes);
@@ -165,7 +165,7 @@ describe('features/copy-paste', function() {
           var pastedElement = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
           })[0];
-          //eql = deep equal
+          // eql = deep equal
           expect(pastedElement.businessObject.messageFlowRef).to.not.eql(element.businessObject.messageFlowRef);
           expect(pastedElement.businessObject.messageFlowRef[0].$parent).to.equal(element.businessObject.messageFlowRef[0].$parent);
           expect(pastedElement.businessObject.messageFlowRef[0].sourceRef).to.equal(element.businessObject.messageFlowRef[0].sourceRef);
