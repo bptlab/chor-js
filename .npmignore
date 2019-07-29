@@ -1,8 +1,8 @@
 node_modules
 test
 resources
-assets/font/*
-!assets/font/include/
+assets/icons/*
+!assets/icons/include/
 .eslintignore
 .eslintrc
 .travis.yml
