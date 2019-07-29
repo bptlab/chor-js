@@ -1,9 +1,10 @@
-// configures browsers to run test against
-// any of [ 'ChromeHeadless', 'Chrome', 'Firefox', 'IE', 'PhantomJS' ]
+// Karma configuration
+
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(karma) {
   karma.set({
+    basePath: '',
 
     frameworks: [ 'browserify', 'mocha', 'chai' ],
 
@@ -14,7 +15,6 @@ module.exports = function(karma) {
 
     preprocessors: {
       'test/spec/**/*Spec.js': [ 'browserify' ],
-
     },
 
     browsers: ['ChromeHeadless'],
@@ -36,7 +36,8 @@ module.exports = function(karma) {
           ]
         } ],
         [ 'babelify', {
-          global: true
+          global: true,
+          presets: ['@babel/preset-env']
         } ]
       ]
     }
