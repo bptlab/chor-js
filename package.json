@@ -17,7 +17,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "karma start"
+    "test": "karma start",
+    "bundle": "parcel build index.js assets/styles/chor-js.css -d umd --no-minify --global ChorJS"
   },
   "author": {
     "name": "Jan Ladleif",
@@ -50,6 +51,7 @@
     "karma-mocha": "^1.3.0",
     "mocha": "^6.2.0",
     "mocha-test-container-support": "^0.2.0",
+    "parcel-bundler": "^1.12.3",
     "puppeteer": "^1.19.0",
     "stringify": "^5.2.0",
     "watchify": "^3.11.1"

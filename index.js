@@ -1,3 +1,9 @@
+import Viewer from './lib/Viewer';
+import NavigatedViewer from './lib/NavigatedViewer';
+import Modeler from './lib/Modeler';
+
 export {
-  default
-} from './lib/Viewer';
+  Viewer,
+  NavigatedViewer,
+  Modeler
+};
