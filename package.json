@@ -12,6 +12,7 @@
     "bpmn"
   ],
   "main": "index.js",
+  "source": "lib",
   "directories": {
     "lib": "lib"
   },

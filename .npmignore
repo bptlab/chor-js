@@ -1,6 +1,5 @@
 node_modules
 test
-resources
 assets/icons/*
 !assets/icons/include/
 .eslintignore
