@@ -1,23 +1,10 @@
-/* global process */
+// Karma configuration
 
-// configures browsers to run test against
-// any of [ 'ChromeHeadless', 'Chrome', 'Firefox', 'IE', 'PhantomJS' ]
-var browsers =
-  (process.env.TEST_BROWSERS || 'ChromeHeadless')
-    .replace(/^\s+|\s+$/, '')
-    .split(/\s*,\s*/g)
-    .map(function(browser) {
-      if (browser === 'ChromeHeadless') {
-        process.env.CHROME_BIN = require('puppeteer').executablePath();
-        return browser;
-      } else {
-        return browser;
-      }
-    });
-
+process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(karma) {
   karma.set({
+    basePath: '',
 
     frameworks: [ 'browserify', 'mocha', 'chai' ],
 
@@ -25,13 +12,12 @@ module.exports = function(karma) {
       'test/spec/**/*Spec.js'
     ],
 
-    reporters: [ 'spec' ],
 
     preprocessors: {
-      'test/spec/**/*Spec.js': [ 'browserify' ]
+      'test/spec/**/*Spec.js': [ 'browserify' ],
     },
 
-    browsers: browsers,
+    browsers: ['ChromeHeadless'],
 
     browserNoActivityTimeout: 30000,
 
@@ -50,7 +36,7 @@ module.exports = function(karma) {
           ]
         } ],
         [ 'babelify', {
-          global: true
+          global: true,
         } ]
       ]
     }
