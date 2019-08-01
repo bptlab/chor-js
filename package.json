@@ -43,15 +43,12 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-ie-launcher": "^1.0.0",
     "karma-mocha": "^1.3.0",
-    "karma-parcel": "^0.5.2",
     "karma-safari-launcher": "^1.0.0",
     "karma-spec-reporter": "0.0.26",
     "mocha": "^5.0.1",
     "mocha-test-container-support": "^0.2.0",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-stringify-anything": "^1.2.0",
-    "puppeteer": "~1.10.0",
-    "stringify": "^3.1.0"
+    "stringify": "^3.1.0",
+    "puppeteer": "~1.10.0"
   },
   "dependencies": {
     "bpmn-js": "^3.4.3",
