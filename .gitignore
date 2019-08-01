@@ -1,8 +1,7 @@
 .DS_Store
 node_modules
+dist
 *.log
 .idea/
 Gemfile.lock
 _site
-/.cache/
-umd
