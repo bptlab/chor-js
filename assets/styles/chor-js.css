@@ -35,6 +35,7 @@
     text-align: center;
     line-height: 50%;
     width: 30px;
+    min-width: 30px;
     height: 30px;
     padding: 0px;
 
