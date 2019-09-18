@@ -5,4 +5,5 @@ node_modules
 Gemfile.lock
 _site
 /.cache/
-umd
+dist
+*.tgz
