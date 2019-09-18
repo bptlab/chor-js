@@ -22,7 +22,7 @@
     "bundle-css": "parcel build assets/styles/chor-js.css -d dist/assets --public-url ./",
     "bundle-production": "parcel build index.js -d dist --global ChorJS --out-file chor-js.production.min.js --no-source-maps --public-url ./",
     "bundle-development": "parcel build index.js -d dist --global ChorJS --out-file chor-js.development.js --no-minify --public-url ./",
-    "prepack": "npm run bundle-css && npm run bundle-development && npm run bundle-production"
+    "prepublishOnly": "npm run bundle-css && npm run bundle-development && npm run bundle-production"
   },
   "author": {
     "name": "Jan Ladleif",
