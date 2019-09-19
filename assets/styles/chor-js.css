@@ -58,6 +58,7 @@
 .djs-rename,
 .djs-select {
     width: 300px;
+    min-width: 300px;
     height: 30px;
     padding-left: 10px;
     padding-right: 10px;
