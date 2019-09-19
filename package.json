@@ -1,6 +1,6 @@
 {
   "name": "chor-js",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A BPMN 2.0 choreography diagram rendering toolkit and web modeler.",
   "keywords": [
     "choreography model",
@@ -20,9 +20,13 @@
     "lint": "eslint .",
     "test": "karma start",
     "bundle-css": "parcel build assets/styles/chor-js.css -d dist/assets --public-url ./",
-    "bundle-production": "parcel build index.js -d dist --global ChorJS --out-file chor-js.production.min.js --no-source-maps --public-url ./",
-    "bundle-development": "parcel build index.js -d dist --global ChorJS --out-file chor-js.development.js --no-minify --public-url ./",
-    "prepublishOnly": "npm run bundle-css && npm run bundle-development && npm run bundle-production"
+    "bundle-prd-viewer": "parcel build lib/Viewer.js -d dist --global ChorJS --out-file chor-viewer.production.min.js --no-source-maps --public-url ./",
+    "bundle-dev-viewer": "parcel build lib/Viewer.js -d dist --global ChorJS --out-file chor-viewer.development.js --no-minify --no-source-maps --public-url ./",
+    "bundle-prd-nav-viewer": "parcel build lib/NavigatedViewer.js -d dist --global ChorJS --out-file chor-navigated-viewer.production.min.js --no-source-maps --public-url ./",
+    "bundle-dev-nav-viewer": "parcel build lib/NavigatedViewer.js -d dist --global ChorJS --out-file chor-navigated-viewer.development.js --no-minify --no-source-maps --public-url ./",
+    "bundle-prd-modeler": "parcel build lib/Modeler.js -d dist --global ChorJS --out-file chor-modeler.production.min.js --no-source-maps --public-url ./",
+    "bundle-dev-modeler": "parcel build lib/Modeler.js -d dist --global ChorJS --out-file chor-modeler.development.js --no-minify --no-source-maps --public-url ./",
+    "prepublishOnly": "npm run bundle-css && npm run bundle-prd-viewer && npm run bundle-dev-viewer && npm run bundle-prd-nav-viewer && npm run bundle-dev-nav-viewer && npm run bundle-prd-modeler && npm run bundle-dev-modeler"
   },
   "author": {
     "name": "Jan Ladleif",
