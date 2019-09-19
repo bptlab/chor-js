@@ -30,7 +30,7 @@ For an example of how to use the package, see [our demo](https://github.com/bptl
 A development setup is described there as well.
 To include chor-js in your node-style application, simply run ```npm install chor-js```.  
 To use, for example, the Modeler in your application use the following code: 
-```
+```javascript
 import { Modeler } from 'chor-js';
 var modeler = new Modeler({
   container: '#canvas',
@@ -52,9 +52,9 @@ the pre-packaged version.
 ### pre-packaged
 chor-js' three modules are also available as prepackaged, transpiled, polyfilled, minified ,and un-minified scripts on [UNPGK](https://unpkg.com).
 You can use, for example, the modeler by adding the following code to your HTML:
-```
+```html
 <link rel="stylesheet" href="unpkg.com/chor-js/dist/assets/chor-js.css">
-<script src=""unpkg.com/chor-js/chor-modeler.production.min.js"></script>
+<script src="unpkg.com/chor-js/chor-modeler.production.min.js"></script>
 
 var modeler = new ChorJS.Modeler({
         container: '#canvas',

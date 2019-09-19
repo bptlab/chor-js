@@ -2,7 +2,7 @@ import '../TestHelper';
 
 import TestContainer from 'mocha-test-container-support';
 
-import ChoreoModeler from '../../lib/Modeler';
+import { Modeler as ChoreoModeler } from '../../lib/Modeler';
 
 
 describe('choreo modeler', function() {

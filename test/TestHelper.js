@@ -1,5 +1,5 @@
 export { inject } from 'bpmn-js/test/helper';
-import ChoreoModeler from '../lib/Modeler';
+import { Modeler } from '../lib/Modeler';
 import { bootstrapBpmnJS, getBpmnJS } from 'bpmn-js/test/helper';
 import {
   insertCSS
@@ -18,15 +18,15 @@ insertCSS('diagram-js-testing.css',
  * @param diagram the xml file
  * @param options
  * @param locals
- * @returns {ChoreoModeler}
+ * @returns {Modeler}
  */
 export function bootstrapChorModeler(diagram, options, locals) {
-  return bootstrapBpmnJS(ChoreoModeler, diagram, options, locals);
+  return bootstrapBpmnJS(Modeler, diagram, options, locals);
 }
 
 /**
  * Returns the current active Choreo Modeler instance
- * @returns {ChoreoModeler}
+ * @returns {Modeler}
  */
 export function getChorJS() {
   return getBpmnJS();
