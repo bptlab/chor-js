@@ -1,6 +1,6 @@
 {
   "name": "chor-js",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A BPMN 2.0 choreography diagram rendering toolkit and web modeler.",
   "keywords": [
     "choreography model",
