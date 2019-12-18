@@ -45,7 +45,8 @@
     "mocha-test-container-support": "^0.2.0",
     "puppeteer": "^1.19.0",
     "stringify": "^5.2.0",
-    "watchify": "^3.11.1"
+    "watchify": "^3.11.1",
+    "didi": "latest"
   },
   "dependencies": {
     "bpmn-js": "^3.4.3",
