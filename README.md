@@ -56,6 +56,11 @@ A development setup is described there as well.
 
 As the library is based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/), a lot of the instructions and techniques described there also work for chor-js.
 
+## Research
+
+chor-js was presented at the _ER Forum and Poster & Demos Session 2019_ co-located with the _38th International Conference on Conceptual Modeling (ER 2019)_ in Salvador, Bahia, Brazil.
+You can find the peer-reviewed paper [online](http://ceur-ws.org/Vol-2469/ERDemo02.pdf).
+
 ## License
 
 Licensed under the [MIT license](https://github.com/bptlab/chor-js/blob/master/LICENSE).
