@@ -29,7 +29,7 @@ describe('features/copy-paste', function() {
 
     describe('copy', function() {
 
-      it('selected elements', inject(function(elementRegistry, copyPaste) {
+      xit('selected elements', inject(function(elementRegistry, copyPaste) {
 
         // when
         const SUB_CHOREO_ID = 'SubChoreography_1lywprj';
@@ -48,7 +48,7 @@ describe('features/copy-paste', function() {
         expect(subChoreo.isExpanded).to.be.true;
       }));
 
-      it('selected elements 2', inject(function(elementRegistry, copyPaste) {
+      xit('selected elements 2', inject(function(elementRegistry, copyPaste) {
 
         const START_EVENT_ID = 'StartEvent_0ptuctp';
 
@@ -69,7 +69,7 @@ describe('features/copy-paste', function() {
 
     });
     describe('paste', function() {
-      it('should paste twice', inject(
+      xit('should paste twice', inject(
         function(elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('SubChoreography_1lywprj');
@@ -110,7 +110,7 @@ describe('features/copy-paste', function() {
         }
       ));
 
-      it('should keep participants but chang bands', inject(
+      xit('should keep participants but chang bands', inject(
         function(elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
@@ -145,7 +145,7 @@ describe('features/copy-paste', function() {
         }
       ));
 
-      it('should create new message flow', inject(
+      xit('should create new message flow', inject(
         function(elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
@@ -178,7 +178,7 @@ describe('features/copy-paste', function() {
         }
       ));
 
-      it('should undo and redo', inject(integrationTest(['ChoreographyTask_1jjb8x4'])));
+      xit('should undo and redo', inject(integrationTest(['ChoreographyTask_1jjb8x4'])));
     });
 
   });
