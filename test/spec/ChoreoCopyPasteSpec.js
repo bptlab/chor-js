@@ -4,7 +4,6 @@ import {
   inject
 } from '../TestHelper';
 
-
 import {
   map,
   forEach
@@ -14,22 +13,17 @@ import DescriptorTree from './DescriptorTree';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-
-describe('features/copy-paste', function() {
-
-
+describe('features/copy-paste', function () {
 
   const basicXML = require('../resources/AllChoreoTypes.bpmn');
 
-
-  describe('basic diagram', function() {
+  describe('basic diagram', function () {
 
     beforeEach(bootstrapChorModeler(basicXML));
 
+    describe('copy', function () {
 
-    describe('copy', function() {
-
-      xit('selected elements', inject(function(elementRegistry, copyPaste) {
+      it('selected elements', inject(function (elementRegistry, copyPaste) {
 
         // when
         const SUB_CHOREO_ID = 'SubChoreography_1lywprj';
@@ -41,14 +35,19 @@ describe('features/copy-paste', function() {
           'SequenceFlow_0jv4yjf', 'StartEvent_0vgi8b6_label', 'EndEvent_1gmyy45_label',
           'Participant_1_ChoreographyTask_093vv4x', 'Participant_2_ChoreographyTask_093vv4x', 'Message_0bkq11l'];
         // then
-        expect(tree.getHeight()).to.equal(4);
-        expect(Object.keys(tree._tree).length).to.equal(13);
-        expect(Object.values(tree._tree).map(o => o.id)).to.have.all.members(ids);
+        expect(Object.keys(tree._tree).length).to.equal(8); // Participants and Messages are not copied
+        expect(tree.getHeight()).to.equal(2); // nesting depth is two as participants and messages do not count
+        expect(Object.values(tree._tree).map(o => o.id)).to.have.all.members(ids.filter(id => [
+          'Participant_1_ChoreographyTask_093vv4x',
+          'Participant_2_ChoreographyTask_093vv4x',
+          'Message_0bkq11l',
+          'Participant_1_SubChoreography_1lywprj',
+          'Participant_2_SubChoreography_1lywprj'].findIndex(x => x === id) === -1));
 
         expect(subChoreo.isExpanded).to.be.true;
       }));
 
-      xit('selected elements 2', inject(function(elementRegistry, copyPaste) {
+      it('selected elements 2', inject(function (elementRegistry, copyPaste) {
 
         const START_EVENT_ID = 'StartEvent_0ptuctp';
 
@@ -66,11 +65,10 @@ describe('features/copy-paste', function() {
         expect(eventDescriptor.type).to.eql('bpmn:StartEvent');
       }));
 
-
     });
-    describe('paste', function() {
-      xit('should paste twice', inject(
-        function(elementRegistry, canvas, copyPaste) {
+    describe('paste', function () {
+      it('should paste twice', inject(
+        function (elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('SubChoreography_1lywprj');
           const rootElement = canvas.getRootElement();
@@ -100,7 +98,7 @@ describe('features/copy-paste', function() {
           // expect(rootElement.children).to.have.length(21); 25 - 4*labels
           expect(rootElement.children).to.have.length(25);
 
-          var pastedElements = elementRegistry.filter(function(e) {
+          var pastedElements = elementRegistry.filter(function (e) {
             return e !== element && is(e, 'bpmn:SubChoreography') && e.businessObject.name === 'ExpandedSubChoreo';
           });
           expect(element.children).to.have.length(9);
@@ -110,8 +108,8 @@ describe('features/copy-paste', function() {
         }
       ));
 
-      xit('should keep participants but chang bands', inject(
-        function(elementRegistry, canvas, copyPaste) {
+      it('should keep participants but chang bands', inject(
+        function (elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
           const rootElement = canvas.getRootElement();
@@ -127,7 +125,7 @@ describe('features/copy-paste', function() {
             }
           });
 
-          var pastedElement = elementRegistry.filter(function(e) {
+          var pastedElement = elementRegistry.filter(function (e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
           })[0];
           // eql = deep equal
@@ -145,8 +143,8 @@ describe('features/copy-paste', function() {
         }
       ));
 
-      xit('should create new message flow', inject(
-        function(elementRegistry, canvas, copyPaste) {
+      it('should create new message flow', inject(
+        function (elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
           const rootElement = canvas.getRootElement();
@@ -162,7 +160,7 @@ describe('features/copy-paste', function() {
             }
           });
 
-          var pastedElement = elementRegistry.filter(function(e) {
+          var pastedElement = elementRegistry.filter(function (e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
           })[0];
           // eql = deep equal
@@ -178,20 +176,18 @@ describe('features/copy-paste', function() {
         }
       ));
 
-      xit('should undo and redo', inject(integrationTest(['ChoreographyTask_1jjb8x4'])));
+      it('should undo and redo', inject(integrationTest(['ChoreographyTask_1jjb8x4'])));
     });
 
   });
 
 });
 
-
 // test helpers //////////////////////
 
+function integrationTest (ids) {
 
-function integrationTest(ids) {
-
-  return function(canvas, elementRegistry, modeling, copyPaste, commandStack) {
+  return function (canvas, elementRegistry, modeling, copyPaste, commandStack) {
     // given
     var shapes = elementRegistry.getAll();
     let rootElement;
@@ -200,15 +196,15 @@ function integrationTest(ids) {
       type: mapProperty(shapes, 'type'),
       ids: mapProperty(shapes, 'id'),
       length: shapes.length,
-      sequenceFlowLenght: elementRegistry.filter(function(element) {
+      sequenceFlowLenght: elementRegistry.filter(function (element) {
         return is(element, 'bpmn:SequenceFlow');
       }).length,
-      messageLength: elementRegistry.filter(function(element) {
+      messageLength: elementRegistry.filter(function (element) {
         return is(element, 'bpmn:Message');
       }).length
     };
 
-    var elements = map(ids, function(id) {
+    var elements = map(ids, function (id) {
       return elementRegistry.get(id);
     });
 
@@ -229,7 +225,7 @@ function integrationTest(ids) {
     elements = elementRegistry.getAll();
 
     // remove root
-    elements = elementRegistry.filter(function(element) {
+    elements = elementRegistry.filter(function (element) {
       return !!element.parent;
     });
 
@@ -264,10 +260,10 @@ function integrationTest(ids) {
       type: mapProperty(elements, 'type'),
       ids: mapProperty(elements, 'id'),
       length: elements.length,
-      sequenceFlowLenght: elementRegistry.filter(function(element) {
+      sequenceFlowLenght: elementRegistry.filter(function (element) {
         return is(element, 'bpmn:SequenceFlow');
       }).length,
-      messageLength: elementRegistry.filter(function(element) {
+      messageLength: elementRegistry.filter(function (element) {
         return is(element, 'bpmn:Message');
       }).length
     };
@@ -277,12 +273,10 @@ function integrationTest(ids) {
     // Due to some unintended behaviour some messages where part of
     expect(currentContext).to.have.length(initialContext.length - sequenceFlowDiff);
 
-
     expectCollection(initialContext.type, currentContext.type, true);
     expectCollection(initialContext.ids, currentContext.ids, false);
   };
 }
-
 
 /**
  * Copy elements (or elements with given ids).
@@ -291,10 +285,10 @@ function integrationTest(ids) {
  *
  * @return {DescriptorTree}
  */
-function copy(ids) {
-  return getChorJS().invoke(function(copyPaste, elementRegistry) {
+function copy (ids) {
+  return getChorJS().invoke(function (copyPaste, elementRegistry) {
 
-    var elements = ids.map(function(e) {
+    var elements = ids.map(function (e) {
       var element = elementRegistry.get(e.id || e);
 
       expect(element).to.exist;
@@ -308,15 +302,15 @@ function copy(ids) {
   });
 }
 
-function mapProperty(shapes, prop) {
-  return map(shapes, function(shape) {
+function mapProperty (shapes, prop) {
+  return map(shapes, function (shape) {
     return shape[prop];
   });
 }
 
-function expectCollection(collA, collB, contains) {
+function expectCollection (collA, collB, contains) {
 
-  forEach(collB, function(element) {
+  forEach(collB, function (element) {
     if (!element.parent) {
       return;
     }
