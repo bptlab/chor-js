@@ -48,8 +48,8 @@
     "watchify": "^3.11.1"
   },
   "dependencies": {
-    "bpmn-js": "^6.3.2",
-    "diagram-js": "^6.4.0",
+    "bpmn-js": "^6.3.4",
+    "diagram-js": "^6.4.1",
     "inherits": "^2.0.4",
     "min-dash": "^3.5.0",
     "tiny-svg": "^2.2.0"
