@@ -13,17 +13,17 @@ import DescriptorTree from './DescriptorTree';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-describe('features/copy-paste', function () {
+describe('features/copy-paste', function() {
 
   const basicXML = require('../resources/AllChoreoTypes.bpmn');
 
-  describe('basic diagram', function () {
+  describe('basic diagram', function() {
 
     beforeEach(bootstrapChorModeler(basicXML));
 
-    describe('copy', function () {
+    describe('copy', function() {
 
-      it('selected elements', inject(function (elementRegistry, copyPaste) {
+      it('selected elements', inject(function(elementRegistry, copyPaste) {
 
         // when
         const SUB_CHOREO_ID = 'SubChoreography_1lywprj';
@@ -47,7 +47,7 @@ describe('features/copy-paste', function () {
         expect(subChoreo.isExpanded).to.be.true;
       }));
 
-      it('selected elements 2', inject(function (elementRegistry, copyPaste) {
+      it('selected elements 2', inject(function(elementRegistry, copyPaste) {
 
         const START_EVENT_ID = 'StartEvent_0ptuctp';
 
@@ -66,9 +66,9 @@ describe('features/copy-paste', function () {
       }));
 
     });
-    describe('paste', function () {
+    describe('paste', function() {
       it('should paste twice', inject(
-        function (elementRegistry, canvas, copyPaste) {
+        function(elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('SubChoreography_1lywprj');
           const rootElement = canvas.getRootElement();
@@ -98,7 +98,7 @@ describe('features/copy-paste', function () {
           // expect(rootElement.children).to.have.length(21); 25 - 4*labels
           expect(rootElement.children).to.have.length(25);
 
-          var pastedElements = elementRegistry.filter(function (e) {
+          var pastedElements = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:SubChoreography') && e.businessObject.name === 'ExpandedSubChoreo';
           });
           expect(element.children).to.have.length(9);
@@ -109,7 +109,7 @@ describe('features/copy-paste', function () {
       ));
 
       it('should keep participants but chang bands', inject(
-        function (elementRegistry, canvas, copyPaste) {
+        function(elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
           const rootElement = canvas.getRootElement();
@@ -125,7 +125,7 @@ describe('features/copy-paste', function () {
             }
           });
 
-          var pastedElement = elementRegistry.filter(function (e) {
+          var pastedElement = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
           })[0];
           // eql = deep equal
@@ -144,7 +144,7 @@ describe('features/copy-paste', function () {
       ));
 
       it('should create new message flow', inject(
-        function (elementRegistry, canvas, copyPaste) {
+        function(elementRegistry, canvas, copyPaste) {
           // given
           const element = elementRegistry.get('ChoreographyTask_1jjb8x4');
           const rootElement = canvas.getRootElement();
@@ -160,7 +160,7 @@ describe('features/copy-paste', function () {
             }
           });
 
-          var pastedElement = elementRegistry.filter(function (e) {
+          var pastedElement = elementRegistry.filter(function(e) {
             return e !== element && is(e, 'bpmn:ChoreographyTask') && e.businessObject.name === 'Activity';
           })[0];
           // eql = deep equal
@@ -185,9 +185,9 @@ describe('features/copy-paste', function () {
 
 // test helpers //////////////////////
 
-function integrationTest (ids) {
+function integrationTest(ids) {
 
-  return function (canvas, elementRegistry, modeling, copyPaste, commandStack) {
+  return function(canvas, elementRegistry, modeling, copyPaste, commandStack) {
     // given
     var shapes = elementRegistry.getAll();
     let rootElement;
@@ -196,15 +196,15 @@ function integrationTest (ids) {
       type: mapProperty(shapes, 'type'),
       ids: mapProperty(shapes, 'id'),
       length: shapes.length,
-      sequenceFlowLenght: elementRegistry.filter(function (element) {
+      sequenceFlowLenght: elementRegistry.filter(function(element) {
         return is(element, 'bpmn:SequenceFlow');
       }).length,
-      messageLength: elementRegistry.filter(function (element) {
+      messageLength: elementRegistry.filter(function(element) {
         return is(element, 'bpmn:Message');
       }).length
     };
 
-    var elements = map(ids, function (id) {
+    var elements = map(ids, function(id) {
       return elementRegistry.get(id);
     });
 
@@ -225,7 +225,7 @@ function integrationTest (ids) {
     elements = elementRegistry.getAll();
 
     // remove root
-    elements = elementRegistry.filter(function (element) {
+    elements = elementRegistry.filter(function(element) {
       return !!element.parent;
     });
 
@@ -260,10 +260,10 @@ function integrationTest (ids) {
       type: mapProperty(elements, 'type'),
       ids: mapProperty(elements, 'id'),
       length: elements.length,
-      sequenceFlowLenght: elementRegistry.filter(function (element) {
+      sequenceFlowLenght: elementRegistry.filter(function(element) {
         return is(element, 'bpmn:SequenceFlow');
       }).length,
-      messageLength: elementRegistry.filter(function (element) {
+      messageLength: elementRegistry.filter(function(element) {
         return is(element, 'bpmn:Message');
       }).length
     };
@@ -285,10 +285,10 @@ function integrationTest (ids) {
  *
  * @return {DescriptorTree}
  */
-function copy (ids) {
-  return getChorJS().invoke(function (copyPaste, elementRegistry) {
+function copy(ids) {
+  return getChorJS().invoke(function(copyPaste, elementRegistry) {
 
-    var elements = ids.map(function (e) {
+    var elements = ids.map(function(e) {
       var element = elementRegistry.get(e.id || e);
 
       expect(element).to.exist;
@@ -302,15 +302,15 @@ function copy (ids) {
   });
 }
 
-function mapProperty (shapes, prop) {
-  return map(shapes, function (shape) {
+function mapProperty(shapes, prop) {
+  return map(shapes, function(shape) {
     return shape[prop];
   });
 }
 
-function expectCollection (collA, collB, contains) {
+function expectCollection(collA, collB, contains) {
 
-  forEach(collB, function (element) {
+  forEach(collB, function(element) {
     if (!element.parent) {
       return;
     }
