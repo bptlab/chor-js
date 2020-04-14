@@ -34,7 +34,6 @@
     "babelify": "^8.0.0",
     "browserify": "^16.1.0",
     "chai": "^4.2.0",
-    "di": "0.0.1",
     "eslint": "^6.1.0",
     "eslint-plugin-bpmn-io": "^0.8.2",
     "karma": "^4.2.0",
