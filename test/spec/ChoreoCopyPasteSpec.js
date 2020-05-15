@@ -4,7 +4,6 @@ import {
   inject
 } from '../TestHelper';
 
-
 import {
   map,
   forEach
@@ -14,18 +13,13 @@ import DescriptorTree from './DescriptorTree';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-
 describe('features/copy-paste', function() {
 
-
-
   const basicXML = require('../resources/AllChoreoTypes.bpmn');
-
 
   describe('basic diagram', function() {
 
     beforeEach(bootstrapChorModeler(basicXML));
-
 
     describe('copy', function() {
 
@@ -41,9 +35,14 @@ describe('features/copy-paste', function() {
           'SequenceFlow_0jv4yjf', 'StartEvent_0vgi8b6_label', 'EndEvent_1gmyy45_label',
           'Participant_1_ChoreographyTask_093vv4x', 'Participant_2_ChoreographyTask_093vv4x', 'Message_0bkq11l'];
         // then
-        expect(tree.getHeight()).to.equal(4);
-        expect(Object.keys(tree._tree).length).to.equal(13);
-        expect(Object.values(tree._tree).map(o => o.id)).to.have.all.members(ids);
+        expect(Object.keys(tree._tree).length).to.equal(8); // Participants and Messages are not copied
+        expect(tree.getHeight()).to.equal(2); // nesting depth is two as participants and messages do not count
+        expect(Object.values(tree._tree).map(o => o.id)).to.have.all.members(ids.filter(id => [
+          'Participant_1_ChoreographyTask_093vv4x',
+          'Participant_2_ChoreographyTask_093vv4x',
+          'Message_0bkq11l',
+          'Participant_1_SubChoreography_1lywprj',
+          'Participant_2_SubChoreography_1lywprj'].findIndex(x => x === id) === -1));
 
         expect(subChoreo.isExpanded).to.be.true;
       }));
@@ -65,7 +64,6 @@ describe('features/copy-paste', function() {
 
         expect(eventDescriptor.type).to.eql('bpmn:StartEvent');
       }));
-
 
     });
     describe('paste', function() {
@@ -185,9 +183,7 @@ describe('features/copy-paste', function() {
 
 });
 
-
 // test helpers //////////////////////
-
 
 function integrationTest(ids) {
 
@@ -277,12 +273,10 @@ function integrationTest(ids) {
     // Due to some unintended behaviour some messages where part of
     expect(currentContext).to.have.length(initialContext.length - sequenceFlowDiff);
 
-
     expectCollection(initialContext.type, currentContext.type, true);
     expectCollection(initialContext.ids, currentContext.ids, false);
   };
 }
-
 
 /**
  * Copy elements (or elements with given ids).

@@ -10,7 +10,7 @@ describe('loop popup provider', function() {
    */
   let invokeAction = function(popupMenu, element, loopType) {
     popupMenu.open(element, 'loop-provider', { x: 0, y: 0 });
-    const entry = popupMenu._current.headerEntries.find(x => x.loopType === loopType);
+    const entry = Object.values(popupMenu._current.entries).find(x => x.loopType === loopType);
     entry.action(undefined, entry);
   };
 
@@ -22,7 +22,7 @@ describe('loop popup provider', function() {
     const elem = getChorJS().get('elementRegistry').get('ChoreographyTask_2');
     inject(function(popupMenu) {
       popupMenu.open(elem, 'loop-provider', { x: 0, y: 0 });
-      let entry = popupMenu._current.headerEntries.find(x => x.active);
+      let entry = Object.values(popupMenu._current.entries).find(x => x.active);
       expect(entry.loopType).to.equal('Standard');
       done();
     })();
@@ -49,7 +49,7 @@ describe('loop popup provider', function() {
     inject(function(popupMenu) {
       invokeAction(popupMenu, elem, 'MultiInstanceParallel');
       invokeAction(popupMenu, elem, 'MultiInstanceSequential');
-      expect(popupMenu._current.headerEntries.filter(e => e.active)).to.have.length(1);
+      expect(Object.values(popupMenu._current.entries).filter(e => e.active)).to.have.length(1);
       expect(elem.businessObject.loopType).to.equal('MultiInstanceSequential');
       done();
     })();
@@ -119,7 +119,7 @@ describe('loop popup provider', function() {
     const elem = getChorJS().get('elementRegistry').get('ChoreographyTask_1');
     inject(function(popupMenu) {
       popupMenu.open(elem, 'loop-provider', { x: 0, y: 0 });
-      expect(popupMenu._current.headerEntries.map(x => x.loopType)).to.have.members([
+      expect(Object.values(popupMenu._current.entries).map(x => x.loopType)).to.have.members([
         'MultiInstanceParallel', 'MultiInstanceSequential', 'Standard']);
       done();
     })();

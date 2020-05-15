@@ -1,6 +1,6 @@
 {
   "name": "chor-js",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "A BPMN 2.0 choreography diagram rendering toolkit and web modeler.",
   "keywords": [
     "choreography model",
@@ -48,8 +48,8 @@
     "watchify": "^3.11.1"
   },
   "dependencies": {
-    "bpmn-js": "^3.4.3",
-    "diagram-js": "^3.3.1",
+    "bpmn-js": "^6.4.1",
+    "diagram-js": "^6.5.0",
     "inherits": "^2.0.4",
     "min-dash": "^3.5.0",
     "tiny-svg": "^2.2.0"
