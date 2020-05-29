@@ -5,3 +5,5 @@ dist
 .idea/
 Gemfile.lock
 _site
+.cache
+.karma-parcel

@@ -39,7 +39,6 @@
     "last 2 Opera versions",
     "last 2 Baidu versions"
   ],
-
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
@@ -51,6 +50,7 @@
     "karma-chrome-launcher": "^3.1.0",
     "karma-mocha": "^2.0.1",
     "karma-parcel": "^0.5.2",
+    "karma-sourcemap-loader": "^0.3.7",
     "mocha": "^7.2.0",
     "mocha-test-container-support": "^0.2.0",
     "parcel-bundler": "^1.12.4",

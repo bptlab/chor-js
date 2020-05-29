@@ -9,7 +9,6 @@ import {
   forEach
 } from 'min-dash';
 
-import {describe, beforeEach, it} from 'mocha';
 import DescriptorTree from './DescriptorTree';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
@@ -45,7 +44,7 @@ describe('features/copy-paste', function() {
           'Participant_1_SubChoreography_1lywprj',
           'Participant_2_SubChoreography_1lywprj'].findIndex(x => x === id) === -1));
 
-        expect(subChoreo.isExpanded).to.be.true;
+        expect(subChoreo.isExpanded).to.be.false;
       }));
 
       it('selected elements 2', inject(function(elementRegistry, copyPaste) {
