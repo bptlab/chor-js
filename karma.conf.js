@@ -3,20 +3,15 @@
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(karma) {
+  console.log('hihihih')
+  console.log(karma);
   karma.set({
     basePath: '',
 
     frameworks: ['mocha', 'chai', 'parcel'],
 
     files: [
-      {pattern: '.karma-parcel/index.js.map', included: true, served: true, watched: false, nocache: false},
-
-      {pattern: 'test/spec/**/*Spec.js', included: false, served: false, watched: false, nocache: false},
-
-      //'test/spec/**/*Spec.js',
-//      {pattern: '/karma-parcel/*', included: false, served: true, watched: false, nocache: true}
-      //{pattern: '/karma-parcel/index.js.map', included: false, served: true, watched: false, nocache: true},
-
+      { pattern: 'test/spec/**/*Spec.js', included: false, served: false, watched: false, nocache: false },
     ],
     preprocessors: {
       '**/*.bpmn': ['parcel'],
@@ -32,30 +27,28 @@ module.exports = function(karma) {
 
     logLevel: karma.LOG_DEBUG,
 
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
 
     browserNoActivityTimeout: 300000,
 
-    singleRun: true,
+    singleRun: false,
     autoWatch: false,
     middleware: ['custom'],
     plugins: [
-      {'middleware:custom': ['factory', CustomMiddlewareFactory]},
+      { 'middleware:custom': ['factory', CustomMiddlewareFactory] },
       'karma-*'
     ]
 
   });
 };
 
-function CustomMiddlewareFactory (config) {
-  return function (request, response, next) {
-    console.log('hihihi' + request.url);
+function CustomMiddlewareFactory(config) {
+  return function(request, response, next) {
     const originalUrl = request.url;
-    if(originalUrl.includes('index.js.map')){
+    if (originalUrl.includes('index.js.map')) {
       request.url = '/.'+originalUrl.substring(1);
-      console.log('includese');
-      console.log( request.url)
+      console.log('augmented url:' +request.url);
     }
     next();
-  }
+  };
 }
