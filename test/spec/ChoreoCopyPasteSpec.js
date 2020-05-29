@@ -9,6 +9,7 @@ import {
   forEach
 } from 'min-dash';
 
+import {describe, beforeEach, it} from 'mocha';
 import DescriptorTree from './DescriptorTree';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';

@@ -6,39 +6,29 @@ module.exports = function(karma) {
   karma.set({
     basePath: '',
 
-    frameworks: [ 'browserify', 'mocha', 'chai' ],
+    frameworks: ['mocha', 'chai', 'parcel'],
 
     files: [
       'test/spec/**/*Spec.js'
     ],
-
-
     preprocessors: {
-      'test/spec/**/*Spec.js': [ 'browserify' ],
+      '**/*.bpmn': ['parcel'],
+      '**/*Spec.js': ['parcel']
     },
+    parcelConfig: {
+      cacheDir: "/path/to/cache", // default: "./.cache"
+      detailedReport: true, // default: false,
+      logLevel: 2 // default: 1
+    },
+
+    logLevel: karma.LOG_DEBUG,
 
     browsers: ['ChromeHeadless'],
 
-    browserNoActivityTimeout: 30000,
+    browserNoActivityTimeout: 300000,
 
     singleRun: true,
     autoWatch: false,
 
-    // browserify configuration
-    browserify: {
-      debug: true,
-      transform: [
-        [ 'stringify', {
-          global: true,
-          extensions: [
-            '.bpmn',
-            '.css'
-          ]
-        } ],
-        [ 'babelify', {
-          global: true,
-        } ]
-      ]
-    }
   });
 };
