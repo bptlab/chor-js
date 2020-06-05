@@ -3,8 +3,6 @@
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(karma) {
-  console.log('hihihih')
-  console.log(karma);
   karma.set({
     basePath: '',
 
@@ -19,19 +17,19 @@ module.exports = function(karma) {
 
     },
     parcelConfig: {
-      detailedReport: true, // default: false,
-      logLevel: 2,// default: 1
+      detailedReport: false, // default: false,
+      logLevel: 0,// default: 1
       minify: false,
       sourceMaps: true,
     },
 
-    logLevel: karma.LOG_DEBUG,
+    logLevel: karma.LOG_INFO,
 
     browsers: ['ChromeHeadless'],
 
     browserNoActivityTimeout: 300000,
 
-    singleRun: false,
+    singleRun: true,
     autoWatch: false,
     middleware: ['custom'],
     plugins: [
@@ -42,6 +40,10 @@ module.exports = function(karma) {
   });
 };
 
+/*
+ There is an issue in karma-parcel that prevents sourcemaps from being served. This
+ is the workaround to serve source-maps
+ */
 function CustomMiddlewareFactory(config) {
   return function(request, response, next) {
     const originalUrl = request.url;
