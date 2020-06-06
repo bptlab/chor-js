@@ -27,7 +27,7 @@ module.exports = function(karma) {
 
     browsers: ['ChromeHeadless'],
 
-    browserNoActivityTimeout: 300000,
+    browserNoActivityTimeout: 30000,
 
     singleRun: true,
     autoWatch: false,
