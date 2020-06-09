@@ -21,6 +21,7 @@ module.exports = function(karma) {
       logLevel: 0,// default: 1
       minify: false,
       sourceMaps: true,
+      cacheDir: '.test-cache',
     },
 
     logLevel: karma.LOG_INFO,

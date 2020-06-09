@@ -44,7 +44,7 @@ describe('features/copy-paste', function() {
           'Participant_1_SubChoreography_1lywprj',
           'Participant_2_SubChoreography_1lywprj'].findIndex(x => x === id) === -1));
 
-        expect(subChoreo.isExpanded).to.be.false;
+        expect(subChoreo.isExpanded).to.be.true;
       }));
 
       it('selected elements 2', inject(function(elementRegistry, copyPaste) {

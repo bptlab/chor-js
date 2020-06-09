@@ -39,18 +39,7 @@
     "last 2 Opera versions",
     "last 2 Baidu versions"
   ],
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      ["transform-es2015-modules-umd", {
-      }]
-    ]
-  },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "chai": "^4.2.0",
     "eslint": "^6.1.0",
     "eslint-plugin-bpmn-io": "^0.8.2",
