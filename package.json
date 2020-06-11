@@ -17,7 +17,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "karma start"
+    "test": "karma start",
+    "bundle": "node bundler.js"
   },
   "author": {
     "name": "Jan Ladleif",
