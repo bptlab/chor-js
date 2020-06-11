@@ -31,7 +31,7 @@ const base_options = {
   sourceMaps: true, // Enable or disable sourcemaps, defaults to enabled (minified builds currently always create sourcemaps)
   detailedReport: true, // Prints a detailed report of the bundles, assets, filesizes and times, defaults to false, reports are only printed if watch is disabled
   autoInstall: true, // Enable or disable auto install of missing dependencies found during bundling
-  //global: 'ChorJS' // exposes the modules under this name
+  global: 'ChorJS' // exposes the modules under this name
 };
 
 async function bundleChorJs(entryFile, options) {
