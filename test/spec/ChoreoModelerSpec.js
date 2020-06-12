@@ -118,9 +118,7 @@ describe('choreo modeler', function() {
 
     it('should export xml without error', function(done) {
       createModeler(choreoWithLoops).then(modeler => {
-        modeler.saveXML({ format: true }, function(err, xml) {
-          expect(err).to.be.undefined;
-        });
+        await modeler.saveXML({ format: true });
         done();
       });
     });
