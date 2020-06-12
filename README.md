@@ -19,6 +19,14 @@ Based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/).
 
 chor-js supports most of the elements in the choreography diagram standard.
 
+## Research
+
+If you use chor-js in an academic setting, please cite our demo paper:
+
+> Jan Ladleif, Anton von Weltzien, Mathias Weske: _chor-js: A Modeling Framework for BPMN 2.0 Choreography Diagrams._ ER Forum/Posters/Demos (2019)
+> [[PDF]](http://ceur-ws.org/Vol-2469/ERDemo02.pdf)
+> [[Bibtex]](https://dblp.org/rec/bibtex/conf/er/LadleifWW19)
+
 ## Installation
 chor-js is packaged [via npm](https://www.npmjs.com/package/chor-js).
 
@@ -55,11 +63,6 @@ For a more elaborate example of how to use the package, see [our demo](https://g
 A development setup is described there as well.
 
 As the library is based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/), a lot of the instructions and techniques described there also work for chor-js.
-
-## Research
-
-chor-js was presented at the _ER Forum and Poster & Demos Session 2019_ co-located with the _38th International Conference on Conceptual Modeling (ER 2019)_ in Salvador, Bahia, Brazil.
-You can find the peer-reviewed paper [online](http://ceur-ws.org/Vol-2469/ERDemo02.pdf).
 
 ## License
 
