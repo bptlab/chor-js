@@ -40,11 +40,8 @@ let modeler = new ChorJS({
   }
 });
 
-// Load model
-modeler.importXML(xml, {
-  // [optional] ID of a specific choreography to display
-  choreoID: '_choreo1'
-}).then(() => {
+// Load model (optionally with a specific diagram ID)
+modeler.importXML(xml, '_choreo1').then(() => {
   modeler.get('canvas').zoom('fit-viewport');
 }).catch(error => {
   console.error('something went wrong: ', error);
