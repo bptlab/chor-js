@@ -9,9 +9,9 @@ Based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/).
 
 [![chor-js screencast](./docs/screencast.gif "chor-js in action")](https://github.com/bptlab/chor-js-demo)
 
-:exclamation: Supports most of the elements in the choreography diagram standard  
-:exclamation: Import/export standard-compliant BPMN2 XML  
-:exclamation: Tailored specifically with usability in mind
+:boom: Supports most of the elements in the choreography diagram standard  
+:boom: Import/export standard-compliant BPMN2 XML  
+:boom: Tailored specifically with usability in mind
 
 ## Research
 
@@ -32,7 +32,7 @@ Just include the pre-packaged code in your webpage:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chor-js@latest/dist/assets/chor-js.css">
 <script src="https://cdn.jsdelivr.net/npm/chor-js@latest/dist/chor-js-modeler.min.js"></script>
-<!-- ... or 'viewer' or 'navigated-viewer' -->
+<!-- ... or 'viewer' or 'navigated-viewer'! -->
 ```
 
 You can find a sample webpage [here](./docs/prepackaged.html).

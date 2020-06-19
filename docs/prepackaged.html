@@ -34,7 +34,7 @@
       });
 
       // Load the XML of a BPMN choreography model
-      let diagramUrl = 'https://cdn.jsdelivr.net/gh/bptlab/chor-js-demo@latest/app/diagrams/pizzaDelivery.bpmn';
+      let diagramUrl = 'https://cdn.jsdelivr.net/gh/bptlab/chor-js@latest/docs/sample.bpmn';
       fetch(diagramUrl).then(response => response.text()).then(async xml => {
         // Display the model
         await bpmnModeler.importXML(xml);
