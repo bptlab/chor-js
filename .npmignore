@@ -12,6 +12,7 @@ karma.conf.js
 .karma-parcel
 bundler.js
 .idea
+dist/*.map
 
 _config.yml
 Gemfile
