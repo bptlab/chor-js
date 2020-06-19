@@ -23,9 +23,7 @@ If you use chor-js in an academic setting, please cite our demo paper:
 
 ## Installation
 
-chor-js is distributed as an npm package for your Node.js application and as a pre-packaged library.
-
-### Pre-Packaged
+### a) Pre-Packaged
 
 Just include the pre-packaged code in your webpage:
 
@@ -37,7 +35,7 @@ Just include the pre-packaged code in your webpage:
 
 You can find a sample webpage [here](./docs/prepackaged.html).
 
-### NPM
+### b) NPM
 
 Install the package via `npm install chor-js` and import chor-js in your application:
 
