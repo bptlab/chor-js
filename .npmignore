@@ -3,6 +3,7 @@ test
 resources
 assets/icons/raw
 assets/icons/symbol
+assets/icons/include/config.json
 .eslintignore
 .eslintrc
 .travis.yml
