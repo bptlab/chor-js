@@ -66,7 +66,8 @@ describe('loop popup provider', function() {
       invokeAction(popupMenu, parallel_task, 'Standard');
       invokeAction(popupMenu, sequential_task, 'MultiInstanceSequential');
     })();
-    getChorJS().saveXML({ format: true }, function(err, xml) {
+    getChorJS().saveXML({ format: true }).then(result => {
+      const xml = result.xml;
       expect(xml).to.have.string('<bpmn2:choreographyTask id="ChoreographyTask_1" name="Basic Task" ' +
         'initiatingParticipantRef="Participant_1" loopType="MultiInstanceSequential">');
       expect(xml).to.have.string('<bpmn2:choreographyTask id="ChoreographyTask_2" name="Standard Loop Task" ' +
