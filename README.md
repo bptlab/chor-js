@@ -10,8 +10,8 @@ Based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/).
 [![chor-js screencast](./docs/screencast.gif "chor-js in action")](https://github.com/bptlab/chor-js-demo)
 
 :boom: Supports most of the elements in the choreography diagram standard  
-:boom: Import/export standard-compliant BPMN2 XML  
-:boom: Tailored specifically with usability in mind
+:boom: Imports/exports standard-compliant BPMN2 XML  
+:boom: Provides features specifically designed for choreography modeling
 
 ## Research
 
