@@ -43,18 +43,18 @@
   ],
   "devDependencies": {
     "chai": "^4.2.0",
-    "karma": "^5.0.9",
+    "eslint": "^6.1.0",
+    "eslint-plugin-bpmn-io": "^0.8.2",
+    "karma": "^5.1.0",
+    "karma-browserify": "^7.0.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-mocha": "^2.0.1",
     "karma-parcel": "^0.5.2",
-    "karma-browserify": "^7.0.0",
     "mocha": "^7.2.0",
     "mocha-test-container-support": "^0.2.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-stringify-anything": "^1.2.0",
-    "eslint": "^6.1.0",
-    "eslint-plugin-bpmn-io": "^0.8.2",
     "puppeteer": "^3.3.0"
   },
   "dependencies": {
