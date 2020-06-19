@@ -49,11 +49,7 @@ let modeler = new ChorJS({
 });
 
 // Load model (optionally with a specific diagram ID)
-modeler.importXML(xml, '_choreo1').then(() => {
-  modeler.get('canvas').zoom('fit-viewport');
-}).catch(error => {
-  console.error('something went wrong: ', error);
-});
+await modeler.importXML(xml, '_choreo1');
 ```
 
 For a more elaborate example of how to use the package, see [our demo](https://github.com/bptlab/chor-js-demo).
