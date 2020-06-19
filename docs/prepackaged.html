@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+  This simple webpage demonstrates the usage of the prepackaged version of the chor-js modeler.
+-->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>chor-js prepackaged</title>
+
+    <!-- Import the CSS and Javascript code -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chor-js@latest/dist/assets/chor-js.css">
+    <script src="https://cdn.jsdelivr.net/npm/chor-js@latest/dist/chor-js-modeler.min.js"></script>
+
+    <style>
+      html, body, #canvas {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Create a canvas for chor-js to use -->
+    <div id="canvas"></div>
+
+    <script>
+      // Create a new instance of the modeler
+      let bpmnModeler = new ChorJS({
+        container: '#canvas',
+        keyboard: {
+          bindTo: document
+        }
+      });
+
+      // Load the XML of a BPMN choreography model
+      let diagramUrl = 'https://cdn.jsdelivr.net/gh/bptlab/chor-js-demo@latest/app/diagrams/pizzaDelivery.bpmn';
+      fetch(diagramUrl).then(response => response.text()).then(async xml => {
+        // Display the model
+        await bpmnModeler.importXML(xml);
+      });
+    </script>
+  </body>
+</html>
