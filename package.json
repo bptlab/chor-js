@@ -1,6 +1,6 @@
 {
   "name": "chor-js",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "description": "A BPMN 2.0 choreography diagram rendering toolkit and web modeler.",
   "keywords": [
     "choreography model",
@@ -17,7 +17,9 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "karma start"
+    "test": "karma start",
+    "bundle": "node bundler.js",
+    "prepublishOnly": "npm run bundle"
   },
   "author": {
     "name": "Jan Ladleif",
@@ -28,24 +30,32 @@
     "type": "git",
     "url": "https://github.com/bptlab/chor-js"
   },
+  "assetTypesToStringify": [
+    "bpmn"
+  ],
+  "browserslist": [
+    "last 2 Firefox versions",
+    "last 2 Chrome versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions",
+    "last 2 Baidu versions"
+  ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babelify": "^8.0.0",
-    "browserify": "^16.1.0",
     "chai": "^4.2.0",
     "eslint": "^6.1.0",
     "eslint-plugin-bpmn-io": "^0.8.2",
-    "karma": "^4.2.0",
-    "karma-browserify": "^5.2.0",
+    "karma": "^5.1.0",
+    "karma-browserify": "^7.0.0",
     "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^3.0.0",
-    "karma-mocha": "^1.3.0",
-    "mocha": "^6.2.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-mocha": "^2.0.1",
+    "karma-parcel": "^0.5.2",
+    "mocha": "^7.2.0",
     "mocha-test-container-support": "^0.2.0",
-    "puppeteer": "^1.19.0",
-    "stringify": "^5.2.0",
-    "watchify": "^3.11.1"
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-stringify-anything": "^1.2.0",
+    "puppeteer": "^3.3.0"
   },
   "dependencies": {
     "bpmn-js": "^7.2.0",
