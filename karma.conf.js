@@ -17,7 +17,7 @@ module.exports = function(karma) {
 
     },
     parcelConfig: {
-      detailedReport: false, // default: false,
+      detailedReport: true, // default: false,
       logLevel: 0,// default: 1
       minify: false,
       sourceMaps: true,
@@ -27,6 +27,12 @@ module.exports = function(karma) {
     logLevel: karma.LOG_INFO,
 
     browsers: ['ChromeHeadless'],
+
+    client: {
+      mocha: {
+        ui: 'bdd',
+      }
+    },
 
     browserNoActivityTimeout: 30000,
 
