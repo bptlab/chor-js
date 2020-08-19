@@ -4,7 +4,7 @@ const Path = require('path');
 
 // Bundler options, some of theme are set do default values just to be sure and more verbose
 const base_options = {
-  hmr: true,
+  hmr: true, // reload browser on change
   outDir: Path.join(__dirname, '.test-bin'), // The out directory to put the build files in, defaults to dist
   cacheDir:  Path.join(__dirname, '.test-cache'),
   watch: true, // Whether to watch the files and rebuild them on change, defaults to process.env.NODE_ENV !== 'production'

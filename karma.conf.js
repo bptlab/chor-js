@@ -22,6 +22,8 @@ module.exports = function(karma) {
       minify: false,
       sourceMaps: true,
       cacheDir: '.karma-parcel-cache',
+      hmr: false,
+      watch: false
     },
 
     logLevel: karma.LOG_INFO,
