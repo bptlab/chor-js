@@ -17,9 +17,10 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "karma start",
+    "test": "karma start --single-run  ",
     "bundle": "node bundler.js",
-    "prepublishOnly": "npm run bundle"
+    "prepublishOnly": "npm run bundle",
+    "visualTest": "node ./test/testBundler.js"
   },
   "author": {
     "name": "Jan Ladleif",
@@ -52,11 +53,14 @@
     "karma-chrome-launcher": "^3.1.0",
     "karma-mocha": "^2.0.1",
     "karma-parcel": "^0.5.2",
-    "mocha": "^7.2.0",
+    "mocha": "^8.1.1",
     "mocha-test-container-support": "^0.2.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-stringify-anything": "^1.2.0",
-    "puppeteer": "^3.3.0"
+    "puppeteer": "^3.3.0",
+    "sinon": "^9.0.3",
+    "sinon-chai": "^3.5.0",
+    "source-map-support": "^0.5.19"
   },
   "dependencies": {
     "bpmn-js": "^7.2.0",
