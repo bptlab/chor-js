@@ -59,8 +59,8 @@
     "puppeteer": "^3.3.0"
   },
   "dependencies": {
-    "bpmn-js": "^7.2.0",
-    "diagram-js": "^6.6.1",
+    "bpmn-js": "^7.3.0",
+    "diagram-js": "^6.7.0",
     "inherits": "^2.0.4",
     "min-dash": "^3.5.2",
     "tiny-svg": "^2.2.2"
