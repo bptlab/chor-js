@@ -10,7 +10,7 @@ describe('create participant handler', function() {
   let Modeling, CommandStack, ChoreoUtil, ElementFactory, Canvas;
 
   const injectDependencies = inject(function(modeling, commandStack, choreoUtil, elementFactory, canvas) {
-    /* 
+    /*
     we inject the dependencies into the global namespace. This way we do not have to wrap every function
     with #inject allowing us nicer integration with mocha and a clearer stacktrace.
     */
@@ -20,7 +20,7 @@ describe('create participant handler', function() {
     ElementFactory = elementFactory;
     Canvas = canvas;
   });
-  
+
   beforeEach(bootstrapChorModeler(emptyXML));
   beforeEach(injectDependencies);
 
@@ -49,7 +49,7 @@ describe('create participant handler', function() {
 
   describe('integration with task creation', function() {
     let modelingSpy, handlerExecuteSpy, handlerRevertSpy;
-    
+
     beforeEach(function() {
       modelingSpy = sinon.spy(Modeling, 'createParticipant');
       const handler = CommandStack._getHandler('participant.create');
@@ -60,7 +60,7 @@ describe('create participant handler', function() {
     it('creates 2 participants when creating task', function() {
       const shape = ElementFactory.createShape({ type: 'bpmn:ChoreographyTask' });
       Modeling.createShape(shape, { x:200, y:200 }, Canvas.getRootElement());
-      
+
       expect(ChoreoUtil.currentChoreography().participants).to.have.lengthOf(2);
       expect(modelingSpy).to.have.been.calledTwice;
       expect(handlerExecuteSpy).to.have.been.calledTwice;
@@ -80,7 +80,7 @@ describe('create participant handler', function() {
     it('redoes creation of 2 participants when redoing creation of task', function() {
       const shape = ElementFactory.createShape({ type: 'bpmn:ChoreographyTask' });
       Modeling.createShape(shape, { x:200, y:200 }, Canvas.getRootElement());
-      
+
       CommandStack.undo();
       CommandStack.redo();
       expect(ChoreoUtil.currentChoreography().participants).to.have.lengthOf(2);
