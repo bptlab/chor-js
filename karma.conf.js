@@ -30,6 +30,12 @@ module.exports = function(karma) {
 
     browsers: ['ChromeHeadless'],
 
+    client: {
+      mocha: {
+        ui: 'bdd',
+      }
+    },
+
     browserNoActivityTimeout: 30000,
 
     singleRun: true,
