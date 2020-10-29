@@ -7,4 +7,6 @@ Gemfile.lock
 _site
 .cache
 .karma-parcel
-.test-cache
+.karma-parcel-cache
+test/.test-cache
+test/.test-bin
