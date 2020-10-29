@@ -19,7 +19,8 @@
     "lint": "eslint .",
     "test": "karma start",
     "bundle": "node bundler.js",
-    "prepublishOnly": "npm run bundle"
+    "prepublishOnly": "npm run bundle",
+    "visualTest": "node ./test/testBundler.js"
   },
   "author": {
     "name": "Jan Ladleif",
@@ -42,12 +43,10 @@
     "last 2 Baidu versions"
   ],
   "devDependencies": {
-    "browserify": "^16.0.0",
     "chai": "^4.2.0",
     "eslint": "^6.1.0",
     "eslint-plugin-bpmn-io": "^0.8.2",
     "karma": "^5.1.0",
-    "karma-browserify": "^7.0.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-mocha": "^2.0.1",
@@ -58,7 +57,8 @@
     "parcel-plugin-stringify-anything": "^1.2.0",
     "puppeteer": "^3.3.0",
     "sinon": "^9.0.3",
-    "sinon-chai": "^3.5.0"
+    "sinon-chai": "^3.5.0",
+    "source-map-support": "^0.5.19"
   },
   "dependencies": {
     "bpmn-js": "^7.2.0",

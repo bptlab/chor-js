@@ -1,0 +1,45 @@
+<!--This is the entry file for parcel to server mocha tests directly in the browser using mocha's web ui.
+Caveat:
+1. Sourcemaps for errors in tests work only in v8 based browser, i.e., chrome, edge, etc. For those browsers, however,
+breakpoints in library code seem to be broken. So for debugging, I would recommend firefox. This problem exists,
+because mocha currently does not use source maps for error reporting.
+2. Test cases instantiated by #invoke will not show their source code in mocha.
+3. Usually, only the last diagram is shown for each test group. For debugging, it is best to run a testcase directly via the ui.
+4. Keyboard commands are not captured.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Mocha Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <link rel="stylesheet" href="../assets/styles/chor-js.css" />
+
+</head>
+<body>
+<div id="mocha"></div>
+
+<script src="https://unpkg.com/chai@4.2.0/chai.js"></script>
+<script src="https://unpkg.com/mocha@8.1.1/mocha.js"></script>
+<script src="../node_modules/source-map-support/browser-source-map-support.js"></script>
+<script>sourceMapSupport.install();</script> <!--Remove if you have problems with breakpoints-->
+<script class="mocha-init">
+  mocha.setup({
+    ui: 'bdd',
+    slow: '500',
+  });
+  mocha.checkLeaks();
+</script>
+<!--Import all test files here by name. This is required for parcel to resolve them-->
+<script src="./spec/ChoreoCopyPasteSpec.js"></script>
+<script src="./spec/ChoreoDiOrderingSpec.js"></script>
+<script src="./spec/ChoreoModelerSpec.js"></script>
+<script src="./spec/LoopPopupProviderSpec.js"></script>
+
+<script class="mocha-exec">
+  var expect = chai.expect;
+  mocha.run();
+</script>
+</body>
+</html>

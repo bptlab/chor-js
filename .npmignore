@@ -9,8 +9,8 @@ assets/icons/include/config.json
 .travis.yml
 karma.conf.js
 .cache
-.test-cache
 .karma-parcel
+.karma-parcel-cache
 bundler.js
 .idea
 dist/*.map
