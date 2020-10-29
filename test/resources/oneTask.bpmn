@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI"  targetNamespace="http://bpmn.io/schema/bpmn2" id="_tTv5YOycEeiHGOQ2NkJZNQ">
+  <bpmn2:message id="Message_M2" name="M2" />
+  <bpmn2:message id="Message_M1" name="M1" />
+  <bpmn2:choreography id="Choreography">
+    <bpmn2:participant id="Participant_P1" name="P1" />
+    <bpmn2:participant id="Participant_P2" name="P2" />
+    <bpmn2:messageFlow id="MessageFlow_12pgiio" sourceRef="Participant_P2" targetRef="Participant_P1" messageRef="Message_M2" />
+    <bpmn2:messageFlow id="MessageFlow_0lt4wjv" sourceRef="Participant_P1" targetRef="Participant_P2" messageRef="Message_M1" />
+    <bpmn2:choreographyTask id="ChoreographyTask_Activity" name="Activity" initiatingParticipantRef="Participant_P1">
+      <bpmn2:participantRef>Participant_P1</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_P2</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_12pgiio</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>MessageFlow_0lt4wjv</bpmn2:messageFlowRef>
+    </bpmn2:choreographyTask>
+  </bpmn2:choreography>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Choreography_1" bpmnElement="Choreography">
+      <bpmndi:BPMNShape id="ChoreographyTask_Activity_di" bpmnElement="ChoreographyTask_Activity">
+        <dc:Bounds x="300" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_P1" bpmnElement="Participant_P1" isMessageVisible="true" participantBandKind="top_initiating" choreographyActivityShape="ChoreographyTask_Activity_di">
+        <dc:Bounds x="300" y="300" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_P2" bpmnElement="Participant_P2" isMessageVisible="true" participantBandKind="bottom_non_initiating" choreographyActivityShape="ChoreographyTask_Activity_di">
+        <dc:Bounds x="300" y="360" width="100" height="20" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
