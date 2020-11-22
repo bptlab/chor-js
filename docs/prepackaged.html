@@ -7,7 +7,8 @@
     <meta charset="UTF-8" />
     <title>chor-js prepackaged</title>
 
-    <!-- Import the CSS and Javascript code -->
+    <!-- Import the CSS and Javascript code.
+    If you only want viewing functionality, you can also choose the Viewer or NavigatedViewer scripts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chor-js@latest/dist/assets/chor-js.css">
     <script src="https://cdn.jsdelivr.net/npm/chor-js@latest/dist/chor-js-modeler.min.js"></script>
 
@@ -25,7 +26,8 @@
     <div id="canvas"></div>
 
     <script>
-      // Create a new instance of the modeler
+      // Create a new instance of the modeler.
+      // Use `new ChorJS.Viewer({...` to create an instance of only the Viewer
       let bpmnModeler = new ChorJS({
         container: '#canvas',
         keyboard: {
