@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/bptlab/chor-js.svg?branch=master)](https://travis-ci.com/bptlab/chor-js)
 
-***[:rocket: Try it live! :rocket:](https://bpt-lab.org/chor-js-demo/)***
+### ***[:rocket: Try it live! :rocket:](https://bpt-lab.org/chor-js-demo/)***
 
 View and edit [BPMN 2.0](https://www.omg.org/spec/BPMN/2.0.2/) choreography diagrams in the browser.
 Based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/).
@@ -12,6 +12,8 @@ Based on [bpmn-js](https://github.com/bpmn-io/bpmn-js/).
 :boom: Supports most of the elements in the choreography diagram standard  
 :boom: Imports/exports standard-compliant BPMN2 XML  
 :boom: Provides features specifically designed for choreography modeling
+
+Check out our [demo application](https://github.com/bptlab/chor-js-demo) for an example web application using chor-js, adding additional features like a model validator and properties panel.
 
 ## Research
 
